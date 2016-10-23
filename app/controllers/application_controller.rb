@@ -20,6 +20,10 @@ class ApplicationController < ActionController::Base
     store_location_for(:user, request.url)
   end
 
+  # override the devise method for where to go after signing out because theirs
+  # always goes to the root path. Because devise uses a session variable and
+  # the session is destroyed on log out, we need to use request.referrer
+  # root_path is there as a backup
   def after_sign_out_path_for(resource)
     request.referrer || root_path
   end
