@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   # after signing in), which is what the :unless prevents
   before_filter :store_current_location, :unless => :devise_controller?
 
+  # ensure that every controller action requires a logged in user, except for the login and register actions:
+  before_filer :authenticate_user!
+
   # tells devise where to look for the root path after signing in with facbook
   def after_sign_in_path_for(resource)
     request.env['omniauth.origin'] || root_path
