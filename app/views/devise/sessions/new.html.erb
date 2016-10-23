@@ -16,7 +16,19 @@
       <%= f.check_box :remember_me %>
       <%= f.label :remember_me %>
     </div>
-  <% end -%>
+  <% end %>
+  <!--  Added custom field -->
+  <div class="field">
+    <!-- if clicked user changes to author -->
+    <%= f.radio_button :role, 'reader' %>
+    <%= f.label :role, 'Reader'%><br />
+
+    <!-- if clicked user changes to author -->
+    <%= f.radio_button :role, 'author' %>
+    <%= f.label :role, 'Author'%><br />
+
+  </div>
+
 
   <div class="actions">
     <%= f.submit "Log in" %>

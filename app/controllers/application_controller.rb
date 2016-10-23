@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   before_filter :store_current_location, :unless => :devise_controller?
 
   # ensure that every controller action requires a logged in user, except for the login and register actions:
-  before_filer :authenticate_user!
+  before_filter :authenticate_user!
 
   # tells devise where to look for the root path after signing in with facbook
   def after_sign_in_path_for(resource)
@@ -30,5 +30,6 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
     request.referrer || root_path
   end
+
 
 end

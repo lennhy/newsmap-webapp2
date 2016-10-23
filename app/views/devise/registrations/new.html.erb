@@ -20,6 +20,12 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
+  <%= f.radio_button :role, 'reader' %>
+  <%= f.label :role, 'Reader'%><br />
+
+  <!-- if clicked user changes to author -->
+  <%= f.radio_button :role, 'author' %>
+  <%= f.label :role, 'Author'%><br />
 
   <div class="actions">
     <%= f.submit "Sign up" %>
