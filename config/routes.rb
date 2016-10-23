@@ -10,4 +10,11 @@ Rails.application.routes.draw do
                                 :omniauth_callbacks => "omniauth_callbacks",
                                 :sessions=> "sessions"
                               }
+
+  # devise_for :users, "admin/administrators"
+  #
+  # devise_for :experts, :controllers => {:sessions => 'sessions'}, :skip => [:sessions] do
+  #   get '/experts/sign_in' => 'sessions#new', :as => :new_expert_session
+  #   post '/experts/sign_in' => 'sessions#create', :as => :expert_session
+  #   get '/experts/sign_out' => 'sessions#destroy', :as => :destroy_expert_session
 end
