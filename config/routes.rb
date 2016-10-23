@@ -5,5 +5,9 @@ Rails.application.routes.draw do
   get '/articles', to: 'articles#index'
 
   # create a route for Omniauth to send its authentication data to:
-  devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks", sessions: "sessions" }
+  devise_for :users,
+              :controllers => {
+                                :omniauth_callbacks => "omniauth_callbacks",
+                                :sessions=> "sessions"
+                              }
 end
