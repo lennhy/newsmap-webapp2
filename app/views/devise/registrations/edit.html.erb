@@ -4,6 +4,11 @@
   <%= devise_error_messages! %>
 
   <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
   </div>
@@ -26,12 +31,15 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
-  <%= f.radio_button :role, 'reader' %>
-  <%= f.label :role, 'Reader'%><br />
+  <div class="field">
+    <!-- if clicked user changes to reader -->
+    <%= f.radio_button :role, 'reader' %>
+    <%= f.label :role, 'Reader'%><br />
 
-  <!-- if clicked user changes to author -->
-  <%= f.radio_button :role, 'author' %>
-  <%= f.label :role, 'Author'%><br />
+    <!-- if clicked user changes to author -->
+    <%= f.radio_button :role, 'author' %>
+    <%= f.label :role, 'Author'%><br />
+  </div>
 
   <div class="field">
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
