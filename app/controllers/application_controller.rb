@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   # after signing in), which is what the :unless prevents
   before_filter :store_current_location, :unless => :devise_controller?
 
+  #  permits custom fields to be accepted before persisting to the database
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+
   # ensure that every controller action requires a logged in user, except for the login and register actions:
   before_filter :authenticate_user!
 
@@ -16,6 +19,7 @@ class ApplicationController < ActionController::Base
 
 
   private
+   # -- devise
   # override the devise helper to store the current location so we can
   # redirect to it after loggin in or out. This override makes signing in
   # and signing up work automatically.
@@ -23,6 +27,7 @@ class ApplicationController < ActionController::Base
     store_location_for(:user, request.url)
   end
 
+  # -- devise
   # override the devise method for where to go after signing out because theirs
   # always goes to the root path. Because devise uses a session variable and
   # the session is destroyed on log out, we need to use request.referrer
@@ -31,5 +36,13 @@ class ApplicationController < ActionController::Base
     request.referrer || root_path
   end
 
+
+  protected
+    # -- devise
+    # In case you want to permit additional parameters, you can do so using a simple before filter
+    def configure_permitted_parameters
+       devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password, :role) }
+       devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :role) }
+    end
 
 end
