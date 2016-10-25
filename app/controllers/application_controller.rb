@@ -4,13 +4,13 @@ class ApplicationController < ActionController::Base
   # right page. If we're on a devise page, we don't want to store that as the
   # place to return to (for example, we don't want to return to the sign in page
   # after signing in), which is what the :unless prevents
-  before_filter :store_current_location, :unless => :devise_controller?
+  before_action  :store_current_location, :unless => :devise_controller?
 
   #  permits custom fields to be accepted before persisting to the database
-  before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   # ensure that every controller action requires a logged in user, except for the login and register actions:
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   # tells devise where to look for the root path after signing in with facbook
   def after_sign_in_path_for(resource)

@@ -14,7 +14,8 @@ Rails.application.routes.draw do
     resources :articles, only: [:show, :index]
   end
     # we still have our regular resourced :articles routes because we still want to let people see all articles, create and edit articles, and so on outside of the context of an user.
-    resources :articles, only: [:index, :show, :new, :create, :edit, :update, :delete]
+    resources :users, only: [:index, :new, :create, :edit, :update, :delete]
+    resources :articles, only: [:new, :create, :edit, :update, :delete]
 
 end
 

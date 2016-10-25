@@ -4,6 +4,20 @@ class Article < ApplicationRecord
   belongs_to :country
   has_many :validations
 
+  private
+    # --callbacks are defined in the object models and called in the controller
+    def is_title_case
+      if title.split.any?{|w|w[0].upcase != w[0]}
+       errors.add(:title, "Title must be in title case")
+      end
+    end
+
+    def make_title_case
+      self.title = self.title.titlecase
+    end
+
+
+
 end
 #
 # User
