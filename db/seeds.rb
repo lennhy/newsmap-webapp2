@@ -1,25 +1,100 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-def create_user(args)
-  User.new
-  Article.new
-  Category.new
-  Validation.new
-  Category.new
-
+def create_country(country_hash)
+  country_hash.each do |key, value|
+    Country.create(:title=> value).save
+  end
 end
 
-category = {
-              "Politics",
-              "Human Rights",
-              "Social",
-              "Technology",
-              "Science",
-              "Sports",
-              "Arts",
-              "Crime"
+def create_category(category_hash)
+  category_hash.each do |key, value|
+    Category.create(:title=> value).save
+  end
+end
+
+def create_article(article_hash)
+  article_hash.each do |key, value|
+    Article.create(:title=> value).save
+  end
+end
+
+# -----------------------------------------below is executed in the seed file
+
+def create_objs(country_hash, category_hash, article_hash)
+  create_country(country_hash)
+  create_category(category_hash)
+  create_article(article_hash)
+end
+
+def create_user(user_hash, country_obj, category_obj, article_obj)
+  new_user = User.new
+    user_hash.each do |key, value|
+      value.each do |second_key, second_value|
+        new_user.send("#{second_key}=", second_value)
+# binding.pry
+          new_user.articles << article_obj
+          new_user.articles.country = country_obj
+          new_user.articles.category = category_obj
+
+          new_user.save
+        end
+      end
+end
+
+# require_relative "../lib/seeder"
+
+
+user = {
+        :max => {
+                name:'Max Charles',
+                email:'max@gmail.com',
+                password: 'password',
+                role: 'author'
+               },
+        :skai => {
+                 name:'Skai Jackson',
+                 email:'skai@gmail.com',
+                 password:'password',
+                 role: 'author'
+                },
+        :kaleo => {
+                  name:'Kaleo Elam',
+                  email:'kaleo@gmail.com',
+                  password:'password',
+                  role: 'reader'
+                 },
+        :davis => {
+                  name:'Davis Elam',
+                  email: 'megan@gmail.com',
+                  password: 'password',
+                  role: 'reader'
+                 },
+        :megan => {
+                  name: 'Megan Charpentier',
+                  email:'max@gmail.com',
+                  password:'password',
+                  role: 'reader'
+                 },
+        :ten =>   {
+                  name:'Ten Norgay',
+                  email:'ten@gmail.com',
+                  password: 'password',
+                  role: 'reader'
+                 }
 }
-article = {
+
+category = {
+            :PO=> "Politics",
+            :HR=> "Human Rights",
+            :SO=> "Social",
+            :TE=> "Technology",
+            :SC=> "Science",
+            :SP=> "Sports",
+            :AR=> "Arts",
+            :CR=> "Crime"
+}
+
+article_hash = {
               :article_1 => {
                               :title=> "Engaged' on policy?",
                               :content=> "'Hillary Clinton's close ties to Wall Street have been a sticking point
@@ -51,43 +126,11 @@ article = {
 
                                           Sometimes several days of elevated stress is all that is needed to open up a gastric ulcer. Sometimes several years of it is all it takes to develop diabetes or heart disease, not to mention poor general health, lowered productivity, and lack of happiness. Doctors and scientists unanimously agree that our thoughts directly affect the activity of our organs and the state of our bodies in general. Ancient medicine is classified as holistic, because it takes care not only of the physical body, but also of the psyche, as well as one's personal lifestyle. This method allows one to remove the cause of the illness, rather than merely treating the symptoms, therefore stopping it from reappearing. Modern medicine, on the other hand, deals with the consequences of the illness—bodily ailments. This is why the illness often comes back, since the cause of the illness is not actually being treated.
 
-                                          This is where one of the biggest secrets to health reveals itself—our thoughts can heal us. There are multiple recorded stories that discuss people who were severely ill and healed themselves with the power of thought, despite doctors losing all hope. One of such impressive story tells us about Morris Goodman, who, in 1981, was involved in a plane crash and was supposed to die due to irreversible spine damage and a punctured diaphragm. The man's life was supported by a breathing ventilator, and the only movement he could do was blinking. However, this man was aware of the power of thought, and in just a few days successfully regenerated his own diaphragm and could breathe independently. He also consciously regenerated his damaged spinal cord and started to move all of his limbs. Doctors could not understand the situation at all because this just “could not be happening.” After a few months, however, Morris Goodman began to walk again, and eventually fully recovered. This is only one of many cases that are happening all around us. Thoughts cannot only make the body ill, but can also help it recover from incurable diseases."
+                                          This is where one of the biggest secrets to health reveals itself—our thoughts can heal us. There are multiple recorded stories that discuss people who were severely ill and healed themselves with the power of thought, despite doctors losing all hope. One of such impressive story tells us about Morris Goodman, who, in 1981, was involved in a plane crash and was supposed to die due to irreversible spine damage and a punctured diaphragm. The man's life was supported by a breathing ventilator, and the only movement he could do was blinking. However, this man was aware of the power of thought, and in just a few days successfully regenerated his own diaphragm and could breathe independently. He also consciously regenerated his damaged spinal cord and started to move all of his limbs. Doctors could not understand the situation at all because this just “could not be happening.” After a few months, however, Morris Goodman began to walk again, and eventually fully recovered. This is only one of many cases that are happening all around us. Thoughts cannot only make the body ill, but can also help it recover from incurable diseases.",
                               :category_id=> 2,
                               :country_id=> 2,
                               :user_id=> 2
               }
-}
-user = {
-          max => {
-                  name:'Max Charles',
-                  email:'max@gmail.com',
-                  password:'password'
-                 },
-          skai => {
-                   name:'Skai Jackson',
-                   email:'skai@gmail.com',
-                   password:'password'
-                  },
-          kaleo => {
-                    name:'Kaleo Elam',
-                    email:'kaleo@gmail.com',
-                    password:'password'
-                   },
-          davis => {
-                    name:'Davis Elam',
-                    email: 'megan@gmail.com',
-                    password: 'password'
-                   },
-          megan => {
-                    name: 'Megan Charpentier',
-                    email:'max@gmail.com',
-                    password:'password'
-                   },
-          ten =>   {
-                    name:'Ten Norgay',
-                    email:'ten@gmail.com',
-                    password: 'password'
-                   }
 }
 
 # Taken from
@@ -103,7 +146,7 @@ country = {
         			:AN => "Netherlands Antilles",
         			:AO => "Angola",
         			:AQ => "Antarctica",
-        			:AR => "Argentina",
+        			:AR => "hashentina",
         			:AS => "American Samoa",
         			:AT => "Austria",
         			:AU => "Australia",
@@ -192,7 +235,6 @@ country = {
         			:GU => "Guam",
         			:GW => "Guinea-Bissau",
         			:GY => "Guyana",
-        			:HK => "Hong Kong SAR China",
         			:HK => "Hong Kong",
         			:HM => "Heard Island and McDonald Islands",
         			:HN => "Honduras",
@@ -248,7 +290,6 @@ country = {
         			:ML => "Mali",
         			:MM => "Myanmar",
         			:MN => "Mongolia",
-        			:MO => "Macau SAR China",
         			:MO => "Macau",
         			:MP => "Northern Mariana Islands",
         			:MQ => "Martinique",
@@ -361,4 +402,15 @@ country = {
         			:ZM => "Zambia",
         			:ZW => "Zimbabwe",
         			:ZZ => "Unknown or Invalid Region"
-    }
+  }
+  first_art = Article.all.first
+  first_cat = Category.all.first
+  first_count = Country.all.first
+
+  second_art = Article.all.second
+  second_cat = Category.all.second
+  second_count = Country.all.second
+
+  create_objs(country, category, article)
+  create_user(user, first_count, first_cat, first_art)
+  create_user(user, second_count, second_cat, second_art)
