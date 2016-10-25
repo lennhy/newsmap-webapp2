@@ -1,6 +1,5 @@
 class ArticlesController < ApplicationController
   # unregistered users (readers) only to have only read access for a selected group of actions:
-  before_action :authenticate_user!, except: [ :index, :show ]
 
 
   # nested routes
@@ -25,7 +24,7 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to user_article_url(current_user.id, @article.id)
     else
-      redirect_to new_article_path, notice: "Something went wrong! What the fack did you do bro?"
+      redirect_to new_article_path, notice: @article.errors.full_messages
     end
   end
 
@@ -34,19 +33,19 @@ class ArticlesController < ApplicationController
   end
 
 
-  private
   # we're now accepting a category name, rather than a category id. Even though you don't have an ActiveRecord field for category_name, because there is a key in the post_params hash for category_name it still calls the ccountry_title= & ategory_title= method.
 
 
     def article_params
-      raise params.inspect
-       permitted.has_key?(:category_title)
-      params.require(:article).permit(
-        :title,
-        :content,
-        :country_title,
-        :category_title
+      # ActionController::Parameters.permit_all_parameters = true
+      # article.errors.full_messages
+      # raise params.inspect
+      raise current_user.inspect
+      params.require(:article).permit(:user_id, :country_title, :category_title, :title,
+      :content
       )
+
+
     end
 
 

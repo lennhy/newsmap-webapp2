@@ -4,9 +4,14 @@ class Article < ApplicationRecord
   belongs_to :country
   has_many :validations
 
-  # Whenever you are modifying an attribute of the model, use before_validation. If you are doing some other action, then use before_save.
   # We want to run this whenever someone tries to save to the database. Also to make sure it saves to the databse
-  before_save :make_title_case
+  # before_action :make_title_case
+  # Whenever you are modifying an attribute of the model, use before_validation. If you are doing some other action, then use before_save.
+
+
+  # --These setter methods are called whenever an Article is initialized with a category_title or country_title field.
+  # "virtuals"
+
 
   def category_title
     self.category
@@ -16,8 +21,6 @@ class Article < ApplicationRecord
     self.category
   end
 
-  # --These setter methods are called whenever an Article is initialized with a category_title or country_title field.
-  # "virtuals"
   def category_title=(title)
     self.category = Category.find_or_create_by(:title=>title)
   end

@@ -285,14 +285,6 @@ end
 create_obj(categories, Category)
 create_obj(countries, Country)
 
-
-<!-- def create_obj(hash, object)
-  new_category = object.new
-  hash.each do |key, value|
-    obj.create(title: value).save
-  end
-end -->
-<!--
 # clickbait.posts.create!(title: "10 Ways You Are Already Awesome")
 # clickbait.posts.create!(title: "This Yoga Stretch Cures Procrastination, Maybe")
 # clickbait.posts.create!(title: "The Power of Positive Thinking and 100 Gallons of Coffee")
