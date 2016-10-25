@@ -29,6 +29,7 @@ class Article < ApplicationRecord
     self.country = Country.find_or_create_by(:title=>title)
   end
 
+
   private
     # --callbacks are defined in the object models and called in the controller
     def is_title_case

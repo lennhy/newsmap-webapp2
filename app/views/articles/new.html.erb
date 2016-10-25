@@ -2,7 +2,7 @@
 
 <%= form_for @article do |f| %>
   <!--  Alternative -->
-  <%= f.hidden_field :user_id %>
+  <%= f.hidden_field :user_id, :value=> "#{current_user.id}" %>
   <%= f.label :country, "Choose a country where the events of this article are taking place "%><br>
   <%= f.collection_select :country_title, Country.all, :id, :title %><br><br>
 
