@@ -1,10 +1,8 @@
 class ArticlesController < ApplicationController
   # unregistered users (readers) only to have only read access for a selected group of actions:
   before_action :authenticate_user!, except: [ :index, :show ]
-  # when we want to run this whenever someone tries to save to the database. Also to make sure it saves to the databse
-  before_validation :make_title_case
-  # Whenever you are modifying an attribute of the model, use before_validation. If you are doing some other action, then use before_save.
-  
+
+
   # nested routes
   def index
     if params[:author_id]
@@ -19,11 +17,16 @@ class ArticlesController < ApplicationController
   end
 
   def new
-
+    @article = Article.new
   end
 
   def create
-
+  @article =  Article.new(article_params)
+    if @article.save
+      redirect_to user_article_url(current_user.id, @article.id)
+    else
+      redirect_to new_article_path, notice: "Something went wrong! What the fack did you do bro?"
+    end
   end
 
   def delete
@@ -32,9 +35,17 @@ class ArticlesController < ApplicationController
 
 
   private
-    def article_params
-      params.require(:articles).permit(
+  # we're now accepting a category name, rather than a category id. Even though you don't have an ActiveRecord field for category_name, because there is a key in the post_params hash for category_name it still calls the ccountry_title= & ategory_title= method.
 
+
+    def article_params
+      raise params.inspect
+       permitted.has_key?(:category_title)
+      params.require(:article).permit(
+        :title,
+        :content,
+        :country_title,
+        :category_title
       )
     end
 
