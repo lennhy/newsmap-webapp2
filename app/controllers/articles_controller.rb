@@ -10,21 +10,21 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def show
-    @article = Article.find(params[:id])
-    @validation =  Validation.new(:article_id=>@article.id)
-  end
-
   def new
     @article = Article.new
   end
 
+  def show
+    @article = Article.find(params[:id])
+  end
+
+
   def create
   @article =  Article.new(article_params)
     if @article.save
-      redirect_to user_article_url(current_user.id, @article.id)
+      redirect_to  user_single_article_path(@article.id)
     else
-      redirect_to new_article_path, notice: @article.errors.full_messages
+      redirect_to new_user_single_article_path(current_user.id), notice: @article.errors.full_messages
     end
   end
 

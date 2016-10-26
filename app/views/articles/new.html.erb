@@ -18,23 +18,3 @@
 
   <%= f.submit "Submit" %>
 <% end %>
-
-<!-- <%= f.label :country, "Choose or type a country where the events of this article are taking place " %><br>
-<%= f.text_field :country, list: "countries_autocomplete" %> -->
-<!--
-  <datalist id="countries_autocomplete">
-    <%= Country.all.each do |country| %>
-        <option name ="country_title" value="<%= country.title %>">
-    <% end %>
-  </datalist><br><br> -->
-<!-- end of first field -->
-
-<!-- <%= f.label :category, "Choose or type a category" %><br>
-<%= f.text_field :category, list: "categories_autocomplete" %>
-
-  <datalist id="categories_autocomplete">
-    <%= Category.all.each do |category| %>
-        <option name ="category_title" value="<%= category.title %>">
-    <% end %>
-  </datalist><br><br> -->
-<!-- end of second field -->

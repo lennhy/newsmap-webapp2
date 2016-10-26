@@ -9,7 +9,7 @@ end -->
 
 <% if current_user.author? %>
 Author
-  <p> <%= link_to "Start writting your first article", new_article_path %> </p>
+  <p> <%= link_to "Start writting your first article", new_user_single_article_path(current_user.id) %> </p>
 <% else %>
 Reader
   <p> Choose from any category to read <p>

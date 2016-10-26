@@ -6,6 +6,7 @@
 
 <!-- of the current user is the owner of the article then they can delete it -->
 <% if current_user == @article.user.author? %>
+<% binding.pry %>
   <li><p><%= button_to "Delete", delete_article_url %></li>
 <% end %>
 
