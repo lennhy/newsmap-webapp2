@@ -40,9 +40,10 @@ class Article < ApplicationRecord
   def add_validation(article_id)
     validation =  Validation.find_or_create_by(:article_id=> article_id)
     if validation
-      validation.quantity +=1
+      validation.quantity += 1
+      validation.save
       self.validations << validation
-      self.validations.save
+      self.save
     end
   end
 
