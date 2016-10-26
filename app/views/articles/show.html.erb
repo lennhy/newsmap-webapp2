@@ -4,7 +4,6 @@
   <p><%=@article.total_validations %> votes
 </ul>
 
-
-  <% if !current_user.author? %>
-     <li><p><%= button_to "Validate", :method =>"create"%></li>
-  <% end %>
+<% if current_user.reader? %>
+   <li><p><%= button_to "Validate", :method =>"create"%></li>
+<% end %>

@@ -37,13 +37,16 @@ class Article < ApplicationRecord
   end
 
   # add a validation when user clicks button on article show page
-  def add_validation(article_id)
+  def add_validation(article_id, user)
     validation =  Validation.find_or_create_by(:article_id=> article_id)
     if validation
       validation.quantity += 1
       validation.save
       self.validations << validation
-      self.save
+      # -- user below is the reader not the author
+      binding.pry
+      self.user = User.find(user.id)
+      self.user.save
     end
   end
 
