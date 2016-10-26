@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'static_pages#home'
+  root 'articles#index'
   # get '/articles', to: 'articles#index'
   post "users/:id/articles/:id"=> "validations#create"
   # create a route for Omniauth to send its authentication data to:

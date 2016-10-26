@@ -7,10 +7,10 @@ class ApplicationController < ActionController::Base
   before_action  :store_current_location, :unless => :devise_controller?
 
   #  permits custom fields to be accepted before persisting to the database
-  # before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   # ensure that every controller action requires a logged in user, except for the login and register actions:
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
 
   # tells devise where to look for the root path after signing in with facbook
   def after_sign_in_path_for(resource)
@@ -33,9 +33,9 @@ class ApplicationController < ActionController::Base
   # the session is destroyed on log out, we need to use request.referrer
   # root_path is there as a backup
   def after_sign_out_path_for(resource)
-    request.referrer || root_path
+    request.referrer || new_user_sessions_path
   end
-
+# ew_user_session GET      /users/sign_in(.:format)                sessions#new
 
   protected
     # -- devise

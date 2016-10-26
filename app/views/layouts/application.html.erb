@@ -9,7 +9,10 @@
   </head>
 
   <body>
-    <%= render 'layouts/log' %>
+    <ul>
+      <li> <%= render 'layouts/log' %> | <%= render 'layouts/navbar' %></li>
+    </ul>
+
     <%= render 'layouts/messages' %>
 
     <%= yield %>

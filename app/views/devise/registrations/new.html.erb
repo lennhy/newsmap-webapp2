@@ -28,8 +28,8 @@
 
   <div class="field">
     <!-- if clicked user changes to reader -->
-    <%= f.radio_button :role, 'reader' %>
-    <%= f.label :role, 'Reader'%><br />
+    <%= f.radio_button :role, 'reader', :checked => false %> 
+    <%= f.label :role, 'Reader', :checked => false %><br />
 
     <!-- if clicked user changes to author -->
     <%= f.radio_button :role, 'author' %>

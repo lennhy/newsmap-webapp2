@@ -1,5 +1,20 @@
+<h1>Welcome To NewsMap</h1>
 <h3> All Articles </h3>
-<p><%= link_to "Create new article", new_article_path %></p>
+
+<!-- choose by category  -->
+form_for
+  f.label
+  f.collection_select
+end
+
+<% if current_user.author? %>
+Author
+  <p> <%= link_to "Start writting your first article", new_article_path %> </p>
+<% else %>
+Reader
+  <p> Choose from any category to read <p>
+<% end %>
+
 <ul>
 <% @articles.each do |article| %>
   <li><%= article.user.name %>
