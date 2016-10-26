@@ -18,6 +18,6 @@ Reader
 <ul>
 <% @articles.each do |article| %>
   <li><%= article.user.name %>
-  <li><%= link_to article.title, user_article_path(article.user_id, article)%></li>
+  <li><%=  link_to article.title, user_single_article_path(article.id)%></li>
 <% end %>
 </ul>
