@@ -31,7 +31,7 @@ class User < ApplicationRecord
     end
 
     def guest?
-     persisted?
+     self.persisted?
     end
 
 

@@ -4,6 +4,11 @@
   <p><%=@article.total_validations %> votes
 </ul>
 
+<!-- of the current user is the owner of the article then they can delete it -->
+<% if current_user == @article.user.author? %>
+  <li><p><%= button_to "Delete", delete_article_url %></li>
+<% end %>
+
 <% if current_user.reader? %>
    <li><p><%= button_to "Validate", :method =>"create"%></li>
 <% end %>

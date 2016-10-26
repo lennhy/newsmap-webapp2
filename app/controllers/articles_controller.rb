@@ -29,7 +29,8 @@ class ArticlesController < ApplicationController
   end
 
   def delete
-
+    Article.find(params[:id]).destroy
+      redirect_to articles_path, {notice: 'You have deleted this article!'}
   end
 
 
