@@ -12,7 +12,6 @@ class Article < ApplicationRecord
   # --These setter methods are called whenever an Article is initialized with a category_title or country_title field.
   # "virtuals"
 
-
   def category_title
     self.category
   end
@@ -29,6 +28,23 @@ class Article < ApplicationRecord
     self.country = Country.find_or_create_by(:title=>title)
   end
 
+  def total_validations
+    total = 0
+    self.validations.each do |val|
+      total += val.quantity
+    end
+    total
+  end
+
+  # add a validation when user clicks button on article show page
+  def add_validation(article_id)
+    validation =  Validation.find_or_create_by(:article_id=> article_id)
+    if validation
+      validation.quantity +=1
+      self.validations << validation
+      self.validations.save
+    end
+  end
 
   private
     # --callbacks are defined in the object models and called in the controller

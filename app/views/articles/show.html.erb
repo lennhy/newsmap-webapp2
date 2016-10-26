@@ -1,4 +1,15 @@
 <ul>
-  <h3><%= @article.title%></h3>
+  <h3>Ttile: <%= @article.title%></h3>
   <li><p><%= @article.content%></p></li>
+  <li><p><%=@article.total_validations %> validations</li>
+  <!-- button_to will  default to the post method -->
+  <!-- <%= form_for @article, method: "post" do |f| %>
+  <%= f.hidden_field :id %>
+
+  <%= f.hidden_field :user_id %> -->
+    <!-- <li><p><%= button_to "Validate", user_article_path(@article.user_id, @article)%> -->
+  <% if current_user.role != 0%>
+  <li><p><%= button_to "Validate", :method =>"create"%></li>
+  <% end %>
+<% end %>
 </ul>

@@ -1,7 +1,6 @@
 class ArticlesController < ApplicationController
   # unregistered users (readers) only to have only read access for a selected group of actions:
 
-
   # nested routes
   def index
     if params[:author_id]
@@ -13,6 +12,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    @validation =  Validation.new(:article_id=>@article.id)
   end
 
   def new
@@ -37,11 +37,6 @@ class ArticlesController < ApplicationController
 
 
     def article_params
-      # ActionController::Parameters.permit_all_parameters = true
-      # article.errors.full_messages
-      # this is the error message I get ["User must exist"]
-      # raise params.inspect
-      # raise current_user.inspect
       params.require(:article).permit(
       :user_id,
       :country_title,
@@ -49,9 +44,11 @@ class ArticlesController < ApplicationController
       :title,
       :content
       )
-
-
     end
-
+    # ActionController::Parameters.permit_all_parameters = true
+    # article.errors.full_messages
+    # this is the error message I get ["User must exist"]
+    # raise params.inspect
+    # raise current_user.inspect
 
 end
