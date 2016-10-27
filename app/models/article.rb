@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-  belongs_to :user
+  belongs_to :author, class_name: "User"
   belongs_to :category
   belongs_to :country
   has_many :validations
@@ -34,8 +34,12 @@ class Article < ApplicationRecord
       validation.save
       self.validations << validation
       # -- user below is the reader not the author
-      self.user = User.find(user.id)
-      self.user.save
+      if user.role == "reader"
+        self.reader = User.find(user.id)
+      else
+        self.author = User.find(user.id)
+      end
+      self.save
     end
   end
 
