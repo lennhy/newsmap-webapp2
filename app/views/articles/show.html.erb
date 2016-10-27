@@ -1,7 +1,7 @@
 <ul>
 
   <h3><%= @article.title%></h3>
-  <p><%= @article.user.name%><p>
+    <p><%= @article.user.name%><p>
   <p>Country: <%= @article.country.title %></p>
   <p>Category: <%= @article.category.title %></p>
 
@@ -11,7 +11,7 @@
 </ul>
 
 <!-- of the current user is the owner of the article then they can delete it -->
-<% if current_user.id == @article.user.id %>
+<% if current_user.author? == @article.user.author? %>
   <li><p><%= button_to "Delete", delete_article_url %></li>
 <% end %>
 
