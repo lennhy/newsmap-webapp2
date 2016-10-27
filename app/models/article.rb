@@ -3,7 +3,7 @@ class Article < ApplicationRecord
   belongs_to :category, optional: true
   belongs_to :country
   has_many :validations
-  attr_accessor :category_title
+  attr_accessor :category_attributes
   # We want to run this whenever someone tries to save to the database. Also to make sure it saves to the databse
   # before_action :make_title_case
   # Whenever you are modifying an attribute of the model, use before_validation. If you are doing some other action, then use before_save.
@@ -11,7 +11,7 @@ class Article < ApplicationRecord
 
   # --This custom setter method is called whenever an Article is initialized with a category_name field.
   # "virtuals"
-  def category_title=(title)
+  def category_attributes=(title)
       category = Category.find_or_create_by(:title=> title)
       self.update(:category_id=>category.id)
   end

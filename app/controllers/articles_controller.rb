@@ -22,7 +22,8 @@ class ArticlesController < ApplicationController
   def create
   @article =  Article.new(article_params)
     if @article.save
-      redirect_to  user_single_article_path(@article.id)
+      redirect_to  user_single_article_path(@article.id), notice: "You successfully created a new article!"
+
     else
       redirect_to new_user_single_article_path(current_user.id), notice: @article.errors.full_messages
     end
@@ -42,7 +43,7 @@ class ArticlesController < ApplicationController
       :user_id,
       :country_id,
       :category_id,
-      :category_title,
+      :category_attributes,
       :title,
       :content
       )
