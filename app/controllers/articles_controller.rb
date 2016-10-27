@@ -42,6 +42,7 @@ class ArticlesController < ApplicationController
       :user_id,
       :country_id,
       :category_id,
+      :category_title,
       :title,
       :content
       )

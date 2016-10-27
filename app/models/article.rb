@@ -1,34 +1,20 @@
 class Article < ApplicationRecord
   belongs_to :user
-  belongs_to :category
+  belongs_to :category, optional: true
   belongs_to :country
   has_many :validations
-
+  attr_accessor :category_title
   # We want to run this whenever someone tries to save to the database. Also to make sure it saves to the databse
   # before_action :make_title_case
   # Whenever you are modifying an attribute of the model, use before_validation. If you are doing some other action, then use before_save.
 
 
-  # --These setter methods are called whenever an Article is initialized with a category_title or country_title field.
+  # --This custom setter method is called whenever an Article is initialized with a category_name field.
   # "virtuals"
-
-  # def category_title
-  #   self.category.title
-  # end
-  #
-  # def country_title
-  #   self.category.title
-  # end
-  # #  custom writters
-  # def category_title=(title)
-  #   self.category = Category.find_or_create_by(:title=>title)
-  #   self.category.save
-  # end
-  #
-  # def country_title=(title)
-  #   self.country = Country.find_or_create_by(:title=>title)
-  #   self.country.save
-  # end
+  def category_title=(title)
+      category = Category.find_or_create_by(:title=> title)
+      self.update(:category_id=>category.id)
+  end
 
   def total_validations
     total = 0

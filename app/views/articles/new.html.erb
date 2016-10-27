@@ -7,7 +7,11 @@
   <%= f.collection_select :country_id, Country.all, :id, :title %><br><br>
 
   <%= f.label :category, "Choose a category" %><br>
-  <%= f.collection_select :category_id, Category.all, :id, :title %><br><br>
+  <%= f.collection_select :category_id, Category.all, :id, :title, {include_blank: true} %><br><br>
+
+  <p>Or Create your own category</p>
+  <%= f.label :category, "Create a category" %><br>
+  <%= f.text_field :category_title %><br><br>
 
 
   <%= f.label :title %><br>
