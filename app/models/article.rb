@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-  belongs_to :author, class_name: "User"
+  belongs_to :user, optional: true
   belongs_to :category
   belongs_to :country
   has_many :validations
@@ -28,19 +28,21 @@ class Article < ApplicationRecord
   # add a validation when user clicks button on article show page
 
   def add_validation(article_id, user)
-    validation =  Validation.find_or_create_by(:article_id=> article_id)
+    validation =  Validation.create(:article_id=> article_id)
     if validation
       validation.quantity += 1
       if user.role == "reader"
         self.user != user
-        validation.user = user
+        user.validations << validation
+        user.save
         validation.save
         self.validations << validation
-      # -- user below is the reader not the author
+        # -- user below is the reader not the author
         self.save
       end
     end
   end
+
 
   private
     # --callbacks are defined in the object models and called in the controller

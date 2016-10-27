@@ -7,11 +7,11 @@
 
   <li><p><%= @article.content%></p></li>
   <p><%=@article.total_validations %> votes
-
+  <%= @article.validations.each {|val| val.user} %>
 </ul>
 
 <!-- of the current user is the owner of the article then they can delete it -->
-<% if current_user == @article.author %>
+<%  if current_user.id == @article.user.id %>
   <li><p><%= button_to "Delete", delete_article_url %></li>
 <% end %>
 
