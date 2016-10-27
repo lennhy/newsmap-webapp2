@@ -1,13 +1,11 @@
-<h1>Welcome To NewsMap</h1>
+<h1>NewsMap</h1>
 <h3> All Articles </h3>
 
-<!-- choose by category  -->
-<!-- form_for
-  f.label
-  f.collection_select
-end -->
+<% if !current_user.nil? %>
+  <p>Welcome <%= current_user.name %></p>
+<% end %>
 
-<% if current_user.author? %>
+<% if current_user && current_user.author? %>
 Author
   <p> <%= link_to "Start writting your first article", new_user_single_article_path(current_user.id) %> </p>
 <% else %>
