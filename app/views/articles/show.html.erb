@@ -11,7 +11,7 @@
 </ul>
 
 <!-- of the current user is the owner of the article then they can delete it -->
-<% if current_user.author? == @article.user.author? %>
+<% if current_user == @article.author %>
   <li><p><%= button_to "Delete", delete_article_url %></li>
 <% end %>
 
