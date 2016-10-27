@@ -12,23 +12,23 @@ class Article < ApplicationRecord
   # --These setter methods are called whenever an Article is initialized with a category_title or country_title field.
   # "virtuals"
 
-  def category_title
-    self.category
-  end
-
-  def country_title
-    self.category
-  end
-  #  custom writters
-  def category_title=(title)
-    self.category = Category.find_or_create_by(:title=>title)
-    self.category.save
-  end
-
-  def country_title=(title)
-    self.country = Country.find_or_create_by(:title=>title)
-    self.country.save
-  end
+  # def category_title
+  #   self.category.title
+  # end
+  #
+  # def country_title
+  #   self.category.title
+  # end
+  # #  custom writters
+  # def category_title=(title)
+  #   self.category = Category.find_or_create_by(:title=>title)
+  #   self.category.save
+  # end
+  #
+  # def country_title=(title)
+  #   self.country = Country.find_or_create_by(:title=>title)
+  #   self.country.save
+  # end
 
   def total_validations
     total = 0
