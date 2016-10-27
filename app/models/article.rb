@@ -19,13 +19,15 @@ class Article < ApplicationRecord
   def country_title
     self.category
   end
-
+  #  custom writters
   def category_title=(title)
     self.category = Category.find_or_create_by(:title=>title)
+    self.category.save
   end
 
   def country_title=(title)
     self.country = Country.find_or_create_by(:title=>title)
+    self.country.save
   end
 
   def total_validations

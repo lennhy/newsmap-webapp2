@@ -3,8 +3,8 @@ class ArticlesController < ApplicationController
 
   # nested routes
   def index
-    if params[:author_id]
-      @article = User.find(params[:user_id]).article
+    if params[:id]
+      @articles = User.find(params[:id]).articles
     else
       @articles = Article.all
     end

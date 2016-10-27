@@ -4,9 +4,12 @@ Rails.application.routes.draw do
 
   get '/articles', to: 'articles#index'
 
+  get 'users/:id/articles' => 'articles#index'
+
   get 'users/:id/articles/new'=> 'articles#new', as: 'new_user_single_article'
 
   get 'users/:id/articles/:id'=> 'articles#show', as: 'user_single_article'
+
 
   post 'users/:id/articles/:id'=> 'validations#create'
 
