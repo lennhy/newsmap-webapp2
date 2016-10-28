@@ -3,7 +3,7 @@ class Article < ApplicationRecord
   belongs_to :category
   belongs_to :country
   has_many :validations
-  validates :title, :content, presence: true
+  validates :title, :content, :category, :country, presence: true
   # attr_accessor :category_attributes
   # We want to run this whenever someone tries to save to the database. Also to make sure it saves to the databse
   # before_action :make_title_case
