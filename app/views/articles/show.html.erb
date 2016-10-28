@@ -1,13 +1,18 @@
 <ul>
-
   <h3><%= @article.title%></h3>
-    <p><%= @article.user.name%><p>
+
+  <p><%= @article.user.name%><p>
+
+  <% @article.sources.each do |source|  %>
+    <li>Sources: <%= source.name %> </li>
+  <% end %>
+
   <p>Country: <%= @article.country.title %></p>
   <p>Category: <%= @article.category.title %></p>
 
   <li><p><%= @article.content%></p></li>
   <p><%=@article.total_validations %> votes
-  <%= @article.validations.each {|val| val.user} %>
+
 </ul>
 
 <!-- of the current user is the owner of the article then they can delete it -->

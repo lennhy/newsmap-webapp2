@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # ensure that every controller action requires a logged in user, except for the login and register actions:
-  # before_action :authenticate_user! # creates errors when creating objects
+  before_action :authenticate_user!, only: [:index, :show, :new, :create]
+# creates errors when creating objects
 
   # tells devise where to look for the root path after signing in with facbook
   def after_sign_in_path_for(resource)
