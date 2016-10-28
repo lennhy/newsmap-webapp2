@@ -16,8 +16,18 @@ class Article < ApplicationRecord
   # --This custom setter method is called whenever an Article is initialized with a sources field.
   # --virtuals
 
-  def article_with_largest_valiation
-
+  def self.most_validated_article
+    most_validated =0
+    most_validated_article=""
+    self.all.each do |article|
+      article.validations.each do |validation|
+        if validation.quantity > most_validated
+            most_validated = validation.quantity
+            most_validated_article =  Article.find(most_validated).title
+        end
+      end
+    end
+    most_validated_article
   end
 
   def sources_attributes=(sources_attributes)
