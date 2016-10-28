@@ -22,7 +22,6 @@ class ArticlesController < ApplicationController
   def create
     @article =  Article.new(article_params)
     if @article.save
-      raise @article.errors.full_messages
       redirect_to  user_single_article_path(@article.id), notice: "You successfully created a new article!"
 
     else

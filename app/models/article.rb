@@ -5,18 +5,17 @@ class Article < ApplicationRecord
   has_many :validations
 
   has_many :article_sources
-  has_many :sources, through: :article_sources
+  has_many :sources
+  has_many :sources, through: :article_sources, :dependent => :destroy
 
-  accepts_nested_attributes_for :sources, :allow_destroy => true, reject_if: proc { |attributes| attributes['name'].blank? }
+  accepts_nested_attributes_for :sources, allow_destroy: true, reject_if: lambda { |attributes| attributes[:name].blank? }
 
 
-  validates :title, :content, :category, :country, presence: true
+  # validates :title, :content, :category, :country, presence: true
   # before_action :make_title_case
 
   # --This custom setter method is called whenever an Article is initialized with a sources field.
   # --virtuals
-  validates_presence_of :name, :content
-
 
   def sources_attributes=(sources_attributes)
      sources_attributes.values.each do |sources_attribute|
@@ -24,7 +23,6 @@ class Article < ApplicationRecord
        self.sources << source
        binding.pry
        self.save
-        end
      end
    end
 
