@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :sources
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'articles#index'
 
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
   get 'users/:id/articles/new'=> 'articles#new', as: 'new_user_single_article'
 
   get 'users/:id/articles/:id'=> 'articles#show', as: 'user_single_article'
+  get 'users/:id/articles/:id' => 'articles#edit', as: 'edit_user_article'
 
 
   post 'users/:id/articles/:id'=> 'validations#create'
