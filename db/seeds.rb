@@ -257,12 +257,41 @@ countries = {
 	'ZW' => 'Zimbabwe'
 }
 
+sources = {
+            Arabic: "Al Jazeera English (aljazeera.com)",
+            British_1: "BBC News (bbc.com)",
+            British_2: "The Guardian (guardian.co.uk/)",
+            British_3: "openDemocracy (opendemocracy.net)",
+            Asian: "Asia Times (atimes.com)",
+            Canadian: "Global Research (globalresearch.ca/)",
+            Russian: "RT (rt.com)",
+            General_news_1: "The Real News Network (therealnews.com)",
+            General_news_2: "The Christian Science Monitor (csmonitor.com)",
+            General_news_3: "Truthout (truth-out.org)",
+            General_news_4: "Reuters (reuters.com)",
+            General_news_5: "The Nation (thenation.com)",
+            General_news_6: "ProPublica (propublica.org)",
+            General_news_7: "The Center for Public Integrity (publicintegrity.org)",
+            General_news_8: "Reveal (The Center for Investigative Reporting) (revealnews.org)",
+            General_news_9: "AllSides (allsides.com)",
+            General_news_10: "FAIR (Fairness and Accuracy in Reporting) (fair.org)",
+            General_news_11: "Who, What, Why (whowhatwhy.org)",
+            General_news_12: "WorldNews (WN) Network (wn.com)",
+            General_news_13: "Sputnik (sputniknews.com)",
+            General_news_14: "Watchdog.org"
+}
+
 def create_obj(hash, object)
   hash.each do |key, value|
     object.create(title: value).save
   end
 end
 
+def create_obj_2(hash, object)
+  hash.each do |key, value|
+    object.create(name: value).save
+  end
+end
 # def create_user(user_hash)
 #   user_hash.each do |user, attributes|
 #     User.create(attributes)
@@ -271,3 +300,4 @@ end
 
 create_obj(categories, Category)
 create_obj(countries, Country)
+create_obj_2(sources, Source)

@@ -11,6 +11,7 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    @sources = @article.sources.build
   end
 
   def show
@@ -19,8 +20,9 @@ class ArticlesController < ApplicationController
 
 
   def create
-  @article =  Article.new(article_params)
+    @article =  Article.new(article_params)
     if @article.save
+      raise @article.errors.full_messages
       redirect_to  user_single_article_path(@article.id), notice: "You successfully created a new article!"
 
     else
@@ -42,7 +44,9 @@ class ArticlesController < ApplicationController
       :country_id,
       :category_id,
       :title,
-      :content
+      :content,
+      :source_ids=> [],
+      :sources_attributes=>[:name]
       )
     end
     # ActionController::Parameters.permit_all_parameters = true

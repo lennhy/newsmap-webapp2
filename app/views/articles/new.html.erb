@@ -15,7 +15,21 @@
   <%= f.label :content %><br>
   <%= f.text_area :content %><br><br>
 
+  <p>Choose from the list of Sources:</p>
+  <div class="field">
+    <%= f.collection_check_boxes :source_ids, Source.all, :id, :name%><br>
+  </div>
+
   <!-- below is the custom attribute writter nested form -->
+  <p>Create a Source:</p>
+    <%= f.fields_for :sources, @article.sources.build do |sources_fields| %>
+  <li>
+    <%= sources_fields.label :name %>
+    <%= sources_fields.text_field :name %>
+  </li>
+    <% end %>
+  </ul>
+
 
   <%= f.submit "Submit" %>
 <% end %>
