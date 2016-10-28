@@ -15,7 +15,9 @@ Reader
 
 <ul>
 <% @articles.each do |article| %>
-  <li><%= article.user.name %>
+  <% if article.user.author? %>
+    <li><%= article.user.name %>
+  <% end %>
   <li><%=  link_to article.title, user_single_article_path(article.id)%></li>
 <% end %>
 </ul>
