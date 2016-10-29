@@ -30,18 +30,14 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.new
+    @article = Article.find(params[:id])
     @sources = @article.sources.build
   end
 
   def update
     @article =  Article.find(params[:id])
-    if @article.update(articles_params)
+    @article.update(article_params)
       redirect_to  user_single_article_path(@article.id), notice: "You successfully updated this article!"
-
-    else
-      redirect_to edit_user_article(current_user.id), notice: @article.errors.full_messages
-    end
   end
 
   def destroy
