@@ -17,17 +17,17 @@ class Article < ApplicationRecord
   # --virtuals
 
   def self.most_validated_article
-    most_validated =0
+    most_validated_by_quantity =0
     most_validated_article=""
     self.all.each do |article|
       article.validations.each do |validation|
-        if validation.quantity > most_validated
-            most_validated = validation.quantity
-            most_validated_article =  Article.find(most_validated).title
+        if validation.quantity > most_validated_by_quantity
+            most_validated_by_quantity = validation.quantity
+            most_validated_article =  Article.find(validation.article_id)
         end
       end
     end
-    most_validated_article
+    most_validated_article.title
   end
 
   def sources_attributes=(sources_attributes)

@@ -9,12 +9,13 @@ Rails.application.routes.draw do
   get 'users/:id/articles/new'=> 'articles#new', as: 'new_user_single_article'
 
   get 'users/:id/articles/:id'=> 'articles#show', as: 'user_single_article'
-  get 'users/:id/articles/:id' => 'articles#edit', as: 'edit_user_article'
+
+  get 'users/:id/articles/:id/edit' => 'articles#edit', as: 'edit_user_article'
 
 
   post 'users/:id/articles/:id'=> 'validations#create'
 
-  post 'users/:id/articles' => 'articles#delete', as: 'delete_article'
+  post 'users/:id/articles' => 'articles#destroy', as: 'destroy_article'
 
   # create a route for Omniauth to send its authentication data to:
   devise_for :users,

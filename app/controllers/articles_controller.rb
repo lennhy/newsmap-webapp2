@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   # unregistered users (readers) only to have only read access for a selected group of actions:
-  before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :set_article, only: [:show, :edit, :update]
 
   def index
     if params[:id]
@@ -17,7 +17,6 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
   end
 
   def create
@@ -31,16 +30,21 @@ class ArticlesController < ApplicationController
   end
 
   def edit
+    @article = Article.new
+    @sources = @article.sources.build
+  end
+
+  def update
     @article =  Article.find(params[:id])
     if @article.update(articles_params)
-      redirect_to  user_single_article_path(@article.id), notice: "You successfully created a new article!"
+      redirect_to  user_single_article_path(@article.id), notice: "You successfully updated this article!"
 
     else
       redirect_to edit_user_article(current_user.id), notice: @article.errors.full_messages
     end
   end
 
-  def delete
+  def destroy
     Article.find(params[:id]).destroy
       redirect_to articles_path, {notice: 'You have deleted this article!'}
   end
