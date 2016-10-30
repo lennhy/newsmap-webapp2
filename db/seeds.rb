@@ -257,8 +257,6 @@ countries = {
 	'ZW' => 'Zimbabwe'
 }
 
-<<<<<<< HEAD
-=======
 sources = {
             Arabic: "Al Jazeera English (aljazeera.com)",
             British_1: "BBC News (bbc.com)",
@@ -283,26 +281,17 @@ sources = {
             General_news_14: "Watchdog.org"
 }
 
->>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
 def create_obj(hash, object)
   hash.each do |key, value|
     object.create(title: value).save
   end
 end
 
-<<<<<<< HEAD
-# def create_user(user_hash)
-#   user_hash.each do |user, attributes|
-#     User.create(attributes)
-#   end
-# end
-=======
 def create_obj_2(hash, object)
   hash.each do |key, value|
     object.create(name: value).save
   end
 end
->>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
 
 create_obj(categories, Category)
 create_obj(countries, Country)

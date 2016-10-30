@@ -1,2 +1,2 @@
-<p> <%= link_to "Articles", articles_path %></p>
-<p> <%= link_to "Profile", user_path(current_user) if !current_user.nil? %></p> 
+<p> <%= link_to "Articles", articles_path if signed_in?%></p>
+<p> <%= link_to "Profile", user_path(current_user) if !current_user.nil? %></p>

@@ -1,49 +1,33 @@
-<<<<<<< HEAD
 <h3><%= @article.title%></h3>
 
 <p>By <%= @article.user.name%><p>
-=======
+
+<b>Sources:</b>
+<ol>
+<% @article.sources.each do |source|  %>
+  <li> <%= source.name %> </li>
+<% end %>
+</ol>
+
+<b>Country:</b>
 <ul>
-  <h3><%= @article.title%></h3>
-
-  <p><%= @article.user.name%><p>
-
-  <% @article.sources.each do |source|  %>
-    <li>Sources: <%= source.name %> </li>
-  <% end %>
-
-  <p>Country: <%= @article.country.title %></p>
-  <p>Category: <%= @article.category.title %></p>
->>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
-
-<ul>
-  <p><b>Sources:</b><p>
-  <% @article.sources.each do |source|  %>
-    <li> <%= source.name %> </li>
-  <% end %>
+  <p><li><%= @article.country.title %></li></p>
 </ul>
 
+<b>Category:</b>
 <ul>
-  <b>Country:</b> <li><%= @article.country.title %></li><br>
-  <b>Category:</b> <li><%= @article.category.title %></li>
+  <p><li><%= @article.category.title %></li></p>
 </ul>
 
-<<<<<<< HEAD
-<li><p><%= @article.content%></p></li>
-<p><%=@article.total_validations %> votes
-
+  <p><%= @article.content%></p>
+  <p><%=@article.total_validations %> votes
 
 <!-- if the current user is the owner of the article then they can delete it -->
 <%  if current_user.id == @article.user.id %>
-  <li><p><%= button_to "Delete", destroy_article_url %></li>
-  <li><p><%= link_to "Edit", edit_article_url(@article) %></li>
-=======
-<!-- of the current user is the owner of the article then they can delete it -->
-<%  if current_user.id == @article.user.id %>
-  <li><p><%= button_to "Delete", destroy_article_url %></li>
->>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
+  <p><%= button_to "Delete", destroy_article_url %>
+  <p><%= link_to "Edit", edit_article_url(@article) %>
 <% end %>
 
 <% if current_user.reader? %>
-   <p><%= button_to "Validate", :method =>"create"%>
+   <p><%= button_to "Validate", :method =>"create"%></p>
 <% end %>
