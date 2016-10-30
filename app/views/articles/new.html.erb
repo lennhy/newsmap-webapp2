@@ -1,4 +1,5 @@
 <h3>Make a New Article</h3>
+<<<<<<< HEAD
 
 <%= form_for @article do |f| %>
 
@@ -17,3 +18,6 @@
 
   <%= f.submit "Submit" %>
 <% end %>
+=======
+<%= render partial: "form", locals: {article: @article} %>
+>>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18

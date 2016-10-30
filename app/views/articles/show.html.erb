@@ -1,6 +1,20 @@
+<<<<<<< HEAD
 <h3><%= @article.title%></h3>
 
 <p>By <%= @article.user.name%><p>
+=======
+<ul>
+  <h3><%= @article.title%></h3>
+
+  <p><%= @article.user.name%><p>
+
+  <% @article.sources.each do |source|  %>
+    <li>Sources: <%= source.name %> </li>
+  <% end %>
+
+  <p>Country: <%= @article.country.title %></p>
+  <p>Category: <%= @article.category.title %></p>
+>>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
 
 <ul>
   <p><b>Sources:</b><p>
@@ -14,6 +28,7 @@
   <b>Category:</b> <li><%= @article.category.title %></li>
 </ul>
 
+<<<<<<< HEAD
 <li><p><%= @article.content%></p></li>
 <p><%=@article.total_validations %> votes
 
@@ -22,6 +37,11 @@
 <%  if current_user.id == @article.user.id %>
   <li><p><%= button_to "Delete", destroy_article_url %></li>
   <li><p><%= link_to "Edit", edit_article_url(@article) %></li>
+=======
+<!-- of the current user is the owner of the article then they can delete it -->
+<%  if current_user.id == @article.user.id %>
+  <li><p><%= button_to "Delete", destroy_article_url %></li>
+>>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
 <% end %>
 
 <% if current_user.reader? %>

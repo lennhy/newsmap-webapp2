@@ -8,7 +8,11 @@
 
 <% if current_user && current_user.author? %>
 Role: Author
+<<<<<<< HEAD
   <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
+=======
+  <p> <%= link_to "Start writting your first article", new_user_single_article_path(current_user.id) %> </p>
+>>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
 <% else %>
 Role: Reader
   <p> Choose from any category to read <p>
@@ -19,6 +23,10 @@ Role: Reader
   <% if article.user.author? %>
     <li><%= article.user.name %>
   <% end %>
+<<<<<<< HEAD
   <li><%=  link_to article.title, user_article_path(article.id)%></li>
+=======
+  <li><%=  link_to article.title, user_single_article_path(article.id)%></li>
+>>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
 <% end %>
 </ul>

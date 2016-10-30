@@ -37,6 +37,10 @@ class ArticlesController < ApplicationController
   def update
     @article =  Article.find(params[:id])
     @article.update(article_params)
+<<<<<<< HEAD
+=======
+      redirect_to  user_single_article_path(@article.id), notice: "You successfully updated this article!"
+>>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
   end
 
   def destroy

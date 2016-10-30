@@ -1,11 +1,12 @@
 My Profile
-<ul>
+
   <% if current_user.reader? %>
 
       <%= current_user.name %>
 
       <p><%= current_user.total_reader_validations %> validations made</p>
 
+<<<<<<< HEAD
       <% current_user.validations.each do |validation| %>
 
         <h3>Articles Validated:</h3>
@@ -17,6 +18,25 @@ My Profile
     <% else %>
 
     <%=   current_user.name %>
+=======
+      <h3>Articles Validated:</h3>
+    <ol>
+      <% current_user.validations.each do |validation| %>
+        <li><%= validation.article.title %></li>
+      <% end %>
+    </ol>
+    
+    <% else %>
+
+    <%= current_user.name %>
+    <ol>
+    <% current_user.articles.each do |article| %>
+          <li> <%= article.title %></li>
+          <li> <%= article.title %></li>
+          <li> <%= article.title %></li>
+          <li> <%= article.title %></li>
+    <% end %>
+>>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
 
   <% end %>
-</ul>
+</ol>

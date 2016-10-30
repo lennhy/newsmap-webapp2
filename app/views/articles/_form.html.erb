@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 <%= form_for(article, :url => article_path) do |f| %>
+=======
+<%= form_for article do |f| %>
+>>>>>>> f072ac2ba18534ec9e83a85f33cf5e62a697be18
 
   <%= f.hidden_field :user_id, :value=> "#{current_user.id}" %>
   <%= f.label :country, "Choose a country where the events of this article are taking place "%><br>
