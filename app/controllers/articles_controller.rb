@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  # unregistered users (readers) only to have only read access for a selected group of actions:
+  before_action :set_article, only: [:show, :update, :edit]
 
   def index
     if params[:id]
@@ -15,7 +15,6 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
   end
 
 
@@ -25,19 +24,17 @@ class ArticlesController < ApplicationController
       redirect_to  user_article_path(@article.id), notice: "You successfully created a new article!"
 
     else
-      redirect_to new_user_single_article_path(current_user.id), notice: @article.errors.full_messages
+      redirect_to new_article_path(current_user.id), notice: @article.errors.full_messages
     end
   end
 
   def edit
-    @article =  Article.find(params[:id])
     @sources = @article.sources.build
   end
 
   def update
-    @article =  Article.new(article_params)
     if @article.update(article_params)
-      redirect_to  articles_path, notice: "You successfully updated this article!"
+      redirect_to  user_article_path(@article.id), notice: "You successfully updated this article!"
     else
       redirect_to edit_article_path(@article.user_id, @article.id), notice: @article.errors.full_messages
     end
@@ -48,12 +45,13 @@ class ArticlesController < ApplicationController
       redirect_to articles_path, {notice: 'You have deleted this article!'}
   end
 
+  def set_article
+    @article = Article.find(params[:id])
+  end
 
-  # we're now accepting a category name, rather than a category id. Even though you don't have an ActiveRecord field for category_name, because there is a key in the post_params hash for category_name it still calls the ccountry_title= & ategory_title= method.
   private
     def article_params
       params.require(:article).permit(
-      :id,
       :user_id,
       :country_id,
       :category_id,
@@ -63,9 +61,5 @@ class ArticlesController < ApplicationController
       :sources_attributes=>[:name]
       )
     end
-    # ActionController::Parameters.permit_all_parameters = true
-    # article.errors.full_messages
-    # this is the error message I get ["User must exist"]
-    # raise params.inspect
-    # raise current_user.inspect
+
 end
