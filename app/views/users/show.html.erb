@@ -1,4 +1,4 @@
-My Profile
+<h3>My Articles</h3>
 
   <% if current_user.reader? %>
 
@@ -18,10 +18,7 @@ My Profile
     <%= current_user.name %>
     <ol>
     <% current_user.articles.each do |article| %>
-          <li> <%= article.title %></li>
-          <li> <%= article.title %></li>
-          <li> <%= article.title %></li>
-          <li> <%= article.title %></li>
+          <li> <%= link_to article.title, user_article_path(current_user.id, article.id) %></li>
     <% end %>
 
   <% end %>
