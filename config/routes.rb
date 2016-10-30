@@ -1,19 +1,28 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'articles#index'
 
+  # --home
   get '/articles', to: 'articles#index'
 
+  # --user's articles
   get 'users/:id/articles' => 'articles#index'
 
-  get 'users/:id/articles/new'=> 'articles#new', as: 'new_user_single_article'
+  # --user can make a new article
+  get 'users/:id/articles/new' => 'articles#new', as: 'new_article'
 
-  get 'users/:id/articles/:id'=> 'articles#show', as: 'user_single_article'
+  # --user_single article show page
+  get 'users/:id/articles/:id' => 'articles#show', as: 'user_article'
 
+  # -- edit article
+  get 'users/:id/articles/:id/edit' => 'articles#edit', as: 'edit_article'
 
-  post 'users/:id/articles/:id'=> 'validations#create'
+  post 'users/:id/articles/:id' => 'articles#create'
 
-  post 'users/:id/articles' => 'articles#delete', as: 'delete_article'
+  # patch 'users/:id/articles/:id' => 'articles#update'
+  #
+  # post 'users/:id/articles/:id' => 'validations#create'
+
+  post 'users/:id/articles' => 'articles#destroy', as: 'destroy_article'
 
   # create a route for Omniauth to send its authentication data to:
   devise_for :users,
@@ -27,6 +36,6 @@ Rails.application.routes.draw do
   # end
     # we still have our regular resourced :articles routes because we still want to let people see all articles, create and edit articles, and so on outside of the context of an user.
     resources :users, only: [:index, :new, :show,:create, :edit, :update]
-    resources :articles, only: [:create, :edit, :update, :destroy]
+    resources :articles, only: [:create, :update]
 
 end
