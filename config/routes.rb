@@ -30,11 +30,7 @@ Rails.application.routes.draw do
                                 :omniauth_callbacks => 'omniauth_callbacks',
                                 :sessions=> "sessions"
                               }
-  # resources :users, only: [:show] do
-  #   # nested resource for articles
-  #   resources :articles, only: [:show,:create]
-  # end
-    # we still have our regular resourced :articles routes because we still want to let people see all articles, create and edit articles, and so on outside of the context of an user.
+
     resources :users, only: [:index, :new, :show,:create, :edit, :update]
     resources :articles, only: [:create, :update]
 
