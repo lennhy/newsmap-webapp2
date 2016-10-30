@@ -8,11 +8,20 @@ class Article < ApplicationRecord
   has_many :sources
   has_many :sources, through: :article_sources, :dependent => :destroy
 
-  accepts_nested_attributes_for :sources, :reject_if=> lambda { |article| article[:name].blank? }
+  accepts_nested_attributes_for :sources, :allow_destroy=> true
 
-  validates :title, :content, :category, :country, presence: true
+  validates :title, :content, :category, :sources, :country, presence: true
   before_save :make_title_case
 
+  validate :destroy_attribute
+
+  def destroy_attribute
+   self.sources.each do |article|
+      if article[:name].blank?
+        article[:name].delete
+      end
+    end
+  end
   # --This custom setter method is called whenever an Article is initialized with a sources field.
   # --virtuals
 
