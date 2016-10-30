@@ -4,7 +4,7 @@
 
       <%= current_user.name %>
 
-      <p><%= current_user.total_reader_validations %> validations made</p>
+      <p><%= pluralize(current_user.total_reader_validations,"validations made")%> </p>
 
       <h3>Articles Validated:</h3>
     <ol>

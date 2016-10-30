@@ -8,7 +8,7 @@ class Article < ApplicationRecord
   has_many :sources
   has_many :sources, through: :article_sources, :dependent => :destroy
 
-  accepts_nested_attributes_for :sources, :reject_if=> lambda { |a| a[:name].blank? }
+  accepts_nested_attributes_for :sources, :reject_if=> lambda { |article| article[:name].blank? }
 
   validates :title, :content, :category, :country, presence: true
   before_create :make_title_case
@@ -30,7 +30,7 @@ class Article < ApplicationRecord
     if !most_validated_article.empty?
       most_validated_article.title
     else
-      "No articles have been validated! "
+      " There are currently no articles to validate! "
     end
   end
 

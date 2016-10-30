@@ -39,7 +39,7 @@ class ArticlesController < ApplicationController
     if @article.update(article_params)
       redirect_to  user_article_path(@article.id), notice: "You successfully updated this article!"
     else
-      redirect_to edit_article_path(current_user.id), notice: @article.errors.full_messages
+      redirect_to edit_article_path(@article.user_id, @article.id), notice: @article.errors.full_messages
     end
   end
 
@@ -53,6 +53,7 @@ class ArticlesController < ApplicationController
   private
     def article_params
       params.require(:article).permit(
+      :id,
       :user_id,
       :country_id,
       :category_id,
