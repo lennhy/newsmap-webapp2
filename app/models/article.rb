@@ -27,7 +27,11 @@ class Article < ApplicationRecord
         end
       end
     end
-    most_validated_article.title
+    if !most_validated_article.empty?
+      most_validated_article.title
+    else
+      "No articles have been validated! "
+    end
   end
 
   def sources_attributes=(sources_attributes)

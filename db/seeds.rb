@@ -292,11 +292,6 @@ def create_obj_2(hash, object)
     object.create(name: value).save
   end
 end
-# def create_user(user_hash)
-#   user_hash.each do |user, attributes|
-#     User.create(attributes)
-#   end
-# end
 
 create_obj(categories, Category)
 create_obj(countries, Country)
