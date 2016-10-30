@@ -30,7 +30,7 @@ class Article < ApplicationRecord
     if !most_validated_article.empty?
       most_validated_article.title
     else
-      " There are currently no articles to validate! "
+      "No articles have been validated! "
     end
   end
 

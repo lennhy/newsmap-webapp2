@@ -37,7 +37,7 @@ class ArticlesController < ApplicationController
   def update
     @article =  Article.new(article_params)
     if @article.update(article_params)
-      redirect_to  user_article_path(@article.id), notice: "You successfully updated this article!"
+      redirect_to  articles_path, notice: "You successfully updated this article!"
     else
       redirect_to edit_article_path(@article.user_id, @article.id), notice: @article.errors.full_messages
     end
