@@ -45,11 +45,13 @@ class ArticlesController < ApplicationController
       redirect_to articles_path, {notice: 'You have deleted this article!'}
   end
 
+
+  private
+
   def set_article
     @article = Article.find(params[:id])
   end
 
-  private
     def article_params
       params.require(:article).permit(
       :user_id,

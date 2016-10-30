@@ -11,7 +11,9 @@ Rails.application.routes.draw do
   # --user can make a new article
   get 'users/:id/articles/new' => 'articles#new', as: 'new_article'
 
-  post '/users/:id/articles/:id' => 'articles#create'
+  # post '/users/:id/articles/:id' => 'articles#create'
+
+  post '/users/:id/articles/:id' => 'validations#create'
 
   # --user_single article show page
   get 'users/:id/articles/:id' => 'articles#show', as: 'user_article'

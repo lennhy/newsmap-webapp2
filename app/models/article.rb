@@ -5,25 +5,24 @@ class Article < ApplicationRecord
   has_many :validations
 
   has_many :article_sources
-  has_many :sources
   has_many :sources, through: :article_sources, :dependent => :destroy
 
-  accepts_nested_attributes_for :sources, :allow_destroy=> true
+  accepts_nested_attributes_for :sources, :reject_if=> proc { |article| article[:name].empty? || article[:source_id].empty?}
 
-  validates :title, :content, :category, :sources, :country, presence: true
+  validates :title, :content, :category, :country, presence: true
   before_save :make_title_case
 
-  validate :destroy_attribute
-
-  def destroy_attribute
-   self.sources.each do |article|
-      if article[:name].blank?
-        article[:name].delete
-      end
-    end
-  end
   # --This custom setter method is called whenever an Article is initialized with a sources field.
   # --virtuals
+  # validate :destroy_attribute
+  #
+  # def destroy_attribute
+  #  self.sources.each do |article|
+  #     if article[:name].blank?
+  #       article[:name].delete
+  #     end
+  #   end
+  # end
 
   def self.most_validated_article
     most_validated_by_quantity =0
@@ -36,7 +35,7 @@ class Article < ApplicationRecord
         end
       end
     end
-    if !most_validated_article.empty?
+    if !most_validated_article.nil?
       most_validated_article.title
     else
       " There are currently no articles to validate! "

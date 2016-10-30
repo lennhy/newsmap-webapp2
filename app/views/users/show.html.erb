@@ -4,7 +4,7 @@
 
       <%= current_user.name %>
 
-      <p><%= pluralize(current_user.total_reader_validations,"validations made")%> </p>
+      <p><%= pluralize(current_user.total_reader_validations,"validation made")%> </p>
 
       <h3>Articles Validated:</h3>
     <ol>
@@ -16,11 +16,13 @@
     <% else %>
 
     <%= current_user.name %>
-    <ol>
+    <ul>
     <% current_user.articles.each do |article| %>
-          <li> <%= link_to article.title, user_article_path(current_user.id, article.id) %></li>
+
+    <%= render :partial => "articles/article", :locals => {:article => article} %>
+
     <% end %>
 
   <% end %>
-</ol>
+</ul>
 <!-- git  -->

@@ -11,7 +11,7 @@ class ValidationsController < ApplicationController
 
     else
       flash[:error]= "You have already validated this article!"
-      redirect_to user_single_article_path #, {notice: 'You have already validated this article!'}
+      redirect_to user_article_path #, {notice: 'You have already validated this article!'}
       # flash[:errors].full_messages
     end
   end
