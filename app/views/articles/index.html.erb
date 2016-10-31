@@ -1,5 +1,6 @@
+<h1>NewsMap</h1>
 <h3> All Articles </h3>
-<h4> Most Validated Article: <i><%= Article.most_validated_article %> </i></h4><br>
+<p> Most Validated Article:<%= Article.most_validated_article %> <p>
 
 <% if !current_user.nil? %>
   <p>Welcome <%= current_user.name %></p>
@@ -19,12 +20,12 @@ Role: Reader
 <ul>
 <% @articles.each do |article| %>
   <% if article.user.author? %>
-    <p><b><%= article.user.name %></b></p>
-
-
-    <%= render :partial => "articles/article", :locals => {:article => article} %>
-
-
+    <li><%= article.user.name %>
   <% end %>
+  <li><%=  link_to article.title, user_article_path(article.id)%></li>
+    <% article.validations.each do |validation| %>
+      <%= validation.quantity %> validations
+
+    <% end %>
 <% end %>
 </ul>

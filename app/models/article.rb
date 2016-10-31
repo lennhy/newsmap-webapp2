@@ -9,9 +9,8 @@ class Article < ApplicationRecord
 
   accepts_nested_attributes_for :sources, :reject_if=> proc { |article| article[:name].empty? || article[:source_id].empty?}
 
-
-  # validates :title, :content, :category, :country, presence: true
-  # before_save :make_title_case
+  validates :title, :content, :category, :country, presence: true
+  before_save :make_title_case
 
   # --This custom setter method is called whenever an Article is initialized with a sources field.
   # --virtuals
@@ -60,21 +59,21 @@ class Article < ApplicationRecord
 
   # add a validation when user clicks button on article show page
   def add_validation(article_id, user)
-    validation =  Validation.create(:article_id=> article_id)
-    if validation
-      validation.quantity += 1
-      if user.role == "reader"
-        self.user != user
-        binding.pry
-        user.validations << validation
-        user.save
-        validation.save
-        self.validations << validation
-        # -- user below is the reader not the author
-        self.save
+      validation =  Validation.find_or_create_by(:article_id=> article_id)
+
+      if validation.user_id != user.id
+        validation.quantity += 1
+
+        if user.role == "reader"
+          self.user != user
+          validation.save
+          user.validations << validation
+          self.validations << validation
+          # -- user below is the reader not the author
+          self.save
+        end
       end
     end
-  end
 
 
   # --callbacks are defined in the object models and called in the controller

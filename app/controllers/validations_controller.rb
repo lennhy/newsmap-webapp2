@@ -3,8 +3,9 @@ class ValidationsController < ApplicationController
   def create
     @article = Article.find_by(params[:id])
     @article.add_validation(@article.id, current_user)
-    binding.pry
-    if @article.save
+
+    if @article.validations.include?(current_user.id)
+
         redirect_to user_article_path(@article.id) , {notice: 'You have successfully validated this article!'}
 
     else
