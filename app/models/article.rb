@@ -9,9 +9,11 @@ class Article < ApplicationRecord
 
   accepts_nested_attributes_for :sources, :reject_if=> proc { |article| article[:name].empty? || article[:source_id].empty?}
 
-  validates :title, :content, :category, :country, :titlecase, presence: true
+  validates :title, :content, :category, :country, presence: true
   before_save :make_title_case
 
+  # --This custom setter method is called whenever an Article is initialized with a sources field.
+  # --virtuals
   # validate :destroy_attribute
   #
   # def destroy_attribute
@@ -40,8 +42,6 @@ class Article < ApplicationRecord
     end
   end
 
-  # --This custom setter method is called whenever an Article is initialized with a sources field.
-  # -- A virtual
   def sources_attributes=(sources_attributes)
      sources_attributes.values.each do |sources_attribute|
        source = Source.find_or_create_by(sources_attribute)
@@ -57,7 +57,7 @@ class Article < ApplicationRecord
     total
   end
 
-  # Add a validation when user clicks button on article show page
+  # add a validation when user clicks button on article show page
   def add_validation(article_id, reader)
 
     # --unless the reader already validated this article_id

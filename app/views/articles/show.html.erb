@@ -3,7 +3,6 @@
 <p>By <%= @article.user.name%><p>
 
 <b>Sources:</b>
-
 <ol>
 <% @article.sources.each do |source|  %>
   <li> <%= source.name %> </li>
@@ -20,8 +19,8 @@
   <p><li><%= @article.category.title %></li></p>
 </ul>
 
-<p><%= @article.content%></p>
-<p><%=@article.total_validations %> votes
+  <p><%= @article.content%></p>
+  <p><%=@article.total_validations %> votes
 
 <!-- if the current user is the owner of the article then they can delete it -->
 <%  if current_user.id == @article.user.id %>
@@ -30,9 +29,9 @@
 <% end %>
 
 <% if current_user.reader? %>
-  <form action="/validations" method="post">
-    <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
-    <%= tag(:input, :type => "hidden", :name => :id, :value => @article.id) %>
-    <input type="submit" value="validate">
-  </form>
+<form action="/validations" method="post">
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
+  <%= tag(:input, :type => "hidden", :name => :id, :value => @article.id) %>
+  <input type="submit" value="validate">
+</form>
 <% end %>
