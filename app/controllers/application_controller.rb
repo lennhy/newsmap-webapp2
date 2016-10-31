@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   # ensure that every controller action requires a logged in user, except for the login and register actions:
   before_action :authenticate_user!, only: [:index, :show, :new, :create]
-# creates errors when creating objects
+  # creates errors when creating objects
 
   # tells devise where to look for the root path after signing in with facbook
   def after_sign_in_path_for(resource)
@@ -36,7 +36,6 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
     request.referrer || new_user_sessions_path
   end
-# ew_user_session GET      /users/sign_in(.:format)                sessions#new
 
   protected
     # -- devise

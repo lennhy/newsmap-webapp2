@@ -1,12 +1,10 @@
 <h3>My Articles</h3>
 
   <% if current_user.reader? %>
+    <%= current_user.name %>
+    <p><%= pluralize(current_user.total_reader_validations, "validation")%> </p>
+    <h3>Articles Validated:</h3>
 
-      <%= current_user.name %>
-
-      <p><%= pluralize(current_user.total_reader_validations,"validation")%> </p>
-
-      <h3>Articles Validated:</h3>
     <ol>
       <% current_user.validations.each do |validation| %>
         <li><%= validation.article.title %></li>
@@ -15,14 +13,12 @@
 
     <% else %>
 
-    <%= current_user.name %>
+    <b><%= current_user.name %></b>
+
     <ul>
     <% current_user.articles.each do |article| %>
-
-    <%= render :partial => "articles/article", :locals => {:article => article} %>
 
     <% end %>
 
   <% end %>
 </ul>
-<!-- git  -->
