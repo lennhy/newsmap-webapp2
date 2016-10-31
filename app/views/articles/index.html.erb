@@ -32,7 +32,7 @@
 </tr>
   <% article.validations.each do |validation| %>
     <tr>
-      <td> - <%= validation.quantity %> validations</td>
+      <td> - <%= pluralize(validation.quantity, "validation")%></td>
     </tr>
 
     <% end %>
