@@ -78,6 +78,7 @@ class Article < ApplicationRecord
           reader.save
         end
 
+      end
 
     end
 

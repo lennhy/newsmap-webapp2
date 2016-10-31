@@ -1,11 +1,15 @@
-<% if user_signed_in? %>
+<tbody>
+  <tr>
+      <% if user_signed_in? %>
 
-  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+        <td><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></td>
 
-<% else %>
+      <% else %>
 
-  <%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %> | OR
-  <%= link_to "Sign in", user_session_path, method: 'new' %> |
-  <%= link_to "Sign up", user_registration_path, method: 'create' %> 
+        <td><%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %> </td>
+        <td><%= link_to "Sign in", user_session_path, method: 'new' %> </td>
+        <td><%= link_to "Sign up", user_registration_path, method: 'create' %></td>
 
-<% end %>
+      <% end %>
+  </tr>
+</tbody>

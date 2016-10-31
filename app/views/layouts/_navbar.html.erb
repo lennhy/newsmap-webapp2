@@ -1,3 +1,13 @@
-<h1>NewsMap</h1>
-<p> <%= link_to "Articles", articles_path if signed_in?%></p>
-<p> <%= link_to "Profile", user_path(current_user) if !current_user.nil? %></p>
+<tbody>
+  <tr>
+    <td><h2>NewsMap</h2></td>
+    <td> <%= link_to "Articles", articles_path if signed_in?%></td>
+    <td><%= link_to "Profile", user_path(current_user) if !current_user.nil? %></td>
+  </tr>
+</tbody>
+
+<br>
+<br>
+<br>
+<br>
+<br>
