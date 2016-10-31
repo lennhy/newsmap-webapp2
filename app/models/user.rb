@@ -10,11 +10,7 @@ class User < ApplicationRecord
   # Here we look for a user with that (provider: :facebook, uid: your_uid) pair and create them if they aren't in the database. For Facebook users, we create a random password.
 
   def total_reader_validations
-    total = 0
-    self.validations.each do |val|
-      total += val.quantity
-    end
-    total
+    validations.count
   end
 
   def self.from_omniauth(auth)
