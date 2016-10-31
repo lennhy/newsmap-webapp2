@@ -11,9 +11,9 @@ Rails.application.routes.draw do
   # --user can make a new article
   get 'users/:id/articles/new' => 'articles#new', as: 'new_article'
 
-  # post '/users/:id/articles/:id' => 'articles#create'
+  post '/users/:id/articles/:id' => 'articles#create'
 
-  post '/users/:id/articles/:id' => 'validations#create'
+  # post '/validations/new' => 'validations#new'
 
   # --user_single article show page
   get 'users/:id/articles/:id' => 'articles#show', as: 'user_article'
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   # -- edit article
   get 'users/:id/articles/:id/edit' => 'articles#edit', as: 'edit_article'
 
-  patch 'users/:id/articles/:id' => 'articles#update', as: 'article_path'
+  patch '/users/:id/articles/:id' => 'articles#update', as: 'article_path'
   #
   # post 'users/:id/articles/:id' => 'validations#create'
 
@@ -36,6 +36,6 @@ Rails.application.routes.draw do
                               }
 
     resources :users, only: [:index, :new, :show,:create, :edit, :update]
-    # resources :articles, only: [:create, :update]
+    resources :validations, only: [:create]
 
 end

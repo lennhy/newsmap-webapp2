@@ -9,8 +9,9 @@ class Article < ApplicationRecord
 
   accepts_nested_attributes_for :sources, :reject_if=> proc { |article| article[:name].empty? || article[:source_id].empty?}
 
-  validates :title, :content, :category, :country, presence: true
-  before_save :make_title_case
+
+  # validates :title, :content, :category, :country, presence: true
+  # before_save :make_title_case
 
   # --This custom setter method is called whenever an Article is initialized with a sources field.
   # --virtuals
@@ -35,7 +36,7 @@ class Article < ApplicationRecord
         end
       end
     end
-    if !most_validated_article.nil?
+    if most_validated_article!=""
       most_validated_article.title
     else
       " There are currently no articles to validate! "
@@ -64,6 +65,7 @@ class Article < ApplicationRecord
       validation.quantity += 1
       if user.role == "reader"
         self.user != user
+        binding.pry
         user.validations << validation
         user.save
         validation.save

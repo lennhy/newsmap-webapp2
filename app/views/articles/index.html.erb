@@ -6,13 +6,13 @@
 <% end %>
 
 <% if current_user && current_user.author? %>
-  Role: Author
+Role: Author
 
   <p> <%= link_to "Start writting your first article",
    new_article_path(current_user.id) %> </p>
 
 <% else %>
-  Role: Reader
+Role: Reader
   <p> Choose from any category to read <p>
 <% end %>
 
@@ -21,7 +21,9 @@
   <% if article.user.author? %>
     <p><b><%= article.user.name %></b></p>
 
-    <%= render :partial => "article", :locals => {:article => article} %>
+
+    <%= render :partial => "articles/article", :locals => {:article => article} %>
+
 
   <% end %>
 <% end %>

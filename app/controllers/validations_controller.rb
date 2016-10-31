@@ -1,19 +1,20 @@
 class ValidationsController < ApplicationController
 
-
   def create
-    # raise params.permitted?
-    @article = Article.find(params[:id])
+    @article = Article.find_by(params[:id])
     @article.add_validation(@article.id, current_user)
-
+    binding.pry
     if @article.save
-      render :"/articles/show", {notice: 'You have successfully validated this article!'}
+        redirect_to user_article_path(@article.id) , {notice: 'You have successfully validated this article!'}
 
     else
       flash[:error]= "You have already validated this article!"
-      redirect_to user_article_path #, {notice: 'You have already validated this article!'}
+      redirect_to user_article_path(@article.id) #, {notice: 'You have already validated this article!'}
       # flash[:errors].full_messages
     end
+  end
+  def validation_params
+    params.require(:article).permit(:id)
   end
 
 end
