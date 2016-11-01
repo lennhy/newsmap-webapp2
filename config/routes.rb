@@ -13,7 +13,6 @@ Rails.application.routes.draw do
 
   post '/users/:id/articles/:id' => 'articles#create'
 
-  # post '/validations/new' => 'validations#new'
 
   # --user_single article show page
   get 'users/:id/articles/:id' => 'articles#show', as: 'user_article'
@@ -24,7 +23,6 @@ Rails.application.routes.draw do
 
   patch '/users/:id/articles/:id' => 'articles#update', as: 'article_path'
   #
-  # post 'users/:id/articles/:id' => 'validations#create'
 
   post 'users/:id/articles' => 'articles#destroy', as: 'destroy_article'
 
@@ -36,6 +34,5 @@ Rails.application.routes.draw do
                               }
 
     resources :users, only: [:index, :show]
-    resources :validations, only: [:create]
 
 end
