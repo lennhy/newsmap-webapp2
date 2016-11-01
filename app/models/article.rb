@@ -1,5 +1,5 @@
 class Article < ApplicationRecord
-  belongs_to :user, optional: true
+  belongs_to :user
   belongs_to :category
   belongs_to :country
   has_many :validations
@@ -50,11 +50,12 @@ class Article < ApplicationRecord
    end
 
   def total_validations
-    total = 0
-    self.validations.each do |val|
-      total += val.quantity
-    end
-    total
+    # total = 0
+    # self.validations.each do |val|
+    #   total += val.quantity
+    # end
+    #
+    self.validations.count
   end
 
   def add_validation(article, user)
@@ -62,8 +63,12 @@ class Article < ApplicationRecord
     already_validated = Validation.find_by(article_id: article.id, user_id: user.id)
     # already_validated = Article.joins(:validations).where(user_id: user.id)
     if already_validated =="" ||  already_validated ==[] ||  already_validated.nil?
-       new_validation = Validation.create(article_id: article.id, user_id: user.id)
-       self.validations.count
+        new_validation = Validation.create(article_id: article.id, user_id: user.id)
+        user.validations << new_validation
+        user.save
+        self.validations << new_validation
+      else
+        nil
     end
       #  article[:flash]="You have already validated this article!"
 

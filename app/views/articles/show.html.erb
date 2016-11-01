@@ -32,6 +32,7 @@
 <form action="/validations" method="post">
   <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
   <%= tag(:input, :type => "hidden", :name => :id, :value => @article.id) %>
+
   <input type="submit" value="validate">
 </form>
 <% end %>

@@ -30,12 +30,10 @@
 <tr>
   <td><i><%=  link_to article.title, user_article_path(article.id)%></i></td>
 </tr>
-  <% article.validations.each do |validation| %>
     <tr>
-      <td> - <%= validation.quantity %> validations</td>
+      <td> - <%= article.total_validations %> validations</td>
     </tr>
 
-    <% end %>
 <% end %>
 </ol>
 
