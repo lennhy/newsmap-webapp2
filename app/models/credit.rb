@@ -1,4 +1,4 @@
-class UserArticle < ApplicationRecord
+class Credit < ApplicationRecord
   belongs_to :article
   belongs_to :user
 
