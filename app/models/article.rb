@@ -57,30 +57,35 @@ class Article < ApplicationRecord
     total
   end
 
-  # add a validation when user clicks button on article show page
   def add_validation(article_id, reader)
-
-    # --unless the reader already validated this article_id
-    unless Validation.find_by(user_id: reader.id)
-
-      # -- then find one that already exists for the article or create a new one for the article
-      validation =  Validation.find_or_create_by(:article_id=> article_id)
-
-        validation.quantity += 1
-
-        if reader.role == "reader"
-          self.user != reader
-          validation.save
-          reader.validations << validation
-          self.validations << validation
-          # -- user below is the reader not the author
-          self.save
-          reader.save
-        end
-
-      end
-
+    if reader validaiton id is the same as the article's validation's id
+      Validation.new
     end
+  end
+    # # add a validation when user clicks button on article show page
+  # def add_validation(article_id, reader)
+  #
+  #   # --unless the reader already validated this article_id
+  #   unless Validation.find_by(user_id: reader.id)
+  #
+  #     # -- then find one that already exists for the article or create a new one for the article
+  #     validation =  Validation.find_or_create_by(:article_id=> article_id)
+  #
+  #       validation.quantity += 1
+  #
+  #       if reader.role == "reader"
+  #         self.user != reader
+  #         validation.save
+  #         reader.validations << validation
+  #         self.validations << validation
+  #         # -- user below is the reader not the author
+  #         self.save
+  #         reader.save
+  #       end
+  #
+  #     end
+  #
+  #   end
 
 
   # --callbacks are defined in the object models and called in the controller
