@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101054802) do
+ActiveRecord::Schema.define(version: 20161101060212) do
 
   create_table "article_sources", force: :cascade do |t|
     t.integer "article_id"
@@ -21,10 +21,10 @@ ActiveRecord::Schema.define(version: 20161101054802) do
     t.string   "title"
     t.text     "content"
     t.integer  "category_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "user_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "country_id"
+    t.integer  "credit",      default: 0
   end
 
   create_table "categories", force: :cascade do |t|
