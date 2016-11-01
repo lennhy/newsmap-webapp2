@@ -1,7 +1,7 @@
 <tbody>
-<h3>All Articles</h3><br>
+<h3> All Articles </h3><br>
 
-<p>Most Validated Article:<i><b> <%= Article.most_validated_article %></i></b><p><br>
+<p> Most Validated Article: <i><b><%= Article.most_validated_article %></i></b> <p><br>
 
 <% if !current_user.nil? %>
   <p>Welcome <%= current_user.name %></p>
@@ -9,33 +9,33 @@
 
 <% if current_user && current_user.author? %>
   Role: Author
-  <p><%= link_to "Start writting your first article", new_article_path(current_user.id) %></p>
+
+  <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
 
 <% else %>
   <b>Role:</b> Reader
-  <p>Choose from any category to read<p>
+  <p> Choose from any category to read <p>
 <% end %>
 
 <ol>
-  <% @articles.each do |article| %>
+<% @articles.each do |article| %>
+<tr>
+  <td>
+    <% if article.user.author? %>
+    <li><td><%= article.user.name %> - </td></li>
+  <% end %>
+  </td>
+</tr>
+
+<tr>
+  <td><i><%=  link_to article.title, user_article_path(article.id)%></i></td>
+</tr>
+  <% article.validations.each do |validation| %>
     <tr>
-      <td>
-      <% if article.user.author? %>
-        <li><td><%= article.user.name %> - </td></li>
-      <% end %>
-      </td>
+      <td> - <%= validation.quantity %> validations</td>
     </tr>
 
-    <tr>
-      <td><i><%=  link_to article.title, user_article_path(article.id)%></i></td>
-    </tr>
-
-    <% article.validations.each do |validation| %>
-      <tr>
-        <td> - <%= pluralize(validation.quantity, "validation")%></td>
-      </tr>
     <% end %>
-<!--  end of first enumeration starting at line 20-->
 <% end %>
 </ol>
 
