@@ -57,11 +57,18 @@ class Article < ApplicationRecord
     total
   end
 
-  def add_validation(article_id, reader)
-    if reader validaiton id is the same as the article's validation's id
-      Validation.new
+  def add_validation(article, user)
+    # check if reader validaiton.id mathces any of this article's validation's.id
+    already_validated = Validation.find_by(article_id: article.id, user_id: user.id)
+    # already_validated = Article.joins(:validations).where(user_id: user.id)
+    if already_validated =="" ||  already_validated ==[] ||  already_validated.nil?
+       new_validation = Validation.create(article_id: article.id, user_id: user.id)
+       self.validations.count
     end
+      #  article[:flash]="You have already validated this article!"
+
   end
+
     # # add a validation when user clicks button on article show page
   # def add_validation(article_id, reader)
   #
