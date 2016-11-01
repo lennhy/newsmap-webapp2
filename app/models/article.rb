@@ -1,8 +1,9 @@
 class Article < ApplicationRecord
-  belongs_to :user
   belongs_to :category
   belongs_to :country
-  has_many :validations
+
+  has_many :user_articles
+  has_many :users, through: :user_articles
 
   has_many :article_sources
   has_many :sources, through: :article_sources, :dependent => :destroy

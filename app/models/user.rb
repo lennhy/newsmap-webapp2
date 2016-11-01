@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :articles
-  has_many :validations
+  has_many :user_articles
+  has_many :articles, through: :user_articles
 
   devise :database_authenticatable, :registerable,  :validatable # to enable devise authentication
   devise :omniauthable, :omniauth_providers => [:facebook] # to enable omniauth
