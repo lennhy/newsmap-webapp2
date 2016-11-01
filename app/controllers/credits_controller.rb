@@ -1,7 +1,8 @@
 class CreditsController < ApplicationController
+
+
   def create
       credit = Credit.new(credit_params)
-      binding.pry
       if credit.save
       redirect_to user_article_path(credit.article_id), notice:"You have successfully voted for this article!"
     else

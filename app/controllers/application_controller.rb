@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   # ensure that every controller action requires a logged in user, except for the login and register actions:
   before_action :authenticate_user!, only: [:index, :show, :new, :create]
 # creates errors when creating objects
+skip_before_action :authenticate_user!, only: [:show, :create]
 
   # tells devise where to look for the root path after signing in with facbook
   def after_sign_in_path_for(resource)
@@ -20,6 +21,7 @@ class ApplicationController < ActionController::Base
 
 
   private
+
    # -- devise
   # override the devise helper to store the current location so we can
   # redirect to it after loggin in or out. This override makes signing in
