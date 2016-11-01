@@ -1,7 +1,8 @@
 <%= form_for @article.credits.build do |f| %>
   <%= f.label :vote %>
-  <input type="radio" id="credit_vote_1" name="credit[vote]" value="1" checked="checked" />
+  <input type="radio" id="credit_vote_1" name="credit[vote]" value=1 checked="checked" />
   <%= f.hidden_field :article_id %>
+  <%= f.collection_select :user_id, User.all, :id, :name, include_blank: true %>
 
 
   <%= f.fields_for :user_attributes, @article.users.build do |user_fields| %>

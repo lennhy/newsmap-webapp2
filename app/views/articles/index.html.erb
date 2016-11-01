@@ -20,8 +20,10 @@
 <% @articles.each do |article| %>
 <tr>
   <td>
-    <% if article.user.author? %>
+    <% article.users.each do |user| %>
+      <% if user.author? %>
     <li><td><%= article.user.name %> - </td></li>
+    <% end %>
   <% end %>
   </td>
 </tr>
