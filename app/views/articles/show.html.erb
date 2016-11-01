@@ -20,17 +20,19 @@
 
   <p><%= @article.content%></p>
 
-<!-- if the current user is the owner of the article then they can delete it -->
-  <%= @article.users.each do |user|%>
-    <%=  user.name %>
-    
-  <% if current_user.id == user.id %>
-  <p><%= button_to "Delete", destroy_article_url %>
-  <p><%= link_to "Edit", edit_article_url(@article) %>
+  <% @article.users.each do |user|%>
+    <% if user.author? %>
+    <%= binding.pry %>
+
+      <%= user.name %>
+    <% end %>
+
+    <% if !current_user.nil? && current_user.id == user.id && current_user.author? %>
+      <p><%= button_to "Delete", destroy_article_url %>
+      <p><%= link_to "Edit", edit_article_url(@article) %>
+    <% end %>
   <% end %>
 
-<% end %>
-
-<% if current_user.reader? %>
+<% if !current_user.nil? && current_user.reader? %>
   <%= render "credit_form" %>
 <% end %>

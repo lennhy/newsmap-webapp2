@@ -13,6 +13,6 @@ class CreditsController < ApplicationController
     private
 
     def credit_params
-      params.require(:credit).permit(:vote, :article_id, :user_id, user_attributes:[:name])
+      params.require(:credit).permit(:vote, :article_id, :user_id)
     end
 end

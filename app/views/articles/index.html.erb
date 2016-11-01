@@ -8,7 +8,6 @@
 
 <% if current_user && current_user.author? %>
   Role: Author
-
   <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
 
 <% else %>
@@ -18,18 +17,14 @@
 
 <ol>
 <% @articles.each do |article| %>
-<tr>
-  <td>
+
+  <li><i><%= link_to article.title, user_article_path(article.id)%> ---
     <% article.users.each do |user| %>
-      <% if user.author? %>
-    <li><td><%= article.user.name %> - </td></li>
-    <% end %>
+    <%= user.name %>
+  </li>
   <% end %>
-  </td>
-</tr>
 
 <tr>
-  <td><i><%=  link_to article.title, user_article_path(article.id)%></i></td>
 </tr>
     <tr>
     </tr>
