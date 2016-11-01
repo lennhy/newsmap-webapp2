@@ -1,8 +1,10 @@
 class Article < ApplicationRecord
-  belongs_to :user
+  has_many :credits
+  has_many :users
+  has_many :users, through: :credits
+  
   belongs_to :category
   belongs_to :country
-  has_many :credits
 
   has_many :article_sources
   has_many :sources, through: :article_sources, :dependent => :destroy

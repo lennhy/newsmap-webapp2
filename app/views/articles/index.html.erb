@@ -1,7 +1,6 @@
 <tbody>
 <h3> All Articles </h3><br>
 
-<p> Most Validated Article: <i><b><%= Article.most_validated_article %></i></b> <p><br>
 
 <% if !current_user.nil? %>
   <p>Welcome <%= current_user.name %></p>
@@ -31,7 +30,6 @@
   <td><i><%=  link_to article.title, user_article_path(article.id)%></i></td>
 </tr>
     <tr>
-      <td> - <%= article.total_validations %> validations</td>
     </tr>
 
 <% end %>

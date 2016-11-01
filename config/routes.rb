@@ -36,6 +36,6 @@ Rails.application.routes.draw do
                               }
 
     resources :users, only: [:index, :show]
-    resources :validations, only: [:create]
+    resources :credits, only: [:index, :create]
 
 end

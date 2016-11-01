@@ -4,25 +4,16 @@
 
       <%= current_user.name %>
 
-      <p>Made <%= pluralize(current_user.total_reader_validations,"validation")%> </p>
 
       <h3>Articles Validated:</h3>
     <ol>
-      <% current_user.validations.each do |validation| %>
-        <li><%= validation.article.title %></li>
-      <% end %>
+  
     </ol>
 
     <% else %>
 
     <%= current_user.name %>
     <ul>
-    <% current_user.articles.each do |article| %>
-
-    <%= render :partial => "articles/article", :locals => {:article => article} %>
-
-    <% end %>
 
   <% end %>
 </ul>
-<!-- git  -->

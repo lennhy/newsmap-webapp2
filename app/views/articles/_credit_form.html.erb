@@ -1,0 +1,13 @@
+<%= form_for @article.credits.build do |f| %>
+  <%= f.label :vote %>
+  <input type="radio" id="credit_vote_1" name="credit[vote]" value="1" checked="checked" />
+  <%= f.hidden_field :article_id %>
+
+
+  <%= f.fields_for :user_attributes, @article.users.build do |user_fields| %>
+    <%= user_fields.label :name %>
+    <%= user_fields.text_field :name %>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
