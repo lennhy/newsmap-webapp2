@@ -1,8 +1,0 @@
-<li><%=  link_to article.title, user_article_path(article.id)%></li>
-
-  <% article.validations.each do |validation| %>
-
-    <%= validation.quantity %> validations
-
-  <% end %>
-  <!-- resources :validations, only: [:create] -->

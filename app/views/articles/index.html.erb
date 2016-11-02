@@ -1,7 +1,6 @@
 <tbody>
 <h3> All Articles </h3><br>
 
-<p> Most Validated Article: <i><b><%= Article.most_validated_article %></i></b> <p><br>
 
 <% if !current_user.nil? %>
   <p>Welcome <%= current_user.name %></p>
@@ -9,7 +8,6 @@
 
 <% if current_user && current_user.author? %>
   Role: Author
-
   <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
 
 <% else %>
@@ -19,23 +17,18 @@
 
 <ol>
 <% @articles.each do |article| %>
-<tr>
-  <td>
-    <% if article.user.author? %>
-    <li><td><%= article.user.name %> - </td></li>
+
+  <li><i><%= link_to article.title, user_article_path(article.id)%> ---
+    <% article.users.each do |user| %>
+    <%= user.name %>
+  </li>
   <% end %>
-  </td>
-</tr>
 
 <tr>
-  <td><i><%=  link_to article.title, user_article_path(article.id)%></i></td>
 </tr>
-  <% article.validations.each do |validation| %>
     <tr>
-      <td> - <%= validation.quantity %> validations</td>
     </tr>
 
-    <% end %>
 <% end %>
 </ol>
 

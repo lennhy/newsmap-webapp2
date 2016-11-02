@@ -35,7 +35,7 @@ Rails.application.routes.draw do
                                 :sessions=> "sessions"
                               }
 
-    resources :users, only: [:index, :new, :show,:create, :edit, :update]
-    resources :validations, only: [:create]
+    resources :users, only: [:index, :show]
+    resources :credits, only: [:index, :create]
 
 end

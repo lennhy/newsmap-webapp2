@@ -1,6 +1,5 @@
 <h3><%= @article.title%></h3>
 
-<p>By <%= @article.user.name%><p>
 
 <b>Sources:</b>
 <ol>
@@ -20,18 +19,20 @@
 </ul>
 
   <p><%= @article.content%></p>
-  <p><%=@article.total_validations %> votes
 
-<!-- if the current user is the owner of the article then they can delete it -->
-<%  if current_user.id == @article.user.id %>
-  <p><%= button_to "Delete", destroy_article_url %>
-  <p><%= link_to "Edit", edit_article_url(@article) %>
-<% end %>
+  <% @article.users.each do |user|%>
+    <% if user.author? %>
+    <%= binding.pry %>
 
-<% if current_user.reader? %>
-<form action="/validations" method="post">
-  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token) %>
-  <%= tag(:input, :type => "hidden", :name => :id, :value => @article.id) %>
-  <input type="submit" value="validate">
-</form>
+      <%= user.name %>
+    <% end %>
+
+    <% if !current_user.nil? && current_user.id == user.id && current_user.author? %>
+      <p><%= button_to "Delete", destroy_article_url %>
+      <p><%= link_to "Edit", edit_article_url(@article) %>
+    <% end %>
+  <% end %>
+
+<% if !current_user.nil? && current_user.reader? %>
+  <%= render "credit_form" %>
 <% end %>
