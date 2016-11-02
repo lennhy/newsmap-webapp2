@@ -54,11 +54,11 @@ class ArticlesController < ApplicationController
 
     def article_params
       params.require(:article).permit(
-      :user_id,
       :country_id,
       :category_id,
       :title,
       :content,
+      :user_ids => [],
       :source_ids=> [],
       :sources_attributes=>[:name]
       )

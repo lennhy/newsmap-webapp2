@@ -20,7 +20,9 @@
 
   <li><i><%= link_to article.title, user_article_path(article.id)%> ---
     <% article.users.each do |user| %>
+    <% if user.author? %>
     <%= user.name %>
+    <% end %>
   </li>
   <% end %>
 
