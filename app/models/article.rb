@@ -45,7 +45,8 @@ class Article < ApplicationRecord
     self.credits.each do |credit|
       vote_count += credit.vote
     end
-      vote_count -1 # -- author
+    self.save
+    vote_count -1 # -- author
   end
 
   def add_validation(article, user)
