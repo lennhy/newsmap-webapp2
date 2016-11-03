@@ -19,7 +19,9 @@ class ArticlesController < ApplicationController
 
 
   def create
-    @article =  Article.new(article_params)
+    @article =  current_user.articles.build(article_params) # --alternative
+
+    # @article =  Article.new(article_params)
     if @article.save
       redirect_to  user_article_path(@article.id), notice: "You successfully created a new article!"
 

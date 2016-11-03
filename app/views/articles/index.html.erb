@@ -17,11 +17,12 @@
 
 <ol>
 <% @articles.each do |article| %>
+<%= pluralize(article.total_credits, "credits") %>
 
-  <li><i><%= link_to article.title, user_article_path(article.id)%> ---
+  <li><i><%= link_to article.title, user_article_path(article.id)%> -
     <% article.users.each do |user| %>
     <% if user.author? %>
-    <%= user.name %>
+      Author: <%= user.name %>
     <% end %>
   </li>
   <% end %>

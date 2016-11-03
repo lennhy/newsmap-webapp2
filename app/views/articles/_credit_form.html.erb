@@ -3,7 +3,7 @@
   <%= form_for @article.credits.build do |f| %>
 
     <%= f.label :vote %>
-    <input type="radio" id="credit_vote_1" name="credit[vote]" value=1 checked="checked" />
+    <input type="hidden"= name="credit[vote]" value=1 checked="checked" />
     <%= f.hidden_field :article_id %>
     <%= f.hidden_field :user_id, :value=> "#{current_user.id}" %>
 

@@ -1,36 +1,15 @@
 class Article < ApplicationRecord
   has_many :credits
-  has_many :users, through: :credits
+  has_many :users,  -> { uniq },through: :credits
   belongs_to :category
   belongs_to :country
 
   has_many :article_sources
   has_many :sources, through: :article_sources, :dependent => :destroy
 
-#  accepts_nested_attributes_for :sources, :reject_if=> proc { |article| article[:name].empty? || article[:source_id].empty?}
-
-  # accepts_nested_attributes_for :users
-
   validates :title, :content, :category, :country, presence: true
   before_save :make_title_case
 
-   def article_ids=(ids)
-      ids.each do |id|
-        article = Article.find(id)
-        self.articles << article
-      end
-    end
-  # --This custom setter method is called whenever an Article is initialized with a sources field.
-  # --virtuals
-  # validate :destroy_attribute
-  #
-  # def destroy_attribute
-  #  self.sources.each do |article|
-  #     if article[:name].blank?
-  #       article[:name].delete
-  #     end
-  #   end
-  # end
 
   def self.most_validated_article
     most_validated_by_quantity =0
@@ -53,7 +32,7 @@ class Article < ApplicationRecord
   def sources_attributes=(sources_attributes)
      sources_attributes.values.each do |sources_attribute|
        if sources_attribute[:name].blank? || sources_attribute[:source_id].blank?
-         
+
        else
          source = Source.find_or_create_by(sources_attribute)
          self.sources << source
@@ -61,13 +40,12 @@ class Article < ApplicationRecord
      end
    end
 
-  def total_validations
-    # total = 0
-    # self.validations.each do |val|
-    #   total += val.quantity
-    # end
-    #
-    self.validations.count
+  def total_credits
+    vote_count = 0
+    self.credits.each do |credit|
+      vote_count += credit.vote
+    end
+      vote_count -1 # -- author
   end
 
   def add_validation(article, user)
