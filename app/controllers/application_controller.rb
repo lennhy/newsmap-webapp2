@@ -11,9 +11,9 @@ class ApplicationController < ActionController::Base
 
   # ensure that every controller action requires a logged in user, except for the login and register actions:
   before_action :authenticate_user!, only: [:index, :show, :new, :create]
-# creates errors when creating objects
+  # stop a user who isn't logged in from viewing these pages.
 
-  # tells devise where to look for the root path after signing in with facbook
+  # tells devise where to look for the root path after signing in with facebook
   def after_sign_in_path_for(resource)
     request.env['omniauth.origin'] || root_path
   end
@@ -37,7 +37,6 @@ class ApplicationController < ActionController::Base
   def after_sign_out_path_for(resource)
     request.referrer || new_user_sessions_path
   end
-# ew_user_session GET      /users/sign_in(.:format)                sessions#new
 
   protected
     # -- devise

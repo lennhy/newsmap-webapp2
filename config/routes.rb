@@ -38,4 +38,5 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show]
     resources :credits, only: [:index, :create]
 
+  patch '/articles' => 'users#roles'
 end

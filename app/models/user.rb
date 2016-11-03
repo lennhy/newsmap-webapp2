@@ -4,9 +4,20 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,  :validatable # to enable devise authentication
   devise :omniauthable, :omniauth_providers => [:facebook] # to enable omniauth
+
   after_initialize :set_default_user_role
 
   # Here we look for a user with that (provider: :facebook, uid: your_uid) pair and create them if they aren't in the database. For Facebook users, we create a random password.
+
+  def update_user_role(params, user)
+    user.role = params
+    user.save
+    if user.role == "author"
+      flash[:notice]= "You are now an #{current_user.role}"
+    else
+      flash[:notice]= "You are now a #{current_user.role}"
+    end
+  end
 
   def total_reader_validations
     validations.count

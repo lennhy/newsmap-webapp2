@@ -8,4 +8,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def roles
+    current_user.update_user_role(params[:user][:role], current_user)
+    redirect_to root_path
+  end
+
 end
