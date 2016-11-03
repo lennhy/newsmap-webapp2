@@ -19,8 +19,8 @@ class User < ApplicationRecord
     end
   end
 
-  def total_reader_validations
-    validations.count
+  def total_reader_credits
+    credits.count
   end
 
   def self.from_omniauth(auth)

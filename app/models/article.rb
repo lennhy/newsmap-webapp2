@@ -12,44 +12,23 @@ class Article < ApplicationRecord
 
 
   def self.most_credited_article
-    most_credited_article_count = 0
-    most_credited_article_2 = 0
-
+    most_credited_by_votes = 0
     most_credited_article=""
-
-    equal_articles = []
 
     self.all.each do |article|
       # --comparing total count for each article
       total_credits_per_article = article.credits.count
-
-        if total_credits_per_article > most_credited_article_count
-            most_credited_article_count = total_credits_per_article
-            most_credited_article =  Article.find(article.id)
-
-            if most_credited_article!=""
-              most_credited_article.title
-            else
-              " There are currently no articles to credit! "
-            end
-        # -- edge case
-        elsif total_credits_per_article == most_credited_article
-            most_credited_article = Article.find(article.id).first
-            total_credits_per_article = Article.find(article.id).second
-
-            equal_articles << total_credits_per_article
-            equal_articles << most_credited_article
-
-             equal_articles.each_with_index do |article, i|
-                "#{i}" + "#{article.title}"
-              end
-
-        end
-
+      if total_credits_per_article > most_credited_by_votes
+          most_credited_by_votes = total_credits_per_article
+          most_credited_article =  Article.find(article.id)
+      end
     end
 
-
-
+    if most_credited_article!=""
+      most_credited_article.title
+    else
+      " There are currently no articles to credit! "
+    end
   end
 
   # --nested forms custom attribute writter

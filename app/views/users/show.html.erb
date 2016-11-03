@@ -4,10 +4,15 @@
 
       <%= current_user.name %>
 
+      <p><%= pluralize(current_user.total_reader_credits,"credit made")%> </p>
 
-      <h3>Articles Validated:</h3>
-    <ol>
-  
+      <h3>Articles Credited:</h3>
+      <ol>
+        <% current_user.credits.each do |credit| %>
+          <li><%= link_to credit.article.title, user_article_path(current_user.id, credit.article.id) %></li>
+        <% end %>
+      </ol>
+
     </ol>
 
     <% else %>

@@ -23,7 +23,7 @@
   <% @article.users.each do |user|%>
     <% if user.author? %>
 
-      <%= user.name %>
+      <p><b>Author: <%= user.name %></b></p>
     <% end %>
 
     <% if !current_user.nil? && current_user.id == user.id && current_user.author? %>
