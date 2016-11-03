@@ -12,21 +12,19 @@ class User < ApplicationRecord
   def update_user_role(params, user)
     user.role = params
     user.save
-    if user.role == "author"
-      flash[:notice]= "You are now an #{current_user.role}"
-    else
-      flash[:notice]= "You are now a #{current_user.role}"
-    end
+
   end
 
   def total_reader_credits
     credits.count
   end
-
+  
+  # -- create user model when signin with facebook
   def self.from_omniauth(auth)
       where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
         user.email = auth.info.email
         user.password = Devise.friendly_token[0,20]
+        user.name = auth.info.name   # assuming the user model has a name
       end
   end
 

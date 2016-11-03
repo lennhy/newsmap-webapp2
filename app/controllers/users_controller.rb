@@ -10,7 +10,12 @@ class UsersController < ApplicationController
 
   def roles
     current_user.update_user_role(params[:user][:role], current_user)
-    redirect_to root_path
+    if current_user.role == "author"
+      flash[:notice]= "You are now an #{current_user.role}"
+      redirect_to root_path
+    else
+      flash[:notice]= "You are now a #{current_user.role}"
+    end
   end
 
 end

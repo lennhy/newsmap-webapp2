@@ -13,6 +13,9 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!, only: [:index, :show, :new, :create]
   # stop a user who isn't logged in from viewing these pages.
 
+  # Index and show Pages with forms get buffered with a stale authenticity token and all actions using the methods post/put/delete where recognized as forgery attempts.
+  skip_before_filter :verify_authenticity_token, :only => [:index, :show]
+
   # tells devise where to look for the root path after signing in with facebook
   def after_sign_in_path_for(resource)
     request.env['omniauth.origin'] || root_path
