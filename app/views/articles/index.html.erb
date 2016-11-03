@@ -27,8 +27,7 @@
 <ol>
   <% @articles.each do |article| %>
     <%= pluralize(article.total_credits, "credits") %>
-
-    <li> <i><%= link_to article.title, user_article_path(article.id)%> -
+    <%= render partial: "articles/articles", locals: {article: article} %>
       <% article.users.each do |user| %>
       <% if user.author? %>
         Author: <%= user.name %>

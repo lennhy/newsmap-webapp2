@@ -17,7 +17,7 @@
     <%=current_user.name%>
     </ul>
     <% current_user.articles.each do |article| %>
-      <li><%= link_to article.title, user_article_path(current_user.id, article.id) %></li>
+        <%= render partial: "articles/articles", locals: {article: article} %>
         <%= article.total_credits %> credits
     <% end %>
     <ul>

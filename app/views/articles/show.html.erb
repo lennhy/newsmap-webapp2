@@ -1,6 +1,7 @@
 <h3><%= @article.title%></h3>
 
 <b>Sources:</b>
+
 <ol>
 <% @article.sources.each do |source|  %>
   <li> <%= source.name %> </li>
@@ -17,19 +18,20 @@
   <li><p><%= @article.category.title %></p></li>
 </ul>
 
-  <h3><%= @article.content%></h3>
+<!-- defining user role-->
+<h3><%= @article.content%></h3>
 
-  <% @article.users.each do |user|%>
-    <% if user.author? %>
-      <p>Author: <%= user.name %></p>
-    <% end %>
-
-    <% if !current_user.nil? && current_user.id == user.id && current_user.author? %>
-      <p><%= button_to "Delete", destroy_article_url %>
-      <p><%= link_to "Edit", edit_article_url(@article) %>
-    <% end %>
+<% @article.users.each do |user|%>
+  <% if user.author? %>
+    <p>Author: <%= user.name %></p>
   <% end %>
 
+  <% if !current_user.nil? && current_user.id == user.id && current_user.author? %>
+    <p><%= button_to "Delete", destroy_article_url %>
+    <p><%= link_to "Edit", edit_article_url(@article) %>
+  <% end %>
+<% end %>
+
 <% if !current_user.nil? && current_user.reader? %>
-  <%= render "credit_form" %>
+<%= render "credit_form" %>
 <% end %>
