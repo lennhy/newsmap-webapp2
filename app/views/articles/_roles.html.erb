@@ -1,11 +1,12 @@
-<tr><b> If you signed in with Facebook your current role defaults to "reader" but you can change that here</b></tr>
-  <form action="/articles" method="post">
-    <input name="authenticity_token" type="hidden"
-      value="x37DrAAwyIIb7s+wssss2+AdoCR8cAJIpQhIetKRrPgG5VA=">
-    <input id="hidden" type="hidden" name="_method" value="patch">
+<b> If you signed in with Facebook your current role defaults to "reader" but you can change that here</b>
+<br>
+<br>
+<form action="/articles" method="post">
+  <input name="authenticity_token" type="hidden"
+    value="x37DrAAwyIIb7s+wssss2+AdoCR8cAJIpQhIetKRrPgG5VA=">
+  <input id="hidden" type="hidden" name="_method" value="patch">
 
-    <td><input type="radio" name="user[role]" value="reader"> Reader<br></td>
-    <td><input type="radio" name="user[role]" value="author"> Author<br></td>
-    <input type="submit">
-  </form>
-</tr>
+  <td><input type="radio" name="user[role]" value="reader"> Reader<br></td>
+  <td><input type="radio" name="user[role]" value="author"> Author<br></td>
+  <input type="submit">
+</form>

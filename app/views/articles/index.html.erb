@@ -1,15 +1,20 @@
 <tbody>
+  <!-- Greeting  -->
+  <% if !current_user.nil? %>
+    <i><p>Welcome <%= current_user.name %></p></i>
+  <% end %>
 
-<%= render 'roles' %>
+  <tr>
+    <%= render 'roles' %>
+  </tr>
 
-<h3> All Articles </h3><br>
-<p> Most Credited Article: <i><b><%= Article.most_credited_article %></i></b> <p><br>
+  <tr>
+    <td><h3> All Articles </h3><br></td>
+    <td> Most Credited Article: <i><b><%= Article.most_credited_article %></i></b> <td><br>
+  </tr>
 
-
-<% if !current_user.nil? %>
-  <p>Welcome <%= current_user.name %></p>
-<% end %>
-
+</tbody>
+<!-- define what user has access to based on user role -->
 <% if current_user && current_user.author? %>
   Role: Author
   <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
@@ -20,23 +25,16 @@
 <% end %>
 
 <ol>
-<% @articles.each do |article| %>
-<%= pluralize(article.total_credits, "credits") %>
+  <% @articles.each do |article| %>
+    <%= pluralize(article.total_credits, "credits") %>
 
-  <li><i><%= link_to article.title, user_article_path(article.id)%> -
-    <% article.users.each do |user| %>
-    <% if user.author? %>
-      Author: <%= user.name %>
-    <% end %>
-  </li>
+    <li> <i><%= link_to article.title, user_article_path(article.id)%> -
+      <% article.users.each do |user| %>
+      <% if user.author? %>
+        Author: <%= user.name %>
+      <% end %>
+      <% end %>
+    </li>
+
   <% end %>
-
-<tr>
-</tr>
-    <tr>
-    </tr>
-
-<% end %>
 </ol>
-
-</tbody>

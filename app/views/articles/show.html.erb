@@ -9,20 +9,19 @@
 
 <b>Country:</b>
 <ul>
-  <p><li><%= @article.country.title %></li></p>
+  <li><p><%= @article.country.title %></p></li>
 </ul>
 
 <b>Category:</b>
 <ul>
-  <p><li><%= @article.category.title %></li></p>
+  <li><p><%= @article.category.title %></p></li>
 </ul>
 
-  <p><%= @article.content%></p>
+  <h3><%= @article.content%></h3>
 
   <% @article.users.each do |user|%>
     <% if user.author? %>
-
-      <p><b>Author: <%= user.name %></b></p>
+      <p>Author: <%= user.name %></p>
     <% end %>
 
     <% if !current_user.nil? && current_user.id == user.id && current_user.author? %>
