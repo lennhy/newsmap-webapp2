@@ -17,7 +17,6 @@ class ArticlesController < ApplicationController
   def show
   end
 
-
   def create
     # @article =  current_user.articles.build(article_params) # --alternative
     @article =  Article.new(article_params)
