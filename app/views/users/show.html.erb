@@ -18,7 +18,11 @@
     <% else %>
 
     <%= current_user.name %>
+    </ul>
+    <% current_user.articles.each do |article| %>
+      <li><%= link_to article.title, user_article_path(current_user.id, article.id) %></li>
+        <%= article.total_credits %>
+    <% end %>
     <ul>
 
   <% end %>
-</ul>
