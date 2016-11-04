@@ -24,7 +24,7 @@ class Article < ApplicationRecord
       end
     end
 
-    if most_credited_article!=""
+    if most_credited_article!="" 
       most_credited_article.title
     else
       " There are currently no articles to credit! "

@@ -1,8 +1,18 @@
 <tbody>
-<h3>My Articles</h3>
+  <% if !current_user.persisted? %>
+
+    <h3><%= current_user.name%> Profile</h3>
+
+  <% elsif user_signed_in? %>
+
+    <h3>My Profile</h3>
+
+  <% end %>
+
 
   <%if current_user.reader?%>
-      <%= current_user.name %>
+
+    <h4>Articles credited</h4>
       <p><%= pluralize(current_user.total_reader_credits,"credit made")%> </p>
       <h3>Articles Credited:</h3>
       <ol>
@@ -10,16 +20,18 @@
           <li><%= link_to credit.article.title, user_article_path(current_user.id, credit.article.id) %></li>
         <% end %>
       </ol>
-
     </ol>
 
-    <% else %>
-    <%=current_user.name%>
-    </ul>
+  <% elsif current_user.author? %>
+
+    <h4>Articles published</h4>
+
     <% current_user.articles.each do |article| %>
+    <tr>
         <%= render partial: "articles/articles", locals: {article: article} %>
-        <%= article.total_credits %> credits
     <% end %>
-    <ul>
+    </tr>
+
   <% end %>
+
 </tbody>

@@ -10,30 +10,34 @@
 
   <tr>
     <td><h3> All Articles </h3><br></td>
-    <td> Most Credited Article: <i><b><%= Article.most_credited_article %></i></b> <td><br>
+    <td><i> Most Credited Article: <b><%= Article.most_credited_article %></i> </b> <td><br>
   </tr>
-
+  <br>
 </tbody>
 <!-- define what user has access to based on user role -->
 <% if current_user && current_user.author? %>
-  Role: Author
+  You are an: Author
   <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
 
 <% else %>
-  <b>Role:</b> Reader
+  <b>You are a:</b> Reader
   <p> Choose from any category to read <p>
 <% end %>
 
-<ol>
   <% @articles.each do |article| %>
-    <%= pluralize(article.total_credits, "credits") %>
-    <%= render partial: "articles/articles", locals: {article: article} %>
-      <% article.users.each do |user| %>
-      <% if user.author? %>
-        Author: <%= user.name %>
-      <% end %>
-      <% end %>
-    </li>
+  <tr>
 
+      <%= render partial: "articles", locals: {article: article} %></li>
+
+  </tr>
+      <% article.users.each do |user| %>
+        <ul>
+          <% if user.author? %>
+              <li>Author: <%= user.name %></li>
+          <% elsif user.reader? %>
+              <li>Creditor: <%= user.name %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <br>
   <% end %>
-</ol>
