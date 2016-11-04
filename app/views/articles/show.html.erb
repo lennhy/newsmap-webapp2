@@ -22,8 +22,6 @@
 
   <% @article.users.each do |user|%>
     <% if user.author? %>
-    <%= binding.pry %>
-
       <%= user.name %>
     <% end %>
 

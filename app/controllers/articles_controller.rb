@@ -53,8 +53,9 @@ class ArticlesController < ApplicationController
   end
 
     def article_params
+      raise params.inspect  
       params.require(:article).permit(
-      :user_id,
+      :user_ids,
       :country_id,
       :category_id,
       :title,

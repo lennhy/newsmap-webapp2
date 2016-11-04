@@ -1,8 +1,7 @@
 class Article < ApplicationRecord
   has_many :credits
-  has_many :users
   has_many :users, through: :credits
-  
+
   belongs_to :category
   belongs_to :country
 
@@ -11,9 +10,17 @@ class Article < ApplicationRecord
 
   accepts_nested_attributes_for :sources, :reject_if=> proc { |article| article[:name].empty? || article[:source_id].empty?}
 
+  accepts_nested_attributes_for :users
+
   validates :title, :content, :category, :country, presence: true
   before_save :make_title_case
 
+  def user_ids=(ids)
+     ids.each do |id|
+       user = User.find(id)
+       self.users << user
+     end
+   end
   # --This custom setter method is called whenever an Article is initialized with a sources field.
   # --virtuals
   # validate :destroy_attribute
