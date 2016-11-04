@@ -4,32 +4,34 @@
     <i><p>Welcome <%= current_user.name %></p></i>
   <% end %>
 
+  <!-- Radio buttons option to change role-->
   <tr>
     <%= render 'roles' %>
   </tr>
 
   <tr>
     <td><h3> All Articles </h3><br></td>
+    <!-- Class method helper method -->
     <td><i> Most Credited Article: <b><%= most_popular_article %></i> </b> <td><br>
-  </tr>
-  <br>
+  </tr><br>
+  
 </tbody>
-<!-- define what user has access to based on user role -->
-<% if current_user && current_user.author? %>
-  You are an: Author
-  <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
 
+<!-- Define what user has access to based on user role -->
+<% if current_user && current_user.author? %>
+    You are an: Author
+    <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
 <% else %>
-  <b>You are a:</b> Reader
-  <p> Choose from any category to read <p>
+    <b>You are a:</b> Reader
+    <p> Choose from any category to read <p>
 <% end %>
 
-  <% @articles.each do |article| %>
-  <tr>
+<% @articles.each do |article| %>
+    <tr>
       <%= render partial: "articles", locals: {article: article} %></li>
-  </tr>
-      <% article.users.each do |user| %>
-        <%= render partial: "authors", locals: {user: user} %>
-      <% end %>
-      <br>
-  <% end %>
+    </tr>
+    <% article.users.each do |user| %>
+    <%= render partial: "authors", locals: {user: user} %>
+    <% end %>
+  <br>
+<% end %>
