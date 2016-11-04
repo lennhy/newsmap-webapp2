@@ -23,15 +23,12 @@
     </ol>
 
   <% elsif current_user.author? %>
-
     <h4>Articles published</h4>
-
     <% current_user.articles.each do |article| %>
     <tr>
-        <%= render partial: "articles/articles", locals: {article: article} %>
+      <%= render partial: "articles/articles", locals: {article: article} %>
     <% end %>
     </tr>
-
   <% end %>
 
 </tbody>

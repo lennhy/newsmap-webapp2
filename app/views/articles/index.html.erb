@@ -10,7 +10,7 @@
 
   <tr>
     <td><h3> All Articles </h3><br></td>
-    <td><i> Most Credited Article: <b><%= Article.most_credited_article %></i> </b> <td><br>
+    <td><i> Most Credited Article: <b><%= most_popular_article %></i> </b> <td><br>
   </tr>
   <br>
 </tbody>
@@ -26,18 +26,10 @@
 
   <% @articles.each do |article| %>
   <tr>
-
       <%= render partial: "articles", locals: {article: article} %></li>
-
   </tr>
       <% article.users.each do |user| %>
-        <ul>
-          <% if user.author? %>
-              <li>Author: <%= user.name %></li>
-          <% elsif user.reader? %>
-              <li>Creditor: <%= user.name %></li>
-          <% end %>
-        </ul>
+        <%= render partial: "authors", locals: {user: user} %>
       <% end %>
       <br>
   <% end %>
