@@ -24,7 +24,7 @@ class Article < ApplicationRecord
       end
     end
 
-    if most_credited_article!="" 
+    if most_credited_article!=""
       most_credited_article.title
     else
       " There are currently no articles to credit! "
@@ -53,7 +53,6 @@ class Article < ApplicationRecord
     # --but we only want a credit created by a reader so we remove the credit auto created by the author's article
     vote_count -1
   end
-
 
   # --callbacks are defined in the object models and called in the controller
   def is_title_case

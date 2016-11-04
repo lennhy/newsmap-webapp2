@@ -18,11 +18,9 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    # @article =  current_user.articles.build(article_params) # --alternative
     @article =  Article.new(article_params)
     if @article.save
       redirect_to  user_article_path(@article.id), notice: "You successfully created a new article!"
-
     else
       redirect_to new_article_path(current_user.id), notice: @article.errors.full_messages
     end
@@ -48,20 +46,20 @@ class ArticlesController < ApplicationController
 
   private
 
-  def set_article
-    @article = Article.find(params[:id])
-  end
-
-    def article_params
-      params.require(:article).permit(
-      :country_id,
-      :category_id,
-      :title,
-      :content,
-      :user_ids => [],
-      :source_ids=> [],
-      :sources_attributes=>[:name]
-      )
+    def set_article
+      @article = Article.find(params[:id])
     end
+
+      def article_params
+        params.require(:article).permit(
+        :country_id,
+        :category_id,
+        :title,
+        :content,
+        :user_ids => [],
+        :source_ids=> [],
+        :sources_attributes=>[:name]
+        )
+      end
 
 end
