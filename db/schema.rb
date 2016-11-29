@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101211549) do
+ActiveRecord::Schema.define(version: 20161101081411) do
 
   create_table "article_sources", force: :cascade do |t|
     t.integer "article_id"
@@ -20,10 +20,11 @@ ActiveRecord::Schema.define(version: 20161101211549) do
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
+    t.integer  "user_id"
     t.integer  "category_id"
+    t.integer  "country_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "country_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -50,6 +51,7 @@ ActiveRecord::Schema.define(version: 20161101211549) do
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
+    t.integer  "role"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "email",                  default: "", null: false
@@ -64,7 +66,6 @@ ActiveRecord::Schema.define(version: 20161101211549) do
     t.string   "last_sign_in_ip"
     t.string   "provider"
     t.string   "uid"
-    t.integer  "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["provider"], name: "index_users_on_provider"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

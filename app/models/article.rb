@@ -1,6 +1,6 @@
 class Article < ApplicationRecord
   has_many :credits
-  has_many :users,  -> { uniq },through: :credits
+  belongs_to :user
   belongs_to :category
   belongs_to :country
 
@@ -49,9 +49,10 @@ class Article < ApplicationRecord
       vote_count += credit.vote
     end
     self.save
-     # --when an article is first created author_id is generated in the credits table as a result a new credit +1 is created
-    # --but we only want a credit created by a reader so we remove the credit auto created by the author's article
-    vote_count -1
+
+    #  # --when an article is first created author_id is generated in the credits table as a result a new credit +1 is created
+    # # --but we only want a credit created by a reader so we remove the credit auto created by the author's article
+    vote_count 
   end
 
   # --callbacks are defined in the object models and called in the controller

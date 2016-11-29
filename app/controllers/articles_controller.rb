@@ -56,7 +56,7 @@ class ArticlesController < ApplicationController
         :category_id,
         :title,
         :content,
-        :user_ids => [],
+        :user_id,
         :source_ids=> [],
         :sources_attributes=>[:name]
         )

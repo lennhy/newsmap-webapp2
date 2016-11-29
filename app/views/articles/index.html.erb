@@ -14,7 +14,7 @@
     <!-- Class method helper method -->
     <td><i> Most Credited Article: <b><%= most_popular_article %></i> </b> <td><br>
   </tr><br>
-  
+
 </tbody>
 
 <!-- Define what user has access to based on user role -->
@@ -30,8 +30,10 @@
     <tr>
       <%= render partial: "articles", locals: {article: article} %></li>
     </tr>
-    <% article.users.each do |user| %>
-    <%= render partial: "authors", locals: {user: user} %>
+    <% article.user %>
+    <% article.credits.each do |credit| %>
+      Creditor: <%= credit.user.name %>
     <% end %>
+    <%= render partial: "authors", locals: {user: article.user} %>
   <br>
 <% end %>

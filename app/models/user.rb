@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :credits
-  has_many :articles, -> { uniq }, through: :credits # users who are readers
+  has_many :credits, -> { uniq }, through: :articles # users who are readers
+  has_many :articles
 
   devise :database_authenticatable, :registerable,  :validatable # to enable devise authentication
   devise :omniauthable, :omniauth_providers => [:facebook] # to enable omniauth
