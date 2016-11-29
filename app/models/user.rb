@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :credits, -> { uniq }, through: :articles # users who are readers
+  has_many :credits
   has_many :articles
 
   devise :database_authenticatable, :registerable,  :validatable # to enable devise authentication
@@ -16,7 +16,7 @@ class User < ApplicationRecord
   end
 
   def total_reader_credits
-    credits.count
+    self.credits.count
   end
 
   # -- create user model when signin with facebook
