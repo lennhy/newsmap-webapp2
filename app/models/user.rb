@@ -18,6 +18,7 @@ class User < ApplicationRecord
   def total_reader_credits
     self.credits.count
   end
+  # -- Note: credit and associated reader / creditor remains persisted after author edits post
 
   # -- create user model when signin with facebook
   def self.from_omniauth(auth)
