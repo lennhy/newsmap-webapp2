@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
   root 'articles#index'
-
-  get '/articles/:id/body', to: 'articles#body'
+  # get '/articles/:id/article_data', to: 'articles#body'
 
   get '/articles', to: 'articles#index'
 
   # --user's articles
+  # json format http://localhost:3000/users/1/articles/2.json
   get 'users/:id/articles' => 'articles#index'
 
   # --user can make a new article
@@ -35,4 +35,6 @@ Rails.application.routes.draw do
     resources :credits, only: [:index, :create]
 
   patch '/articles' => 'users#roles'
+  resources :articles, only: [:show]
+
 end

@@ -4,10 +4,19 @@ class ArticlesController < ApplicationController
   def index
     if params[:id]
       @articles = User.find(params[:id]).articles
+      # respond_to do |format|
+      #   format.html { render :index }
+      #   format.json { render json: @articles}
+      # end
     else
       @articles = Article.all
+      # respond_to do |format|
+      #   format.html { render :index }
+      #   format.json { render json: @articles}
+      # end
     end
   end
+
 
   def new
     @article = Article.new
@@ -15,6 +24,11 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    @article = Article.find(params[:id])
+     respond_to do |format|
+       format.html { render :show }
+       format.json { render json: @article}
+     end
   end
 
   def create
@@ -27,10 +41,10 @@ class ArticlesController < ApplicationController
   end
 
   # via ajax request
-  def body
-    article = Article.find(params[:id])
-    render plain: article.content
-  end
+  # def body
+  #   article = Article.find(params[:id])
+  #   render plain: article.content
+  # end
 
   def edit
     @sources = @article.sources.build

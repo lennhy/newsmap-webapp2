@@ -8,21 +8,23 @@ $(function() {
 
 // ajax request to show article content on index page
 function showArticle(id){
-  $.get("/articles/" + id + "/body", function(data){
-    toggleArticle(id, data);
-  }).done(function(data){
+  $.get("/articles/" + id + ".json", function(data){
+    let content = data["content"];
+    console.log(content);
+    toggleArticle(id, content);
+  }).done(function(content){
     console.log("request completed");
   }).fail(function(jqXHR, textStatus, errorThrown){
-    alert(errorThrown);
+    console.log(errorThrown);
   });
 }
 
-function toggleArticle(id, data){
+function toggleArticle(id, content){
   let addText = $("#body-" + id);
   let button = $(".js-read-more");
   // first make sure the data obj from the ajax reuest is received
   // if text is not visible then show it on click
-  addText.text(data);
+  addText.text(content);
   // then check if the body of the text is not visible
   if(button.html() === "Read More"){
     addText.show();
