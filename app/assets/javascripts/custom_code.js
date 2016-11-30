@@ -1,10 +1,15 @@
 //--- Shorthand for $( document ).ready()
 $(function() {
+  getAllArticles();
+  loadArticleOnClick()
+});
+
+function loadArticleOnClick(){
   $(".js-read-more").on('click', function() {
     let id = $(this).data("id");
      showArticle(id);
    });
-});
+ }
 
 //-- Ajax request to show article content on index page
 function showArticle(id){
@@ -39,11 +44,18 @@ function toggleArticle(id, content){
   }
 }
 
+// -- Ajax request for loadinf all article titles, creditors, authors etc on index page
 function getAllArticles() {
   $.get("/articles.json", function(data){
     let title = data[0]["title"];
-    console.log(data);
+    let author = data[0]["user"]["name"];
     let articleDetails = $("#article-details");
+    var creditor = function(){
+      $.each(data[0]["credits"],  function(i, credit){
+        $("#user-type").append("<li>" + "Creditors:" + credit["user"]["name"] + "</li>");
+      });
+    }
+    $("#user-type").append("<li>" + author + "</li>");
     articleDetails.append("<h4>" + title + "</h4>");
 
   })
@@ -54,8 +66,3 @@ function getAllArticles() {
     console.log(errorThrown);
   });
 }
-getAllArticles();
-  // console.log(article_details);
-  //-- first make sure the data obj from the ajax reuest is received
-  //-- if text is not visible then show it on click
-  // article_details.append("<li>" + title + "</li>")
