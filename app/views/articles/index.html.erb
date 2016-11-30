@@ -1,21 +1,17 @@
-<tbody>
+
   <!-- Greeting  -->
   <% if !current_user.nil? %>
     <i><p>Welcome <%= current_user.name %></p></i>
   <% end %>
 
   <!-- Radio buttons option to change role-->
-  <tr>
     <%= render 'roles' %>
-  </tr>
-
-  <tr>
-    <td><h3> All Articles </h3><br></td>
+<div id = "most_popular_article">
+  <h3> All Articles </h3><br>
     <!-- Class method helper method -->
-    <td><i> Most Credited Article: <b><%= most_popular_article %></i> </b> <td><br>
-  </tr><br>
-
-</tbody>
+  <i> Most Credited Article: <b><%= most_popular_article %></i> </b><br>
+    <br>
+</div>
 
 <!-- Define what user has access to based on user role -->
 <% if current_user && current_user.author? %>
@@ -27,12 +23,14 @@
 <% end %>
 
 <% @articles.each do |article| %>
-    <tr>
+    <div id = "articles-table">
       <%= render partial: "articles", locals: {article: article} %></li>
-    </tr>
+    </div>
     <% article.user %>
     <% article.credits.each do |credit| %>
-      Creditor: <%= credit.user.name %>
+    <ul>
+      <li>Creditor: <%= credit.user.name %></li>
+    </ul>
     <% end %>
     <%= render partial: "authors", locals: {user: article.user} %>
   <br>
