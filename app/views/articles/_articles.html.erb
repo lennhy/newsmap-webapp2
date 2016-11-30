@@ -1,6 +1,8 @@
 <ol>
   <li>
     <td><%= link_to article.title, user_article_path(current_user.id, article.id) %></td>
-    <td><%= pluralize(article.total_credits, "credit") -%></td>
+    <td><%= pluralize(article.total_credits, "credit") %></td>
+    <button class="js-read-more" data-id = "<%= article.id %>">Read More</button>
+    <div id="body-<%= article.id %>"></div>
   </li>
 </ol>

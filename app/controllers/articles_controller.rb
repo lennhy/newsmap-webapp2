@@ -26,6 +26,12 @@ class ArticlesController < ApplicationController
     end
   end
 
+  # via ajax request
+  def body
+    article = Article.find(params[:id])
+    render plain: article.content
+  end
+
   def edit
     @sources = @article.sources.build
   end

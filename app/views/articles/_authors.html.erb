@@ -2,6 +2,6 @@
   <% if user.author? %>
       <li>Author: <%= user.name %></li>
   <% elsif user.reader? %>
-      <li>Creditor: <%= user.name %></li>
+      <li>Creditor: <%= credit.user.name  %></li>
   <% end %>
 </ul>

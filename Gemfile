@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# creates a serailizer to serialize your object into JSON
+gem 'active_model_serializers'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
@@ -35,7 +37,7 @@ gem 'devise'
 # authenticate with facebook login
 gem 'omniauth'
 gem 'omniauth-facebook'
-
+gem 'jquery-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
