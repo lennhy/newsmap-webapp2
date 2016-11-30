@@ -4,8 +4,16 @@ class ArticlesController < ApplicationController
   def index
     if params[:id]
       @articles = User.find(params[:id]).articles
+      respond_to do |format|
+        format.html { render :index }
+        format.json { render json: @articles}
+      end
     else
       @articles = Article.all
+      respond_to do |format|
+        format.html { render :index }
+        format.json { render json: @articles}
+      end
     end
   end
 
@@ -31,7 +39,7 @@ class ArticlesController < ApplicationController
       redirect_to new_article_path(current_user.id), notice: @article.errors.full_messages
     end
   end
-  
+
   def edit
     @sources = @article.sources.build
   end

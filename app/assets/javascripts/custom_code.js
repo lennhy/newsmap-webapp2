@@ -39,12 +39,22 @@ function toggleArticle(id, content){
   }
 }
 
-// function getAllArticles() {
-//   $.get("/articles.json", function(data){
-//
-//   }
-// }
-  // let title = data["title"];
+function getAllArticles() {
+  $.get("/articles.json", function(data){
+    let title = data[0]["title"];
+    console.log(title);
+    let articleDetails = $("#article-details");
+    articleDetails.append("<h4>" + title + "</h4>");
+
+  })
+  .done(function(content){
+    console.log("request completed");
+  })
+  .fail(function(jqXHR, textStatus, errorThrown){
+    console.log(errorThrown);
+  });
+}
+getAllArticles();
   // console.log(article_details);
   //-- first make sure the data obj from the ajax reuest is received
   //-- if text is not visible then show it on click
