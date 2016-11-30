@@ -42,7 +42,7 @@ function toggleArticle(id, content){
 function getAllArticles() {
   $.get("/articles.json", function(data){
     let title = data[0]["title"];
-    console.log(title);
+    console.log(data);
     let articleDetails = $("#article-details");
     articleDetails.append("<h4>" + title + "</h4>");
 

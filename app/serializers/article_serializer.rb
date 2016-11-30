@@ -1,5 +1,7 @@
 class ArticleSerializer < ActiveModel::Serializer
   attributes :id, :title, :content
+  has_one :user
+  has_many :credits
 end
 
 # Serialization is the process
