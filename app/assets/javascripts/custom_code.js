@@ -69,6 +69,7 @@ function loadAllCurrentlUserArticles(id) {
     });
   }
 
+//  ----------------TOGGLE CURRENT USER ARTICLES
 
 function toggleAllCurrentUserArticles(userObj){
   let button = $("#articlesLink");
@@ -101,14 +102,15 @@ function toggleAllCurrentUserArticles(userObj){
     }
 }
 
-// '<a href="/users/3/articles/3">article["title"]</a>'
-// ============================= FORM =============================
-// $(function () {
-// function submitForm(){
-//    $('form#new_article').submit(function(event) {
-//      //prevent form from submitting the default way
-//      event.preventDefault();
-//      alert("we r hack3rz");
-//    });
-//  }
-//  // });
+
+// -------------- FORM FOR ADDING A CREDIT TO ARTICLE
+
+$(function () {
+function submitForm(){
+   $('form#new_credit').submit(function(event) {
+     //prevent form from submitting the default way
+     event.preventDefault();
+     alert("we r hack3rz");
+   });
+ }
+ });
