@@ -1,6 +1,7 @@
 //---------------- DOCUMENT READY
 
 $(function() {
+  submitForm();
   loadArticleOnClick();
   loadAllArticlesOnClick();
 });
@@ -105,12 +106,13 @@ function toggleAllCurrentUserArticles(userObj){
 
 // -------------- FORM FOR ADDING A CREDIT TO ARTICLE
 
-$(function () {
 function submitForm(){
    $('form#new_credit').submit(function(event) {
      //prevent form from submitting the default way
      event.preventDefault();
-     alert("we r hack3rz");
-   });
- }
- });
+     var values = $(this).serialize();
+     var crediting = $.post('/credits', values);
+     crediting.done(function(data) {
+  });
+});
+}

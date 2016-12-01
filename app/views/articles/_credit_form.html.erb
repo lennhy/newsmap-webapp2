@@ -1,6 +1,6 @@
 <% if current_user.reader? %>
 
-  <%= form_for @article.credits.build do |f| %>
+  <%= form_for article.credits.build do |f| %>
 
     <%= f.label :vote %>
     <input type="hidden"= name="credit[vote]" value=1 checked="checked" />

@@ -28,7 +28,3 @@
     <p><%= button_to "Delete", destroy_article_url %>
     <p><%= link_to "Edit", edit_article_url(@article) %>
   <% end %>
-
-<% if !current_user.nil? && current_user.reader? %>
- <%= render "credit_form" %>
-<% end %>
