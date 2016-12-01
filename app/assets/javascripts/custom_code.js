@@ -49,23 +49,41 @@ function toggleArticle(id, content){
 function getAllArticles(id) {
   $("#articlesLink").on('click', function() {
     let id = $(this).data("id");
-    $.get("/users/" + id + ".json", function(articles){
-      console.log(articles);
-      $.each(articles, function(i, article){
-        // console.log(article["title"]);
-        $(".index-container").html("<ul><li>" +  "<a href='/users/3/articles/3'>" + article["title"] + "</a>" + " Credits : " + " " + article.total_credits + "</li></ul>");
+    $.get("/users/" + id + ".json", function(userObj){
+      // console.log(articles);
+      // $(".index-container ").append("<a href='/users/3/articles/3'>" + articles);
+      var articles = userObj.articles;
+      var credits = articles.map(function(e) {
+        return e.credits
+      });
 
-          $.each(article.credits, function(i, credit){
-            $(".index-container").html("<ul><li>" + "Creditors: " + credit["user"]["name"] + "</li></ul>");
-        });
+      console.log(userObj);
+      console.log( articles);
+      console.log(credits);
+      $.each(articles, function(i, article){
+        console.log(i);
+        $(".index-container ").append("<a href='/users/3/articles/3'>" + article["title"]);
+
+      //   let userArticles = article.id
+          // for (object in article) {
+          //   console.log(article[object]);
+          //   $(".index-container ").append(article[object]);
+          //
+          //     // $(".index-container ").append("<a href='/users/3/articles/3'>" + article[property]["title"] + "</a>" + " Credits : " + " " + article[property].total_credits );
+          //     // // console.log(article[property]["credits"]);
+          //     //   $(".index-container").append("<ul><li>" + "Creditors: " + article[property]["credits"] + "</li></ul>");
+          //   }
+
+        //   $.each(article, function(i, article){
+        // });
       });
 
   })
     .done(function(content){
-      console.log("request completed");
+      // console.log("request completed");
     })
     .fail(function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
+      // console.log(errorThrown);
     });
   });
 }

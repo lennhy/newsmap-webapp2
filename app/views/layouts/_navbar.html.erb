@@ -1,7 +1,9 @@
 <div id = "navigator">
   <ul>
     <li><h2>NewsMap</h2></li>
-    <li><button id="articlesLink" data-id="<%= current_user.id %>">Load Your Articles</button></li>
-    <td> <%= link_to "Articles", articles_path if signed_in?%></td>
+    <% if current_user %>
+      <li><button id="articlesLink" data-id="<%= current_user.id %>">Load Your Articles</button></li>
+      <td> <%= link_to "Articles", articles_path if signed_in?%></td>
+    <% end %>
   </ul>
 </div>
