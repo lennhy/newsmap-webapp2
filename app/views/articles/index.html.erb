@@ -25,30 +25,32 @@
 <% end %>
 
 <% @articles.each_with_index do |article, i| %>
-<% if !current_user.nil? && current_user.reader? %>
-<!-- <% if current_user.reader? %> -->
 
-<%= render partial: "credit_form", locals:{article: article} %>
-
-<!-- <% end %> -->
-
-<% end %>
     <div id = "articles-table">
       <%= render partial: "articles", locals: {article: article} %></li>
     </div>
+    <% if !current_user.nil? && current_user.reader? %>
+    <!-- <% if current_user.reader? %> -->
 
+    <%= render partial: "credit_form", locals:{article: article} %>
+
+    <!-- <% end %> -->
+
+    <% end %>
     <% article.user %>
 
 
       <% article.credits.each do |credit| %>
-      <% if credit.user %>
-        <ul>
-          <li>Creditor: <%= credit.user.name %></li>
-        </ul>
-      <%  end %>
+
+        <% if credit.user %>
+          <ul>
+            <li>Creditor: <%= credit.user.name %></li>
+          </ul>
+        <%  end %>
+
       <% end %>
 
         <%= render partial: "authors", locals: {user: article.user} %>
 
-  <br>
+        <br>
 <% end %>

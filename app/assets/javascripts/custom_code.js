@@ -109,10 +109,12 @@ function toggleAllCurrentUserArticles(userObj){
 function submitForm(){
    $('form#new_credit').submit(function(event) {
      //prevent form from submitting the default way
-     event.preventDefault();
+    //  event.preventDefault();
      var values = $(this).serialize();
      var crediting = $.post('/credits', values);
+
      crediting.done(function(data) {
+       console.log(data);
   });
 });
 }
