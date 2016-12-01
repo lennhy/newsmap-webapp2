@@ -20,10 +20,10 @@ function showArticle(id){
   })
 
   .done(function(content){
-    console.log("request completed");
+    // console.log("request completed");
   })
   .fail(function(jqXHR, textStatus, errorThrown){
-    console.log(errorThrown);
+    // console.log(errorThrown);
   });
 }
 
@@ -48,21 +48,22 @@ function toggleArticle(id, content){
 // -- Ajax request for loadinf all article titles, creditors, authors etc on index page
 function getAllArticles(id) {
   $("#articlesLink").on('click', function() {
-    let id = $(this).data("id");
+    var id = $(this).data("id");
     $.get("/users/" + id + ".json", function(userObj){
-      // console.log(articles);
-      // $(".index-container ").append("<a href='/users/3/articles/3'>" + articles);
-      var articles = userObj.articles;
-      var credits = articles.map(function(e) {
-        return e.credits
-      });
 
-      console.log(userObj);
-      console.log( articles);
-      console.log(credits);
+      var articles = userObj.articles;
+      var credits = articles.map(function(articelObj) {
+        // console.log(e.credits);
+        return articelObj.credits
+      });
       $.each(articles, function(i, article){
-        console.log(i);
-        $(".index-container ").append("<a href='/users/3/articles/3'>" + article["title"]);
+        // console.log(i, article);
+        // credits.map(function(credit){
+        //   return credit.user.name;
+        // });
+        $(".index-container ").prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "</p>" + "<p>" + article["content"] + "</p>");
+
+            // // console.log(article[property]["credits"]);
 
       //   let userArticles = article.id
           // for (object in article) {
