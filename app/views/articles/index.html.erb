@@ -1,4 +1,4 @@
-<div class = "index-container">
+<div class = "index-container"></div>
   <!-- Greeting  -->
   <% if !current_user.nil? %>
     <i><p>Welcome <%= current_user.name %></p></i>
@@ -35,4 +35,3 @@
     <%= render partial: "authors", locals: {user: article.user} %>
   <br>
 <% end %>
-</div>

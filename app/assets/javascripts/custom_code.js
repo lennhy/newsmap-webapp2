@@ -1,21 +1,30 @@
-//--- Shorthand for $( document ).ready()
+//---------------- DOCUMENT READY
+
 $(function() {
-  getAllArticles();
   loadArticleOnClick();
+  loadAllArticlesOnClick();
 });
 
 function loadArticleOnClick(){
   $(".js-read-more").on('click', function() {
     let id = $(this).data("id");
-     showArticle(id);
+     loadArticle(id);
    });
  }
 
-// Request to show article content on index page
-function showArticle(id){
+function loadAllArticlesOnClick() {
+  $("#articlesLink").on('click', function() {
+    let id = $(this).data("id");
+    loadAllCurrentlUserArticles(id);
+  });
+}
+
+//  ----------------LOAD ARTICLE VIA GET REQUEST
+
+function loadArticle(id){
   $.get("/articles/" + id + ".json", function(articles){
     let content = articles["content"];
-    toggleArticle(id, content);
+    toggleArticleBody(id, content);
   })
   .done(function(content){
     // console.log("request completed");
@@ -25,8 +34,9 @@ function showArticle(id){
   });
 }
 
-// toggle article in index page
-function toggleArticle(id, content){
+//  ----------------TOGGLE ARTICLE
+
+function toggleArticleBody(id, content){
   let addText = $("#body-" + id);
   let button = $(".js-read-more");
   let article_details = $("#article-details");
@@ -44,22 +54,25 @@ function toggleArticle(id, content){
   }
 }
 
-// Ajax request for loading all article titles, creditors, authors etc on index page
-function getAllArticles(id) {
-  $("#articlesLink").on('click', function() {
-    let id = $(this).data("id");
+//  ----------------LOAD ALL CURRENT USER ARTICLES VIA GET REQUEST
 
-    })
+function loadAllCurrentlUserArticles(id) {
+  $.get("/users/" + id + ".json", function(userObj){
+
+    toggleAllCurrentUserArticles(userObj);
+  })
     .done(function(content){
       console.log("request completed");
     })
     .fail(function(jqXHR, textStatus, errorThrown){
       console.log(errorThrown);
     });
-  });
-}
-function toggleUserArticles(id, content){
-  $.get("/users/" + id + ".json", function(userObj){
+  }
+
+
+function toggleAllCurrentUserArticles(userObj){
+  let button = $("#articlesLink");
+  let container =  $(".index-container ");
     //  save each part of the user Object that you want to spit out on the DOM
     let articles = userObj.articles;
 
@@ -70,21 +83,24 @@ function toggleUserArticles(id, content){
         return "There are no creditors for this article";
       }
     });
+
     // spit out the save variables in the
     $.each(articles, function(i, article){
-      $(".index-container ").prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
+    container.prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
     });
+
     // toggle action
-    if(button.html() === "Read More"){
-      addText.show();
-      button.html("Read Less");
+    if(button.html() === "See Your Articles"){
+      container.show();
+      button.html("Hide Your Articles");
     }
     // if text is visible then hide it on click
     else{
-      addText.hide();
-      $(".js-read-more").html("Read More");
+      container.hide();
+      $(".js-read-more").html("See Your Articles");
     }
 }
+
 // '<a href="/users/3/articles/3">article["title"]</a>'
 // ============================= FORM =============================
 // $(function () {
