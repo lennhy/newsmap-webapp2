@@ -1,4 +1,4 @@
-
+<div class = "index-container">
   <!-- Greeting  -->
   <% if !current_user.nil? %>
     <i><p>Welcome <%= current_user.name %></p></i>
@@ -22,7 +22,7 @@
     <p> Choose from any category to read <p>
 <% end %>
 
-<% @articles.each do |article| %>
+<% @articles.each_with_index do |article, i| %>
     <div id = "articles-table">
       <%= render partial: "articles", locals: {article: article} %></li>
     </div>
@@ -35,3 +35,4 @@
     <%= render partial: "authors", locals: {user: article.user} %>
   <br>
 <% end %>
+</div>

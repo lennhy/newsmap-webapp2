@@ -1,4 +1,8 @@
-<div id= "user-type">
-  <ul>
-  </ul>
-</div>
+
+<ul>
+  <% if user.author? %>
+      <li>Author: <%= user.name %></li>
+  <% elsif user.reader? %>
+      <li>Creditor: <%= credit.user.name  %></li>
+  <% end %>
+</ul>

@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # json format http://localhost:3000/users/1/articles/2.json
   get 'users/:id/articles' => 'articles#index'
 
+  get '/users/:id', to: 'users#show'
+
   # --user can make a new article
   get 'users/:id/articles/new' => 'articles#new', as: 'new_article'
 

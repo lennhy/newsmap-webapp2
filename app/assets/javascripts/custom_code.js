@@ -11,10 +11,11 @@ function loadArticleOnClick(){
    });
  }
 
+
 //-- Ajax request to show article content on index page
 function showArticle(id){
-  $.get("/articles/" + id + ".json", function(data){
-    let content = data["content"];
+  $.get("/articles/" + id + ".json", function(articles){
+    let content = articles["content"];
     toggleArticle(id, content);
   })
 
@@ -31,7 +32,7 @@ function toggleArticle(id, content){
   let button = $(".js-read-more");
   let article_details = $("#article-details");
 
-  addText.append("<p>" + content + "</p>");
+  addText.html("<p>" + content + "</p>");
   //-- then check if the body of the text is not visible
   if(button.html() === "Read More"){
     addText.show();
@@ -45,24 +46,38 @@ function toggleArticle(id, content){
 }
 
 // -- Ajax request for loadinf all article titles, creditors, authors etc on index page
-function getAllArticles() {
-  $.get("/articles.json", function(data){
-    let title = data[0]["title"];
-    let author = data[0]["user"]["name"];
-    let articleDetails = $("#article-details");
-    var creditor = function(){
-      $.each(data[0]["credits"],  function(i, credit){
-        $("#user-type").append("<li>" + "Creditors:" + credit["user"]["name"] + "</li>");
+function getAllArticles(id) {
+  $("#articlesLink").on('click', function() {
+    let id = $(this).data("id");
+    $.get("/users/" + id + ".json", function(articles){
+      console.log(articles);
+      $.each(articles, function(i, article){
+        // console.log(article["title"]);
+        $(".index-container").html("<ul><li>" +  "<a href='/users/3/articles/3'>" + article["title"] + "</a>" + " Credits : " + " " + article.total_credits + "</li></ul>");
+
+          $.each(article.credits, function(i, credit){
+            $(".index-container").html("<ul><li>" + "Creditors: " + credit["user"]["name"] + "</li></ul>");
+        });
       });
-    }
-    $("#user-type").append("<li>" + author + "</li>");
-    articleDetails.append("<h4>" + title + "</h4>");
 
   })
-  .done(function(content){
-    console.log("request completed");
-  })
-  .fail(function(jqXHR, textStatus, errorThrown){
-    console.log(errorThrown);
+    .done(function(content){
+      console.log("request completed");
+    })
+    .fail(function(jqXHR, textStatus, errorThrown){
+      console.log(errorThrown);
+    });
   });
 }
+
+// '<a href="/users/3/articles/3">article["title"]</a>'
+// ============================= FORM =============================
+// $(function () {
+// function submitForm(){
+//    $('form#new_article').submit(function(event) {
+//      //prevent form from submitting the default way
+//      event.preventDefault();
+//      alert("we r hack3rz");
+//    });
+//  }
+//  // });

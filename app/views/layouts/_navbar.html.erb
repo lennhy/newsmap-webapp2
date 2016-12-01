@@ -1,7 +1,7 @@
-<tbody>
-  <tr>
-    <td><h2>NewsMap</h2></td>
+<div id = "navigator">
+  <ul>
+    <li><h2>NewsMap</h2></li>
+    <li><button id="articlesLink" data-id="<%= current_user.id %>">Load Your Articles</button></li>
     <td> <%= link_to "Articles", articles_path if signed_in?%></td>
-    <td><%= link_to "Profile", user_path(current_user) if !current_user.nil? %></td>
-  </tr>
-</tbody>
+  </ul>
+</div>

@@ -1,5 +1,5 @@
 class ArticleSerializer < ActiveModel::Serializer
-  attributes :id, :title, :content
+  attributes :id, :title, :content, :total_credits
   has_one :user
   has_many :credits
 end
