@@ -50,43 +50,27 @@ function getAllArticles(id) {
   $("#articlesLink").on('click', function() {
     var id = $(this).data("id");
     $.get("/users/" + id + ".json", function(userObj){
-
+      //  save each part of the user Object that you want to spit out on the DOM
       var articles = userObj.articles;
-      var credits = articles.map(function(articelObj) {
-        // console.log(e.credits);
-        return articelObj.credits
+      var credits = articles.map(function(articleObj) {
+        if(articleObj.credits.length !== 0){
+           return articleObj.credits
+        }else{
+          return "There are no creditors for this article";
+        }
       });
+      // spit out the save variables in the DOM
       $.each(articles, function(i, article){
-        // console.log(i, article);
-        // credits.map(function(credit){
-        //   return credit.user.name;
-        // });
-        $(".index-container ").prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "</p>" + "<p>" + article["content"] + "</p>");
-
-            // // console.log(article[property]["credits"]);
-
-      //   let userArticles = article.id
-          // for (object in article) {
-          //   console.log(article[object]);
-          //   $(".index-container ").append(article[object]);
-          //
-          //     // $(".index-container ").append("<a href='/users/3/articles/3'>" + article[property]["title"] + "</a>" + " Credits : " + " " + article[property].total_credits );
-          //     // // console.log(article[property]["credits"]);
-          //     //   $(".index-container").append("<ul><li>" + "Creditors: " + article[property]["credits"] + "</li></ul>");
-          //   }
-
-        //   $.each(article, function(i, article){
-        // });
+        $(".index-container ").prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "</p>" );
       });
-
   })
-    .done(function(content){
-      // console.log("request completed");
-    })
-    .fail(function(jqXHR, textStatus, errorThrown){
-      // console.log(errorThrown);
-    });
+  .done(function(content){
+    console.log("request completed");
+  })
+  .fail(function(jqXHR, textStatus, errorThrown){
+    console.log(errorThrown);
   });
+});
 }
 
 // '<a href="/users/3/articles/3">article["title"]</a>'
