@@ -13,22 +13,25 @@
   <%if current_user.reader?%>
 
     <h4>Articles credited</h4>
-      <p><%= pluralize(current_user.total_reader_credits,"credit made")%> </p>
-      <h3>Articles Credited:</h3>
-      <ol>
-        <% current_user.credits.each do |credit| %>
-          <li><%= link_to credit.article.title, user_article_path(current_user.id, credit.article.id) %></li>
-        <% end %>
-      </ol>
+    <p><%= pluralize(current_user.total_reader_credits,"credit made")%> </p>
+    <h3>Articles Credited:</h3>
+    <ol>
+      <% current_user.credits.each do |credit| %>
+        <li><%= link_to credit.article.title, user_article_path(current_user.id, credit.article.id) %></li>
     </ol>
 
+  <% end %>
+
+
   <% elsif current_user.author? %>
+
     <h4>Articles published</h4>
     <% current_user.articles.each do |article| %>
     <tr>
       <%= render partial: "articles/articles", locals: {article: article} %>
     <% end %>
     </tr>
+
   <% end %>
 
 </tbody>
