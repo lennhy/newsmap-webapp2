@@ -1,6 +1,7 @@
 //---------------- DOCUMENT READY
 
 $(function() {
+  console.log("your javascript files are responding");
   submitForm();
   loadArticleOnClick();
   loadAllArticlesOnClick();

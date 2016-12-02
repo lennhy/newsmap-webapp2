@@ -18,5 +18,5 @@ class CreditsController < ApplicationController
       :article_id,
       :user_id
       )
-    end
+    end 
 end
