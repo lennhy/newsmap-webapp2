@@ -1,4 +1,4 @@
-//---------------- DOCUMENT READY
+//------------------------------------ DOCUMENT READY
 
 $(function() {
   console.log("your javascript files are responding");
@@ -22,12 +22,15 @@ function loadAllArticlesOnClick() {
   });
 }
 
-//  ----------------LOAD ARTICLE VIA GET REQUEST
+//  ---------------------------------LOAD ARTICLE VIA GET REQUEST
 
 function loadArticle(id){
   $.get("/articles/" + id + ".json", function(articles){
     let content = articles["content"];
-    toggleArticleBody(id, content);
+
+    // execution of constructor function
+    var userArticles = new ToggleArticleBody(id, content);
+    userArticles.renderArticleBody();
   })
   .done(function(content){
     // console.log("request completed");
@@ -37,43 +40,27 @@ function loadArticle(id){
   });
 }
 
-//  ----------------TOGGLE ARTICLE
+//  ---------------------------------- CONSTRUCTOR FUNCTIONS
 
-function toggleArticleBody(id, content){
-  let addText = $("#body-" + id);
-  let button = $(".js-read-more");
-  let article_details = $("#article-details");
-  addText.html("<p>" + content + "</p>");
-
-  // toggle action
-  if(button.html() === "Read More"){
-    addText.show();
-    button.html("Read Less");
-  }
-  // if text is visible then hide it on click
-  else{
-    addText.hide();
-    $(".js-read-more").html("Read More");
-  }
+//  Constructor for toggling body of individual article on index page
+function ToggleArticleBody(id, content){
+  this.id = id;
+  this.content = content;
 }
 
-//  ----------------LOAD ALL CURRENT USER ARTICLES VIA GET REQUEST
+// Use of prototype from ToggleArticleBody constructor
+ToggleArticleBody.prototype.renderArticleBody = function(){
+  let addText = $("#body-" + this.id);
+  let button = $(".js-read-more");
+  let article_details = $("#article-details");
+  addText.html("<p>" + this.content + "</p>");
 
-function loadAllCurrentlUserArticles(id) {
-  $.get("/users/" + id + ".json", function(userObj){
+  // call on other constructor for toggle action
+  var toggleUserArticles = new Togglefunction(button, addText, "Read More", "Read Less" );
+  toggleUserArticles.makeToggle();
+}
 
-    toggleAllCurrentUserArticles(userObj);
-  })
-    .done(function(content){
-      console.log("request completed");
-    })
-    .fail(function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
-    });
-  }
-
-//  ----------------TOGGLE CURRENT USER ARTICLES
-
+// Constructor function for toggle functionality
 function Togglefunction(button, element, stringOne, stringTwo){
   this.button = button;
   this.element = element;
@@ -91,20 +78,23 @@ function Togglefunction(button, element, stringOne, stringTwo){
     }
   }
 }
-// toggle action
-// if(button.html() === "See Your Articles"){
-//   container.show();
-//   button.html("Hide Your Articles");
-// }
-// // if text is visible then hide it on click
-// else{
-//   container.hide();
-//   $(".js-read-more").html("See Your Articles");
-// }
 
-// toggleUserArticles = new Togglefunction($("#articlesLink"), $(".index-container "));
-// toggleUserArticles.Togglefunction();
+//  ---------------------------------------LOAD ALL CURRENT USER ARTICLES VIA GET REQUEST
 
+function loadAllCurrentlUserArticles(id) {
+  $.get("/users/" + id + ".json", function(userObj){
+
+    toggleAllCurrentUserArticles(userObj);
+  })
+    .done(function(content){
+      console.log("request completed");
+    })
+    .fail(function(jqXHR, textStatus, errorThrown){
+      console.log(errorThrown);
+    });
+  }
+
+//  -------------------------------------------TOGGLE CURRENT USER ARTICLES
 
 
 function toggleAllCurrentUserArticles(userObj){
@@ -156,3 +146,4 @@ function submitForm(){
   });
 });
 }
+// toggleArticleBody and toggleAllCurrentUserArticles will be my constructor functions
