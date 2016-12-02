@@ -14,6 +14,7 @@ function loadArticleOnClick(){
    });
  }
 
+
 function loadAllArticlesOnClick() {
   $("#articlesLink").on('click', function() {
     let id = $(this).data("id");
@@ -73,6 +74,39 @@ function loadAllCurrentlUserArticles(id) {
 
 //  ----------------TOGGLE CURRENT USER ARTICLES
 
+function Togglefunction(button, element, stringOne, stringTwo){
+  this.button = button;
+  this.element = element;
+  this.stringOne = stringOne;
+  this.stringTwo = stringTwo;
+
+  this.makeToggle = function() {
+    if(button.html() === stringOne){
+      element.show();
+      button.html(stringTwo);
+    }
+    else{
+      element.hide();
+      button.html(stringOne);
+    }
+  }
+}
+// toggle action
+// if(button.html() === "See Your Articles"){
+//   container.show();
+//   button.html("Hide Your Articles");
+// }
+// // if text is visible then hide it on click
+// else{
+//   container.hide();
+//   $(".js-read-more").html("See Your Articles");
+// }
+
+// toggleUserArticles = new Togglefunction($("#articlesLink"), $(".index-container "));
+// toggleUserArticles.Togglefunction();
+
+
+
 function toggleAllCurrentUserArticles(userObj){
   let button = $("#articlesLink");
   let container =  $(".index-container ");
@@ -92,16 +126,19 @@ function toggleAllCurrentUserArticles(userObj){
     container.prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
     });
 
+    let toggleUserArticles = new Togglefunction(button, container, "See Your Articles", "Hide Your Articles" );
+    toggleUserArticles.makeToggle();
+
     // toggle action
-    if(button.html() === "See Your Articles"){
-      container.show();
-      button.html("Hide Your Articles");
-    }
-    // if text is visible then hide it on click
-    else{
-      container.hide();
-      $(".js-read-more").html("See Your Articles");
-    }
+    // if(button.html() === "See Your Articles"){
+    //   container.show();
+    //   button.html("Hide Your Articles");
+    // }
+    // // if text is visible then hide it on click
+    // else{
+    //   container.hide();
+    //   $(".js-read-more").html("See Your Articles");
+    // }
 }
 
 
