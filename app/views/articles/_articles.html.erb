@@ -4,5 +4,5 @@
 
     <li><%= pluralize(article.total_credits, "credit") %></li>  </ul>
 </div>
-<button class="js-read-more" data-id = "<%= article.id %>">Read More</button>
+<button class="js-read-more" id ="<%= article.id %>" data-id = "<%= article.id %>">Read More</button>
 <div id="body-<%= article.id %>"></div>

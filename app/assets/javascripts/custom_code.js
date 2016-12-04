@@ -142,7 +142,7 @@ function ToggleArticleBody(id, content){
 // Prototype
 ToggleArticleBody.prototype.renderArticleBody = function(){
   let addText = $("#body-" + this.id);
-  let button = $(".js-read-more");
+  let button = $("button#"+this.id);
   let article_details = $("#article-details");
   addText.html("<p>" + this.content + "</p>");
 
