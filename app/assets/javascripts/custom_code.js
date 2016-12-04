@@ -123,8 +123,16 @@ function ToggleAllCurrentUserArticles(userObj){
 ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
   let button = $("#articlesLink");
   let container =  $(".index-container ");
+  // var credits;
   $.each(this.articles, function(i, article){
     container.prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
+
+        // credits = article.credits;
+        // for(prop in credits){
+        //   console.log(credits[prop].user)
+        // }
+
+
   });
   // Call other constructor for toggle action
   var toggleUserArticles = new Togglefunction(button, container, "See Your Articles", "Hide Your Articles" );
