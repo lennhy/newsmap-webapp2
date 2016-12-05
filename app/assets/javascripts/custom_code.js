@@ -1,10 +1,13 @@
-
+var userObjGlobalVar;
 
 //------------------------------------ DOCUMENT READY
 
 $(function() {
+  var userId = $("#articlesLink").attr("data-id");
+  console.log(userId);
   console.log("your javascript files are responding");
   submitForm();
+  loadAllCurrentlUserArticles(userId);
   loadArticleOnClick();
   loadAllArticlesOnClick();
 });
@@ -19,8 +22,12 @@ function loadArticleOnClick(){
 
 function loadAllArticlesOnClick() {
   $("#articlesLink").on('click', function() {
-    let id = $(this).data("id");
-    loadAllCurrentlUserArticles(id);
+    // define new instance of constructor
+      let id = $(this).data("id");
+      console.log(id);
+    var userArticles = new ToggleAllCurrentUserArticles(userObjGlobalVar);
+    // call prototype
+    userArticles.renderUserArticles();
   });
 }
 
@@ -34,7 +41,7 @@ function loadArticle(id){
 
     // define new instance of constructor
     var userArticleBody = new ToggleArticleBody(id, content);
-    // call prototype
+    // call prototypes
     userArticleBody.renderArticleBody();
   })
   .done(function(content){
@@ -49,13 +56,16 @@ function loadArticle(id){
 
 //  ---------------------------------------LOAD ALL CURRENT USER ARTICLES VIA GET REQUEST
 
-function loadAllCurrentlUserArticles(id) {
-  $.get("/users/" + id + ".json", function(userObj){
+function loadAllCurrentlUserArticles(userId) {
+  $.get("/users/" + userId + ".json", function(userObj){
+    userObjGlobalVar = userObj;
+    console.log(userId);
 
-    // define new instance of constructor
-    var userArticles = new ToggleAllCurrentUserArticles(userObj);
-    // call prototype
-    userArticles.renderUserArticles();
+
+    // // define new instance of constructor
+    // var userArticles = new ToggleAllCurrentUserArticles(userObj);
+    // // call prototype
+    // userArticles.renderUserArticles();
   })
     .done(function(content){
       console.log("request completed");
@@ -65,33 +75,6 @@ function loadAllCurrentlUserArticles(id) {
     });
   }
 
-
-
-//  -------------------------------------------TOGGLE CURRENT USER ARTICLES
-
-function toggleAllCurrentUserArticles(userObj){
-  let button = $("#articlesLink");
-  let container =  $(".index-container ");
-    //  save each part of the user Object that you want to spit out on the DOM
-    let articles = userObj.articles;
-
-    let credits = articles.map(function(articleObj) {
-      if(articleObj.credits.length !== 0){
-         return articleObj.credits
-      }else{
-        return "There are no creditors for this article";
-      }
-    });
-
-    // spit out the save variables in the
-    $.each(articles, function(i, article){
-    container.prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
-    });
-
-    let toggleUserArticles = new Togglefunction(button, container, "See Your Articles", "Hide Your Articles" );
-    toggleUserArticles.makeToggle();
-
-}
 
 
 
@@ -119,25 +102,21 @@ function ToggleAllCurrentUserArticles(userObj){
     this.articles = userObj.articles;
 }
 
+//  -------------------------------------------TOGGLE CURRENT USER ARTICLES
 // Prototype
 ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
   let button = $("#articlesLink");
   let container =  $(".index-container ");
-  // var credits;
   $.each(this.articles, function(i, article){
     container.prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
-
-        // credits = article.credits;
-        // for(prop in credits){
-        //   console.log(credits[prop].user)
-        // }
-
-
   });
   // Call other constructor for toggle action
   var toggleUserArticles = new Togglefunction(button, container, "See Your Articles", "Hide Your Articles" );
   toggleUserArticles.makeToggle();
 }
+
+
+
 
 
 // Constructor for toggling body of individual article on index page

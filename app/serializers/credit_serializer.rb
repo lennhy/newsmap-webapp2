@@ -1,4 +1,6 @@
 class CreditSerializer < ActiveModel::Serializer
-  attributes :id, :user
+  attributes :id, :user, :
   has_one :user
+  has_one :article
+
 end
