@@ -107,6 +107,7 @@ function ToggleAllCurrentUserArticles(userObj){
 ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
   let button = $("#articlesLink");
   let container =  $(".index-container ");
+  container.html("");
   $.each(this.articles, function(i, article){
     container.prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
   });
