@@ -1,8 +1,4 @@
-<div id ="article-details">
-  <ul>
-    <li><%= link_to article.title, user_article_path(current_user.id, article.id) %></li>
-
-    <li><%= pluralize(article.total_credits, "credit") %></li>  </ul>
-</div>
+    <!-- <li><%= link_to article.title, user_article_path(current_user.id, article.id) %></li> -->
+<li id ="article-details-<%= article.id %>"></li>
 <button class="js-read-more" id ="<%= article.id %>" data-id = "<%= article.id %>">Read More</button>
 <div id="body-<%= article.id %>"></div>

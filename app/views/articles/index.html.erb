@@ -1,4 +1,4 @@
-<div class = "index-container">
+<div class = "index-container" data-id="<%=current_user.id%>">
 </div>
 
 <!-- Greeting  -->
@@ -33,22 +33,20 @@
   </div>
 
   <% if !current_user.nil? && current_user.reader? %>
-    <!-- <% If current_user.reader? %> -->
     <%= render partial: "credit_form", locals:{article: article} %>
-    <!-- <% End %> -->
   <% end %>
 
   <h4><% article.user %></h4>
 
-  <% article.credits.each do |credit| %>
-    <% if credit.user %>
-      <ul>
-        <li>Creditor: <%= credit.user.name %></li>
-      </ul>
-    <%  end %>
-  <% end %>
+  <div id = "credit_detail">
+    <ul>
+      <% article.credits.each do |credit| %>
 
-  <%= render partial: "authors", locals: {user: article.user} %>
+      <% end %>
+    </ul>
+  </div>
+
+  <!-- <%= render partial: "authors", locals: {user: article.user} %> -->
   <br>
 
 <% end %>

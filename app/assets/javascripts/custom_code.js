@@ -3,11 +3,12 @@ var userObjGlobalVar;
 //------------------------------------ DOCUMENT READY
 
 $(function() {
-  var userId = $("#articlesLink").attr("data-id");
+  var userId = $(".index-container").attr("data-id");
   console.log(userId);
+
+  loadAllCurrentlUserArticles(userId);
   console.log("your javascript files are responding");
   submitForm();
-  loadAllCurrentlUserArticles(userId);
   loadArticleOnClick();
   loadAllArticlesOnClick();
 });
@@ -24,7 +25,7 @@ function loadAllArticlesOnClick() {
   $("#articlesLink").on('click', function() {
     // define new instance of constructor
       let id = $(this).data("id");
-      console.log(id);
+      // console.log(id);
     var userArticles = new ToggleAllCurrentUserArticles(userObjGlobalVar);
     // call prototype
     userArticles.renderUserArticles();
@@ -38,7 +39,8 @@ function loadAllArticlesOnClick() {
 function loadArticle(id){
   $.get("/articles/" + id + ".json", function(articles){
     let content = articles["content"];
-
+    // let credits = articles["content"];
+console.log(articles);
     // define new instance of constructor
     var userArticleBody = new ToggleArticleBody(id, content);
     // call prototypes
@@ -63,9 +65,9 @@ function loadAllCurrentlUserArticles(userId) {
 
 
     // // define new instance of constructor
-    // var userArticles = new ToggleAllCurrentUserArticles(userObj);
+    var userArticles = new ToggleAllCurrentUserArticles(userObj);
     // // call prototype
-    // userArticles.renderUserArticles();
+    userArticles.renderUserArticles();
   })
     .done(function(content){
       console.log("request completed");
@@ -82,13 +84,19 @@ function loadAllCurrentlUserArticles(userId) {
 
 function submitForm(){
    $('form#new_credit').submit(function(event) {
-
+     event.preventDefault();
      var values = $(this).serialize();
      var crediting = $.post('/credits', values);
 
-     crediting.done(function(data) {
-       console.log(data);
-  });
+     crediting.done(function(creditObj) {
+       let total_credits = (creditObj["article"]["total_credits"]);
+       let creditor = (creditObj["user"]["name"]);
+       $("#credit_detail ul").append("<li>Creditor: "+creditor+"</li>" + "<li>Total Credits: "+total_credits+"</li>")
+     });
+    //  crediting.fail(function(creditObj) {
+    //    let errorMsg ="You have already created this article";
+    //    $("#credit_detail ul").prepend(errorMsg);
+    //  });
 });
 }
 

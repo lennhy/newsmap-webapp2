@@ -1,3 +1,3 @@
 class UserCreditSerializer < ActiveModel::Serializer
-  attributes :id, :user
+  attributes :id
 end

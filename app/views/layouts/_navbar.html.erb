@@ -1,7 +1,7 @@
 <div id = "navigator">
   <ul>
     <li><h2>NewsMap</h2></li>
-
+    
       <% if current_user != nil && current_user.role != "reader" %>
         <li><button id="articlesLink" data-id="<%= current_user.id %>">See Your Articles</button></li>
       <% else %>
