@@ -5,7 +5,7 @@ class CreditsController < ApplicationController
     if @credit.save
         render json: @credit, status: 201, notice:"You have successfully voted for this article!"
     else
-        render json: @credit, status: 201, notice: "You have already credited this article!"
+        render json: @credit, status: 200, notice: "You have already credited this article!"
     end
   end
 

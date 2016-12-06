@@ -9,7 +9,7 @@ $(function() {
   //
   // loadAllCurrentlUserArticles(userId);
   // // console.log("your javascript files are responding");
-  // submitForm();
+  submitForm();
   loadArticleOnClick();
   // loadAllArticlesOnClick();
   id = $(".js-read-more").data("id");
@@ -47,8 +47,8 @@ function loadArticle(id){
        content = articles["content"];
 
       let total_credits = (articles["total_credits"]);
-      let aurther = (articles["user"]["name"]);
-      $("#credit_detail ul").append("<li>Arther: "+aurther+"</li>" + "<li>Total Credits: "+total_credits+"</li>")
+      let author = (articles["user"]["name"]);
+      $("#credit_detail ul").append("<li>Arther: "+author+"</li>" + "<li>Total Credits: "+total_credits+"</li>")
 
     // let credits = articles["content"];
     // console.log(articles);
@@ -93,20 +93,18 @@ function loadAllCurrentlUserArticles(userId) {
 
 function submitForm(){
    $('form#new_credit').submit(function(event) {
-     event.preventDefault();
-     var values = $(this).serialize();
-     var crediting = $.post('/credits', values);
-
-     crediting.done(function(creditObj) {
-       let total_credits = (creditObj["article"]["total_credits"]);
-       let creditor = (creditObj["user"]["name"]);
-       $("#credit_detail ul").prepend("<li>Creditor: "+creditor+"</li>")
-     });
-    //  crediting.fail(function(creditObj) {
-    //    let errorMsg ="You have already created this article";
-    //    $("#credit_detail ul").prepend(errorMsg);
-    //  });
-});
+      event.preventDefault();
+      var values = $(this).serialize();
+      var crediting = $.post('/credits', values);
+      crediting.done(function(creditObj, textStatus, jqXHR ) {
+        console.log(jqXHR);
+        if(jqXHR.status ===200){
+          $('#credit_detail').prepend("<p>You have already credited this article</p>");
+        }else if(jqXHR.status ===201){
+          $('#credit_detail').prepend("<p>You have now added a new credit to the article</p>");
+        }
+      });
+  });
 }
 
 
