@@ -1,22 +1,26 @@
 var userObjGlobalVar;
-
+var id;
+var content;
 //------------------------------------ DOCUMENT READY
 
 $(function() {
   var userId = $(".index-container").attr("data-id");
-  console.log(userId);
-
-  loadAllCurrentlUserArticles(userId);
-  console.log("your javascript files are responding");
-  submitForm();
+  // console.log(userId);
+  //
+  // loadAllCurrentlUserArticles(userId);
+  // // console.log("your javascript files are responding");
+  // submitForm();
   loadArticleOnClick();
-  loadAllArticlesOnClick();
+  // loadAllArticlesOnClick();
+  id = $(".js-read-more").data("id");
+  loadArticle(id);
 });
 
 function loadArticleOnClick(){
   $(".js-read-more").on('click', function() {
-    let id = $(this).data("id");
-     loadArticle(id);
+    var userArticleBody = new ToggleArticleBody(id, content);
+    // call prototypes
+    userArticleBody.renderArticleBody();
    });
  }
 
@@ -38,13 +42,18 @@ function loadAllArticlesOnClick() {
 
 function loadArticle(id){
   $.get("/articles/" + id + ".json", function(articles){
-    let content = articles["content"];
+    // content should load on click
+    // everything else should load when window loads
+       content = articles["content"];
+
+      let total_credits = (articles["total_credits"]);
+      let aurther = (articles["user"]["name"]);
+      $("#credit_detail ul").append("<li>Arther: "+aurther+"</li>" + "<li>Total Credits: "+total_credits+"</li>")
+
     // let credits = articles["content"];
-console.log(articles);
+    // console.log(articles);
     // define new instance of constructor
-    var userArticleBody = new ToggleArticleBody(id, content);
-    // call prototypes
-    userArticleBody.renderArticleBody();
+
   })
   .done(function(content){
     // console.log("request completed");
@@ -91,7 +100,7 @@ function submitForm(){
      crediting.done(function(creditObj) {
        let total_credits = (creditObj["article"]["total_credits"]);
        let creditor = (creditObj["user"]["name"]);
-       $("#credit_detail ul").append("<li>Creditor: "+creditor+"</li>" + "<li>Total Credits: "+total_credits+"</li>")
+       $("#credit_detail ul").prepend("<li>Creditor: "+creditor+"</li>")
      });
     //  crediting.fail(function(creditObj) {
     //    let errorMsg ="You have already created this article";
