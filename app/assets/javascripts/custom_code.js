@@ -7,11 +7,11 @@ $(function() {
   var userId = $(".index-container").attr("data-id");
   // console.log(userId);
   //
-  // loadAllCurrentlUserArticles(userId);
+  loadAllCurrentlUserArticles(userId);
   // // console.log("your javascript files are responding");
   submitForm();
   loadArticleOnClick();
-  // loadAllArticlesOnClick();
+  loadAllArticlesOnClick();
   id = $(".js-read-more").data("id");
   loadArticle(id);
 });
@@ -24,6 +24,7 @@ function loadArticleOnClick(){
     userArticleBody.renderArticleBody();
    });
  }
+
 
 
 function loadAllArticlesOnClick() {
@@ -75,9 +76,9 @@ function loadAllCurrentlUserArticles(userId) {
 
 
     // // define new instance of constructor
-    var userArticles = new ToggleAllCurrentUserArticles(userObj);
+    // var userArticles = new ToggleAllCurrentUserArticles(userObj);
     // // call prototype
-    userArticles.renderUserArticles();
+    // userArticles.renderUserArticles();
   })
     .done(function(content){
       console.log("request completed");
@@ -137,16 +138,16 @@ ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
 
 
 // Constructor for toggling body of individual article on index page
-function ToggleArticleBody(ArtbodyId, content){
+function ToggleArticleBody(artBodyId, content){
   // return the id and content of object from ajax get response
-  this.ArtbodyId = ArtbodyId;
+  this.artBodyId = artBodyId;
   this.content = content;
 }
 
 // Prototype
 ToggleArticleBody.prototype.renderArticleBody = function(){
-  let addText = $("#body-" + this.ArtbodyId);
-  let button = $("button#"+this.ArtbodyId);
+  let addText = $("#body-" + this.artBodyId);
+  let button = $("button#"+this.artBodyId);
   let article_details = $("#article-details");
   addText.html("<p>" + this.content + "</p>");
 
