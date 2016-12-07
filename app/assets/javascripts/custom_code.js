@@ -18,7 +18,8 @@ $(function() {
 
 function loadArticleOnClick(){
   $(".js-read-more").on('click', function() {
-    var userArticleBody = new ToggleArticleBody(id, content);
+    let ArtbodyId = $(this).data("id");
+    var userArticleBody = new ToggleArticleBody(ArtbodyId, content);
     // call prototypes
     userArticleBody.renderArticleBody();
    });
@@ -136,16 +137,16 @@ ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
 
 
 // Constructor for toggling body of individual article on index page
-function ToggleArticleBody(id, content){
+function ToggleArticleBody(ArtbodyId, content){
   // return the id and content of object from ajax get response
-  this.id = id;
+  this.ArtbodyId = ArtbodyId;
   this.content = content;
 }
 
 // Prototype
 ToggleArticleBody.prototype.renderArticleBody = function(){
-  let addText = $("#body-" + this.id);
-  let button = $("button#"+this.id);
+  let addText = $("#body-" + this.ArtbodyId);
+  let button = $("button#"+this.ArtbodyId);
   let article_details = $("#article-details");
   addText.html("<p>" + this.content + "</p>");
 
