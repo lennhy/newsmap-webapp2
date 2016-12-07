@@ -1,5 +1,4 @@
-    <!-- <li><%= link_to article.title, user_article_path(current_user.id, article.id) %></li> -->
-<li id ="article-details-<%= article.id %>"></li>
+<li class = "article-info" id ="article-details-<%= article.id %>"data-id = "<%= article.id %>"></li>
 
 <button class="js-read-more" id ="<%= article.id %>" data-id = "<%= article.id %>">Read More</button>
 

@@ -1,4 +1,3 @@
-
 var userObjGlobalVar;
 
 //------------------------------------ DOCUMENT READY
@@ -6,13 +5,13 @@ var userObjGlobalVar;
 $(function() {
   var userId = $("#articlesLink").attr("data-id");
   console.log(userId);
-  var artBodyId = $(".js-read-more").data("id");
+  // var artBodyId = $(".js-read-more").data("id");
   console.log("your javascript files are responding");
   submitForm();
   loadAllCurrentlUserArticles(userId);
   loadArticleOnClick();
   loadAllArticlesOnClick();
-  loadArticleDetails(artBodyId);
+  loadArticleDetails();
 });
 
 function loadArticleOnClick(){
@@ -35,13 +34,16 @@ function loadAllArticlesOnClick() {
 }
 
 
-function loadArticleDetails(id){
+function loadArticleDetails(){
+  $(".article-info").each(function (i, element){
+  let id = $(this).data("id");
   $.get("/articles/" + id + ".json", function(articles){
     content = articles["content"];
 
     let total_credits = (articles["total_credits"]);
     let author = (articles["user"]["name"]);
-    $("#credit_detail ul").append("<li>Arther: "+author+"</li>" + "<li>Total Credits: "+total_credits+"</li>")
+
+    $(element).append("<li>Arther: "+author+"</li>" + "<li>Total Credits: "+total_credits+"</li>")
   })
   .done(function(content){
     // console.log("request completed");
@@ -49,6 +51,7 @@ function loadArticleDetails(id){
   .fail(function(jqXHR, textStatus, errorThrown){
     // console.log(errorThrown);
   });
+    });
 }
 
 
@@ -57,10 +60,9 @@ function loadArticleDetails(id){
 function loadArticle(id){
   $.get("/articles/" + id + ".json", function(articles){
     let content = articles["content"];
-
     // define new instance of constructor
     var userArticleBody = new ToggleArticleBody(id, content);
-    // call prototypes
+    // call the prototype method of this instance
     userArticleBody.renderArticleBody();
   })
   .done(function(content){
@@ -77,13 +79,6 @@ function loadArticle(id){
 function loadAllCurrentlUserArticles(userId) {
   $.get("/users/" + userId + ".json", function(userObj){
     userObjGlobalVar = userObj;
-    console.log(userId);
-
-
-    // // define new instance of constructor
-    // var userArticles = new ToggleAllCurrentUserArticles(userObj);
-    // // call prototype
-    // userArticles.renderUserArticles();
   })
     .done(function(content){
       console.log("request completed");
