@@ -1,37 +1,33 @@
+
 var userObjGlobalVar;
-var id;
-var content;
+
 //------------------------------------ DOCUMENT READY
 
 $(function() {
-  var userId = $(".index-container").attr("data-id");
-  // console.log(userId);
-  //
-  loadAllCurrentlUserArticles(userId);
-  // // console.log("your javascript files are responding");
+  var userId = $("#articlesLink").attr("data-id");
+  console.log(userId);
+  var artBodyId = $(".js-read-more").data("id");
+  console.log("your javascript files are responding");
   submitForm();
+  loadAllCurrentlUserArticles(userId);
   loadArticleOnClick();
   loadAllArticlesOnClick();
-  id = $(".js-read-more").data("id");
-  loadArticle(id);
+  loadArticleDetails(artBodyId);
 });
 
 function loadArticleOnClick(){
   $(".js-read-more").on('click', function() {
-    let ArtbodyId = $(this).data("id");
-    var userArticleBody = new ToggleArticleBody(ArtbodyId, content);
-    // call prototypes
-    userArticleBody.renderArticleBody();
+    let id = $(this).data("id");
+     loadArticle(id);
    });
  }
-
 
 
 function loadAllArticlesOnClick() {
   $("#articlesLink").on('click', function() {
     // define new instance of constructor
       let id = $(this).data("id");
-      // console.log(id);
+      console.log(id);
     var userArticles = new ToggleAllCurrentUserArticles(userObjGlobalVar);
     // call prototype
     userArticles.renderUserArticles();
@@ -39,23 +35,13 @@ function loadAllArticlesOnClick() {
 }
 
 
-
-//  ---------------------------------LOAD ARTICLE VIA GET REQUEST
-
-function loadArticle(id){
+function loadArticleDetails(id){
   $.get("/articles/" + id + ".json", function(articles){
-    // content should load on click
-    // everything else should load when window loads
-       content = articles["content"];
+    content = articles["content"];
 
-      let total_credits = (articles["total_credits"]);
-      let author = (articles["user"]["name"]);
-      $("#credit_detail ul").append("<li>Arther: "+author+"</li>" + "<li>Total Credits: "+total_credits+"</li>")
-
-    // let credits = articles["content"];
-    // console.log(articles);
-    // define new instance of constructor
-
+    let total_credits = (articles["total_credits"]);
+    let author = (articles["user"]["name"]);
+    $("#credit_detail ul").append("<li>Arther: "+author+"</li>" + "<li>Total Credits: "+total_credits+"</li>")
   })
   .done(function(content){
     // console.log("request completed");
@@ -65,6 +51,25 @@ function loadArticle(id){
   });
 }
 
+
+//  ---------------------------------LOAD ARTICLE VIA GET REQUEST
+
+function loadArticle(id){
+  $.get("/articles/" + id + ".json", function(articles){
+    let content = articles["content"];
+
+    // define new instance of constructor
+    var userArticleBody = new ToggleArticleBody(id, content);
+    // call prototypes
+    userArticleBody.renderArticleBody();
+  })
+  .done(function(content){
+    // console.log("request completed");
+  })
+  .fail(function(jqXHR, textStatus, errorThrown){
+    // console.log(errorThrown);
+  });
+}
 
 
 //  ---------------------------------------LOAD ALL CURRENT USER ARTICLES VIA GET REQUEST
