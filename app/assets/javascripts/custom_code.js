@@ -36,22 +36,22 @@ function loadAllArticlesOnClick() {
 
 function loadArticleDetails(){
   $(".article-info").each(function (i, element){
-  let id = $(this).data("id");
-  $.get("/articles/" + id + ".json", function(articles){
-    content = articles["content"];
+    let id = $(this).data("id");
+    $.get("/articles/" + id + ".json", function(articles){
+      content = articles["content"];
 
-    let total_credits = (articles["total_credits"]);
-    let author = (articles["user"]["name"]);
+      let total_credits = (articles["total_credits"]);
+      let author = (articles["user"]["name"]);
 
-    $(element).append("<li>Arther: "+author+"</li>" + "<li>Total Credits: "+total_credits+"</li>")
-  })
-  .done(function(content){
-    // console.log("request completed");
-  })
-  .fail(function(jqXHR, textStatus, errorThrown){
-    // console.log(errorThrown);
-  });
+      $(element).html("Arther: "+author+"</li>" + "<li>Total Credits: "+total_credits)
+    })
+    .done(function(content){
+      // console.log("request completed");
+    })
+    .fail(function(jqXHR, textStatus, errorThrown){
+      // console.log(errorThrown);
     });
+  });
 }
 
 
@@ -96,19 +96,32 @@ function loadAllCurrentlUserArticles(userId) {
 function submitForm(){
    $('form#new_credit').submit(function(event) {
       event.preventDefault();
+      let id = $(this).data("id");
+
       var values = $(this).serialize();
       var crediting = $.post('/credits', values);
-      crediting.done(function(creditObj, textStatus, jqXHR ) {
-        console.log(jqXHR);
-        if(jqXHR.status ===200){
-          $('#credit_detail').prepend("<p>You have already credited this article</p>");
-        }else if(jqXHR.status ===201){
-          $('#credit_detail').prepend("<p>You have now added a new credit to the article</p>");
-        }
+
+      crediting.done(function(creditObj, textStatus, jqXHR ){
+          console.log(jqXHR);
+
+          // $(".notify").each(function (i, article){
+            // let id = $(this).data("id");
+
+          $('input[type="submit"]').prop("disabled", false);
+          loadArticleDetails();
+
+          if(jqXHR.status === 200){
+            article.append("You have already credited this article");
+          }
+          else if(jqXHR.status === 201){
+            article.append("You have now added a new credit to the article");
+          }
+        // });
+
       });
   });
 }
-
+// .css("background-color", "#FFFF9C")
 
 
 //  ---------------------------------- OBJECT CONSTRUCTOR FUNCTIONS
