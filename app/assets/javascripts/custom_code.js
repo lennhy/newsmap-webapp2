@@ -4,7 +4,6 @@ var userObjGlobalVar;
 
 $(function() {
   var userId = $("#articlesLink").attr("data-id");
-  console.log(userId);
   submitForm();
   loadAllCurrentlUserArticles(userId);
   loadArticleOnClick();
@@ -14,7 +13,7 @@ $(function() {
 
 function loadArticleOnClick(){
   $(".js-read-more").on('click', function() {
-    let id = $(this).data("id");
+     let id = $(this).data("id");
      loadArticle(id);
    });
  }
@@ -23,8 +22,7 @@ function loadArticleOnClick(){
 function loadAllArticlesOnClick() {
   $("#articlesLink").on('click', function() {
     // define new instance of constructor
-      let id = $(this).data("id");
-      console.log(id);
+    let id = $(this).data("id");
     var userArticles = new ToggleAllCurrentUserArticles(userObjGlobalVar);
     // call prototype
     userArticles.renderUserArticles();
@@ -95,10 +93,9 @@ function submitForm(){
    $('form.new_credit').submit(function(event) {
       event.preventDefault();
 
-      var artId = $(this).find("span").data("id");
-
-      var values = $(this).serialize();
-      var crediting = $.post('/credits', values);
+      let artId = $(this).find("span").data("id");
+      let values = $(this).serialize();
+      let crediting = $.post('/credits', values);
 
       crediting.done(function(creditObj, textStatus, jqXHR ){
 
