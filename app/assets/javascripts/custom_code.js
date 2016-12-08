@@ -94,30 +94,30 @@ function loadAllCurrentlUserArticles(userId) {
 // -------------------------------------- FORM FOR ADDING A CREDIT TO ARTICLE
 
 function submitForm(){
-   $('form#new_credit').submit(function(event) {
+   $('form.new_credit').submit(function(event) {
       event.preventDefault();
-      let id = $(this).data("id");
-
+      // var userId = $("#articlesLink").attr("data-id");
+      var artId = $(this).find("span").data("id");
+      // console.log(ab);
       var values = $(this).serialize();
       var crediting = $.post('/credits', values);
 
       crediting.done(function(creditObj, textStatus, jqXHR ){
-          console.log(jqXHR);
 
-          // $(".notify").each(function (i, article){
-            // let id = $(this).data("id");
+        // var artId = $(".notificate").attr("data-id");
+        console.log(artId);
 
-          $('input[type="submit"]').prop("disabled", false);
-          loadArticleDetails();
+        console.log(jqXHR);
+        $('input[type="submit"]').prop("disabled", false);
+        loadArticleDetails();
 
-          if(jqXHR.status === 200){
-            article.append("You have already credited this article");
+        if(jqXHR.status === 200){
+          $("#notify-"+artId).prepend("<p>You have already credited this article</p>");
+        }
+        else if(jqXHR.status === 201){
+          $("#notify-"+artId).prepend("<p>You have now added a new credit to the article</p>");
+
           }
-          else if(jqXHR.status === 201){
-            article.append("You have now added a new credit to the article");
-          }
-        // });
-
       });
   });
 }
