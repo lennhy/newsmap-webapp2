@@ -5,8 +5,6 @@ var userObjGlobalVar;
 $(function() {
   var userId = $("#articlesLink").attr("data-id");
   console.log(userId);
-  // var artBodyId = $(".js-read-more").data("id");
-  console.log("your javascript files are responding");
   submitForm();
   loadAllCurrentlUserArticles(userId);
   loadArticleOnClick();
@@ -46,10 +44,10 @@ function loadArticleDetails(){
       $(element).html("Arther: "+author+"</li>" + "<li>Total Credits: "+total_credits)
     })
     .done(function(content){
-      // console.log("request completed");
+      console.log("request completed");
     })
     .fail(function(jqXHR, textStatus, errorThrown){
-      // console.log(errorThrown);
+      console.log(errorThrown);
     });
   });
 }
@@ -96,32 +94,34 @@ function loadAllCurrentlUserArticles(userId) {
 function submitForm(){
    $('form.new_credit').submit(function(event) {
       event.preventDefault();
-      // var userId = $("#articlesLink").attr("data-id");
+
       var artId = $(this).find("span").data("id");
-      // console.log(ab);
+
       var values = $(this).serialize();
       var crediting = $.post('/credits', values);
 
       crediting.done(function(creditObj, textStatus, jqXHR ){
 
-        // var artId = $(".notificate").attr("data-id");
-        console.log(artId);
-
-        console.log(jqXHR);
         $('input[type="submit"]').prop("disabled", false);
         loadArticleDetails();
 
+        let articleId = $("#notify-"+artId);
+
+        articleId.css("color", "red");
+
         if(jqXHR.status === 200){
-          $("#notify-"+artId).prepend("<p>You have already credited this article</p>");
+          if((articleId).html("")){
+            articleId.prepend("<p>You have already credited this article</p>")  .fadeOut(5000);
+          }
         }
         else if(jqXHR.status === 201){
-          $("#notify-"+artId).prepend("<p>You have now added a new credit to the article</p>");
-
+          if((articleId).html("")){
+              articleId.prepend("<p>You have now added a new credit to the article</p>").fadeOut(5000);
           }
+        }
       });
   });
 }
-// .css("background-color", "#FFFF9C")
 
 
 //  ---------------------------------- OBJECT CONSTRUCTOR FUNCTIONS
