@@ -108,12 +108,12 @@ function submitForm(){
 
         if(jqXHR.status === 200){
           if((articleId).html("")){
-            articleId.prepend("<p>You have already credited this article</p>")  .fadeOut(5000);
+            articleId.prepend("<p>You have already credited this article</p>").show().fadeOut(5000);
           }
         }
         else if(jqXHR.status === 201){
           if((articleId).html("")){
-              articleId.prepend("<p>You have now added a new credit to the article</p>").fadeOut(5000);
+              articleId.prepend("<p>You have now added a new credit to the article</p>").show().fadeOut(5000);
           }
         }
       });
