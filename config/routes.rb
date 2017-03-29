@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get '/articles', to: 'articles#index'
 
+  get '/users', to: 'users#show'
+
   # --user's articles
   # json format http://localhost:3000/users/1/articles/2.json
   get 'users/:id/articles' => 'articles#index'

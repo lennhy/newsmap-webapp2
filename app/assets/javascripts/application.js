@@ -12,5 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= angular
+//= angular-ui-router
 //= require_tree .
 //= require custom_code

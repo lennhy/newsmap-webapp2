@@ -39,7 +39,7 @@ function loadArticleDetails(){
       let total_credits = (articles["total_credits"]);
       let author = (articles["user"]["name"]);
 
-      $(element).html("Arther: "+author+"</li>" + "<li>Total Credits: "+total_credits)
+      $(element).html("Arthor: "+author+"</li>" + "<li>Total Credits: "+total_credits)
     })
     .done(function(content){
       console.log("request completed");

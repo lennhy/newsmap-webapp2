@@ -6,10 +6,6 @@
   <i><p>Welcome <%= current_user.name %></p></i>
 <% end %>
 
-<!-- Radio buttons option to change role-->
-<%= render 'roles' %>
-
-<div id = "most_popular_article">
   <h3> All Articles </h3><br>
 <!-- Class method helper method -->
   <i> Most Credited Article: <b><%= most_popular_article %></i> </b><br>
@@ -41,11 +37,12 @@
   <div id = "credit_detail">
     <ul>
       <% article.credits.each do |credit| %>
+      <%= render partial: "authors", locals: {user: article.user} %>
+
       <% end %>
     </ul>
   </div>
 
-  <!-- <%= render partial: "authors", locals: {user: article.user} %> -->
   <br>
 
 <% end %>
