@@ -4,6 +4,7 @@
     <title>NewsmapWebapp</title>
     <%= csrf_meta_tags %>
     <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag "application" %>
   </head>
 
   <body>
@@ -14,5 +15,8 @@
     <%= render 'layouts/messages' %>
 
     <%= yield %>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQprz73OSViq21gCLqYXi3NP8qRotA1UQ&callback=initMap">
+    </script>
   </body>
 </html>

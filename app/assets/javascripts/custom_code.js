@@ -9,6 +9,7 @@ $(function() {
   loadArticleOnClick();
   loadAllArticlesOnClick();
   loadArticleDetails();
+  initMap();
 });
 
 function loadArticleOnClick(){
@@ -145,9 +146,7 @@ ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
 
 
 
-
-
-// Constructor for toggling body of individual article on index page
+// ----------------------------------------------TOGGLE BODY OF INDIVIDUAL ARTICLE ON INDEX PAGE
 function ToggleArticleBody(artBodyId, content){
   // return the id and content of object from ajax get response
   this.artBodyId = artBodyId;
@@ -184,3 +183,53 @@ function Togglefunction(button, element, stringOne, stringTwo){
     }
   }
 }
+
+
+// ----------------------------------------------- GOOGLE MAPS API
+// function initMap() {
+//         var uluru = {lat: -25.363, lng: 131.044};
+//         var map = new google.maps.Map(document.getElementById('map'), {
+//           zoom: 3,
+//           center: uluru
+//         });
+//         var marker = new google.maps.Marker({
+//           position: uluru,
+//           map: map
+//         });
+//         codeAddress(map);
+// }
+
+// ---------------------------------------- GEOCODING
+var geocoder;
+ var map;
+ function initMap() {
+   geocoder = new google.maps.Geocoder();
+   var latlng = new google.maps.LatLng(-34.397, 150.644);
+   var mapOptions = {
+     zoom: 3,
+     center: latlng
+   }
+   map = new google.maps.Map(document.getElementById('map'), mapOptions);
+   codeAddress(map);
+ }
+
+  function codeAddress(map) {
+    // var address = document.getElementById('address').value;
+    var address = "New York, United States";
+    // Constructor
+    geocoder.geocode(
+      {
+        'address': address
+      }, 
+      function(results, status) { // success callback function for results and status as parameters
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }

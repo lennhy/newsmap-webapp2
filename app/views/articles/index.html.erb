@@ -1,49 +1,52 @@
-<div class = "index-container" data-id="<%=current_user.id%>">
-</div>
-
-<!-- Greeting  -->
-<% if !current_user.nil? %>
-  <i><p>Welcome <%= current_user.name %></p></i>
-<% end %>
-
-  <h3> All Articles </h3><br>
-<!-- Class method helper method -->
-  <i> Most Credited Article: <b><%= most_popular_article %></i> </b><br>
-  <br>
-</div>
-
-<!-- Define what user has access to based on user role -->
-<% if current_user && current_user.author? %>
-  <p>You are an: Author</p>
-  <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
-<% else %>
-  <b>You are a:</b> Reader
-  <p> Choose from any category to read <p>
-<% end %>
-
-<!--  Start of articles iteration-->
-<% @articles.each_with_index do |article, i| %>
-
-  <div id = "articles-table">
-    <%= render partial: "articles", locals: {article: article} %></li>
+<div id="map">
+  
+  <div class = "index-container" data-id="<%=current_user.id%>">
   </div>
 
-  <% if !current_user.nil? && current_user.reader? %>
-    <%= render partial: "credit_form", locals:{article: article} %>
+  <!-- Greeting  -->
+  <% if !current_user.nil? %>
+    <i><p>Welcome <%= current_user.name %></p></i>
   <% end %>
 
-  <h4><% article.user %></h4>
-
-  <div id = "credit_detail">
-    <ul>
-      <% article.credits.each do |credit| %>
-      <%= render partial: "authors", locals: {user: article.user} %>
-
-      <% end %>
-    </ul>
+    <h3> All Articles </h3><br>
+  <!-- Class method helper method -->
+    <i> Most Credited Article: <b><%= most_popular_article %></i> </b><br>
+    <br>
   </div>
 
-  <br>
+  <!-- Define what user has access to based on user role -->
+  <% if current_user && current_user.author? %>
+    <p>You are an: Author</p>
+    <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
+  <% else %>
+    <b>You are a:</b> Reader
+    <p> Choose from any category to read <p>
+  <% end %>
 
-<% end %>
-<!--  End of articles iteration-->
+  <!--  Start of articles iteration-->
+  <% @articles.each_with_index do |article, i| %>
+
+    <div id = "articles-table">
+      <%= render partial: "articles", locals: {article: article} %></li>
+    </div>
+
+    <% if !current_user.nil? && current_user.reader? %>
+      <%= render partial: "credit_form", locals:{article: article} %>
+    <% end %>
+
+    <h4><% article.user %></h4>
+
+    <div id = "credit_detail">
+      <ul>
+        <% article.credits.each do |credit| %>
+        <%= render partial: "authors", locals: {user: article.user} %>
+
+        <% end %>
+      </ul>
+    </div>
+
+    <br>
+
+  <% end %>
+  <!--  End of articles iteration-->
+</div>
