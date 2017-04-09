@@ -18,6 +18,20 @@
     <%= f.collection_check_boxes :source_ids, Source.all, :id, :name%><br>
   </div>
 
+  <p>Create an Address:</p>
+  <%= f.fields_for :address, @article.address do |address_fields| %>
+  <ul>
+    <li>
+      <%= address_fields.label :country %>
+      <%= address_fields.text_field :country %>
+    </li>
+    <li>
+      <%= address_fields.label :city %>
+      <%= address_fields.text_field :city %>
+    </li>
+    <% end %>
+  </ul>
+
   <p>Create a Source:</p>
   <%= f.fields_for :sources, @article.sources.build do |sources_fields| %>
   <ul>

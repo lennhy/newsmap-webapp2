@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101081411) do
+ActiveRecord::Schema.define(version: 20170409001152) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "article_sources", force: :cascade do |t|
     t.integer "article_id"
@@ -20,6 +26,7 @@ ActiveRecord::Schema.define(version: 20161101081411) do
   create_table "articles", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
+    t.integer  "address_id"
     t.integer  "user_id"
     t.integer  "category_id"
     t.integer  "country_id"
@@ -34,7 +41,9 @@ ActiveRecord::Schema.define(version: 20161101081411) do
   end
 
   create_table "countries", force: :cascade do |t|
-    t.string "title"
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "credits", force: :cascade do |t|

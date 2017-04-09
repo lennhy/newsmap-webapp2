@@ -20,6 +20,10 @@ class ArticlesController < ApplicationController
   def new
     @article = Article.new
     @sources = @article.sources.build
+
+    address = Address.new
+    @article.address = address
+
   end
 
   # -- Render the json formatted object here and can be placed anywhere in the DOM
@@ -33,6 +37,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article =  Article.new(article_params)
+    binding.pry
     if @article.save
       redirect_to  user_article_path(@article.id), notice: "You successfully created a new article!"
     else
@@ -72,7 +77,9 @@ class ArticlesController < ApplicationController
         :content,
         :user_id,
         :source_ids=> [],
-        :sources_attributes=>[:name]
+        :sources_attributes=>[:name],
+        :address_attributes=>[:city],
+        :address_attributes=>[:country]
         )
       end
 

@@ -2,10 +2,10 @@ class Article < ApplicationRecord
   has_many :credits
   belongs_to :user
   belongs_to :category
-  belongs_to :country
 
   has_many :article_sources
   has_many :sources, through: :article_sources, :dependent => :destroy
+  belongs_to :address
 
   validates :title, :content, :category, :country, presence: true
   before_save :make_title_case
@@ -43,6 +43,26 @@ class Article < ApplicationRecord
      end
    end
 
+   # --nested forms custom attribute writter
+   def address_attributes=(address_attributes)
+      address_attributes.values.each do |address_attribute|
+        if address_attribute[:city].blank? || address_attribute[:city].blank?
+
+        else
+          city = City.find_or_create_by(address_attribute)
+          self.address.city << city
+        end
+
+        if address_attribute[:country].blank? || address_attribute[:country].blank?
+
+        else
+          country = Country.find_or_create_by(address_attribute)
+          self.address.country << country
+        end
+
+      end
+    end
+
   def total_credits
     vote_count = 0
     self.credits.each do |credit|
@@ -52,7 +72,7 @@ class Article < ApplicationRecord
 
     #  # --when an article is first created author_id is generated in the credits table as a result a new credit +1 is created
     # # --but we only want a credit created by a reader so we remove the credit auto created by the author's article
-    vote_count 
+    vote_count
   end
 
   # --callbacks are defined in the object models and called in the controller

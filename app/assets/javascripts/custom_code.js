@@ -36,7 +36,7 @@ function loadArticleDetails(){
     let id = $(this).data("id");
     $.get("/articles/" + id + ".json", function(articles){
       content = articles["content"];
-
+      console.log(articles);
       let total_credits = (articles["total_credits"]);
       let author = (articles["user"]["name"]);
 
@@ -216,11 +216,11 @@ var geocoder;
   function codeAddress(map) {
     // var address = document.getElementById('address').value;
     var address = "New York, United States";
-    // Constructor
+    // Constructor module change address to longitude latitude coordinates tp place markers
     geocoder.geocode(
       {
         'address': address
-      }, 
+      },
       function(results, status) { // success callback function for results and status as parameters
       if (status == 'OK') {
         map.setCenter(results[0].geometry.location);
