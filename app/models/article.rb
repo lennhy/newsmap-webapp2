@@ -55,7 +55,6 @@ class Article < ApplicationRecord
         end
         self.address = address
       end
-      binding.pry
       self.address.save
     end
 

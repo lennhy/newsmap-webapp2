@@ -10,9 +10,12 @@
 
 <b>Country:</b>
   <ul>
-    <li><p> <%= @article.country.title %> </p></li>
+    <li><p> <%= @article.address.country.title %> </p></li>
   </ul>
-
+  <b>City:</b>
+  <ul>
+    <li><p> <%= @article.address.city %> </p></li>
+  </ul>
 <b>Category:</b>
   <ul>
     <li><p> <%= @article.category.title %> </p></li>
