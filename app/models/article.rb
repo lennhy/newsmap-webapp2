@@ -7,7 +7,7 @@ class Article < ApplicationRecord
   has_many :sources, through: :article_sources, :dependent => :destroy
   belongs_to :address
 
-  validates :title, :content, :category, :country, presence: true
+  validates :title, :content, :category, presence: true
   before_save :make_title_case
 
 
@@ -45,22 +45,18 @@ class Article < ApplicationRecord
 
    # --nested forms custom attribute writter
    def address_attributes=(address_attributes)
-      address_attributes.values.each do |address_attribute|
-        if address_attribute[:city].blank? || address_attribute[:city].blank?
-
-        else
-          city = City.find_or_create_by(address_attribute)
-          self.address.city << city
+      address = Address.new
+      address_attributes.each do |key, val|
+        if key == "city" && !val.blank?
+          address.city = val
         end
-
-        if address_attribute[:country].blank? || address_attribute[:country].blank?
-
-        else
-          country = Country.find_or_create_by(address_attribute)
-          self.address.country << country
+        if key == "country_id" && !val.blank?
+          address.country_id = val
         end
-
+        self.address = address
       end
+      binding.pry
+      self.address.save
     end
 
   def total_credits

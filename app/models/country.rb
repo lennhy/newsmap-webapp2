@@ -1,5 +1,5 @@
 class Country < ApplicationRecord
-  has_one :address
+  has_many :addresses
 
 
 

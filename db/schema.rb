@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 20170409001152) do
 
   create_table "addresses", force: :cascade do |t|
     t.string   "city"
+    t.string   "country_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -29,7 +30,6 @@ ActiveRecord::Schema.define(version: 20170409001152) do
     t.integer  "address_id"
     t.integer  "user_id"
     t.integer  "category_id"
-    t.integer  "country_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

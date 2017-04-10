@@ -70,17 +70,15 @@ class ArticlesController < ApplicationController
     end
 
       def article_params
+        # raise params.inspect
         params.require(:article).permit(
-        :country_id,
         :category_id,
         :title,
         :content,
         :user_id,
         :source_ids=> [],
         :sources_attributes=>[:name],
-        :address_attributes=>[:city],
-        :address_attributes=>[:country]
+        :address_attributes=>[:city, :country_id]
         )
       end
-
 end
