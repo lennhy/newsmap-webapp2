@@ -9,7 +9,7 @@ $(function() {
   loadArticleOnClick();
   loadAllArticlesOnClick();
   loadArticleDetails();
-  initMap();
+  // loadArticleAddress();
 });
 
 function loadArticleOnClick(){
@@ -18,7 +18,6 @@ function loadArticleOnClick(){
      loadArticle(id);
    });
  }
-
 
 function loadAllArticlesOnClick() {
   $("#articlesLink").on('click', function() {
@@ -29,7 +28,6 @@ function loadAllArticlesOnClick() {
     userArticles.renderUserArticles();
   });
 }
-
 
 function loadArticleDetails(){
   $(".article-info").each(function (i, element){
@@ -51,7 +49,6 @@ function loadArticleDetails(){
   });
 }
 
-
 //  ---------------------------------LOAD ARTICLE VIA GET REQUEST
 
 function loadArticle(id){
@@ -59,17 +56,13 @@ function loadArticle(id){
     let content = articles["content"];
     // define new instance of constructor
     var userArticleBody = new ToggleArticleBody(id, content);
-    // call the prototype method of this instance
     userArticleBody.renderArticleBody();
   })
   .done(function(content){
-    // console.log("request completed");
   })
   .fail(function(jqXHR, textStatus, errorThrown){
-    // console.log(errorThrown);
   });
 }
-
 
 //  ---------------------------------------LOAD ALL CURRENT USER ARTICLES VIA GET REQUEST
 
@@ -77,16 +70,11 @@ function loadAllCurrentlUserArticles(userId) {
   $.get("/users/" + userId + ".json", function(userObj){
     userObjGlobalVar = userObj;
   })
-    .done(function(content){
-      // console.log("request completed");
-    })
-    .fail(function(jqXHR, textStatus, errorThrown){
-      // console.log(errorThrown);
-    });
+  .done(function(content){
+  })
+  .fail(function(jqXHR, textStatus, errorThrown){
+  });
   }
-
-
-
 
 // -------------------------------------- FORM FOR ADDING A CREDIT TO ARTICLE
 
@@ -121,7 +109,6 @@ function submitForm(){
   });
 }
 
-
 //  ---------------------------------- OBJECT CONSTRUCTOR FUNCTIONS
 
 // constructor function for articles of user show page
@@ -131,7 +118,7 @@ function ToggleAllCurrentUserArticles(userObj){
 }
 
 //  -------------------------------------------TOGGLE CURRENT USER ARTICLES
-// Prototype
+
 ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
   let button = $("#articlesLink");
   let container =  $(".index-container ");
@@ -144,9 +131,8 @@ ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
   toggleUserArticles.makeToggle();
 }
 
-
-
 // ----------------------------------------------TOGGLE BODY OF INDIVIDUAL ARTICLE ON INDEX PAGE
+
 function ToggleArticleBody(artBodyId, content){
   // return the id and content of object from ajax get response
   this.artBodyId = artBodyId;
@@ -184,24 +170,13 @@ function Togglefunction(button, element, stringOne, stringTwo){
   }
 }
 
+ // ----------------------------------------------- GOOGLE MAPS API
 
-// ----------------------------------------------- GOOGLE MAPS API
-// function initMap() {
-//         var uluru = {lat: -25.363, lng: 131.044};
-//         var map = new google.maps.Map(document.getElementById('map'), {
-//           zoom: 3,
-//           center: uluru
-//         });
-//         var marker = new google.maps.Marker({
-//           position: uluru,
-//           map: map
-//         });
-//         codeAddress(map);
-// }
+ // ---------------------------------------- GEOCODING
 
-// ---------------------------------------- GEOCODING
-var geocoder;
+ var geocoder;
  var map;
+ // Initialize map
  function initMap() {
    geocoder = new google.maps.Geocoder();
    var latlng = new google.maps.LatLng(-34.397, 150.644);
@@ -213,36 +188,39 @@ var geocoder;
    codeAddress(map);
  }
 
- function loadArticleAddress(){
-   $.get("/articles.json", function(){
-   }).done(function(articles){
-       var addresses = articles.map(function(art, i){
-              return art.address.city + ", "+ art.address.country.title;
-       })
-       console.log(addresses);
-    })
-  }
+ // Get all article adresses
+ // function loadArticleAddress(){
+ //
+ //  }
 
-
-
-  function codeAddress(map) {
-    loadArticleAddress()
-    // var address = document.getElementById('address').value;
-    var address = "New York, United States";
-    // Constructor module change address to longitude latitude coordinates tp place markers
-    geocoder.geocode(
-      {
-        'address': address
-      },
-      function(results, status) { // success callback function for results and status as parameters
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location
+  //  Set all markers
+  function codeAddress(map){
+    var addresses=[];
+    $.get("/articles.json", function(){
+    }).done(function(articles){
+         addresses.push(articles.map(function(art, i){
+           return art.address.city + ", "+ art.address.country.title;
+        }))
+        // callback
+        returnAddresses(addresses);
+     });
+     function returnAddresses(addressArray){
+        console.log(addressArray);
+        // Constructor module change address to longitude latitude coordinates tp place markers
+        geocoder.geocode(
+          {
+            'address': obj[0][1]
+          },
+          function(results, status) { // success callback function for results and status as parameters
+          if (status == 'OK') {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
         });
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
       }
-    });
   }
