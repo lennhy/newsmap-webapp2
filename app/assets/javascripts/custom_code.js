@@ -36,17 +36,17 @@ function loadArticleDetails(){
     let id = $(this).data("id");
     $.get("/articles/" + id + ".json", function(articles){
       content = articles["content"];
-      console.log(articles);
+      // console.log(articles);
       let total_credits = (articles["total_credits"]);
       let author = (articles["user"]["name"]);
 
       $(element).html("Arthor: "+author+"</li>" + "<li>Total Credits: "+total_credits)
     })
     .done(function(content){
-      console.log("request completed");
+      // console.log("request completed");
     })
     .fail(function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
+      // console.log(errorThrown);
     });
   });
 }
@@ -78,10 +78,10 @@ function loadAllCurrentlUserArticles(userId) {
     userObjGlobalVar = userObj;
   })
     .done(function(content){
-      console.log("request completed");
+      // console.log("request completed");
     })
     .fail(function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
+      // console.log(errorThrown);
     });
   }
 
@@ -213,7 +213,20 @@ var geocoder;
    codeAddress(map);
  }
 
+ function loadArticleAddress(){
+   $.get("/articles.json", function(){
+   }).done(function(articles){
+       var addresses = articles.map(function(art, i){
+              return art.address.city + ", "+ art.address.country.title;
+       })
+       console.log(addresses);
+    })
+  }
+
+
+
   function codeAddress(map) {
+    loadArticleAddress()
     // var address = document.getElementById('address').value;
     var address = "New York, United States";
     // Constructor module change address to longitude latitude coordinates tp place markers
