@@ -172,55 +172,53 @@ function Togglefunction(button, element, stringOne, stringTwo){
 
  // ----------------------------------------------- GOOGLE MAPS API
 
- // ---------------------------------------- GEOCODING
-
  var geocoder;
  var map;
- // Initialize map
- function initMap() {
-   geocoder = new google.maps.Geocoder();
-   var latlng = new google.maps.LatLng(-34.397, 150.644);
-   var mapOptions = {
-     zoom: 3,
-     center: latlng
-   }
-   map = new google.maps.Map(document.getElementById('map'), mapOptions);
-   codeAddress(map);
- }
 
- // Get all article adresses
- // function loadArticleAddress(){
- //
- //  }
+ // Initialize map
+  function initMap() {
+     // Setup initial point of view on Map
+     geocoder = new google.maps.Geocoder();
+     var latlng = new google.maps.LatLng(-34.397, 150.644);
+     var mapOptions = {
+       zoom: 3,
+       center: latlng
+     }
+     map = new google.maps.Map(document.getElementById('map'), mapOptions);
+     codeAddress(map);
+  }
 
   //  Set all markers
   function codeAddress(map){
+
     var addresses=[];
+
     $.get("/articles.json", function(){
     }).done(function(articles){
-         addresses.push(articles.map(function(art, i){
-           return art.address.city + ", "+ art.address.country.title;
-        }))
-        // callback
-        returnAddresses(addresses);
-     });
+     addresses.push(articles.map(function(art, i){
+       return art.address.city + ", "+ art.address.country.title;
+     }));
+     returnAddresses(addresses);
+    });
+
      function returnAddresses(addressArray){
-        console.log(addressArray);
-        // Constructor module change address to longitude latitude coordinates tp place markers
-        geocoder.geocode(
-          {
-            'address': obj[0][1]
-          },
-          function(results, status) { // success callback function for results and status as parameters
-          if (status == 'OK') {
-            map.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location
+        // Create Marker
+      for(let i=0; i < addressArray[0].length; i++){
+          geocoder.geocode(
+            {
+              'address': addressArray[0][i]
+            },
+              function(results, status) {
+                if (status == 'OK') {
+                  map.setCenter(results[0].geometry.location);
+                  var marker = new google.maps.Marker({
+                      map: map,
+                      position: results[0].geometry.location
+                  });
+                }else{
+                  alert('Geocode was not successful for the following reason: ' + status);
+                }
             });
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
-        });
-      }
+        }
+     }
   }
