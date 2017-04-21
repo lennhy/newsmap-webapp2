@@ -182,7 +182,7 @@ function initMap() {
   geocoder = new google.maps.Geocoder();
   var latlng = new google.maps.LatLng(-34.397, 150.644);
   var mapOptions = {
-    zoom: 3,
+    zoom: 4,
     center: latlng
   }
   map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -201,6 +201,7 @@ function codeAddress(map){
   });
 
   function returnAddresses(addressArray){
+    var marker;
     // Create Marker
     for(let i=0; i < addressArray[0].length; i++){
       geocoder.geocode(
@@ -210,10 +211,17 @@ function codeAddress(map){
       function(results, status) {
         if (status == 'OK') {
           map.setCenter(results[0].geometry.location);
-          var marker = new google.maps.Marker({
+            marker = new google.maps.Marker({
             map: map,
             position: results[0].geometry.location
           });
+          // Place tool tip
+          marker.addListener('click', function(){
+            console.log("boo");
+              var articleContainer = $('.article-container');
+              articleContainer.toggle();
+          });
+
         }else{
           alert('Geocode was not successful for the following reason: ' + status);
         }

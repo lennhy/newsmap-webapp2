@@ -1,5 +1,5 @@
 <div id="map">
-  
+
   <div class = "index-container" data-id="<%=current_user.id%>">
   </div>
 
@@ -23,30 +23,34 @@
     <p> Choose from any category to read <p>
   <% end %>
 
-  <!--  Start of articles iteration-->
-  <% @articles.each_with_index do |article, i| %>
+    <!--  Start of articles iteration-->
+    <% @articles.each_with_index do |article, i| %>
 
-    <div id = "articles-table">
-      <%= render partial: "articles", locals: {article: article} %></li>
+    <div class="article-container">
+
+      <div id = "articles-table">
+        <%= render partial: "articles", locals: {article: article} %></li>
+      </div>
+
+      <% if !current_user.nil? && current_user.reader? %>
+        <%= render partial: "credit_form", locals:{article: article} %>
+      <% end %>
+
+      <h4><% article.user %></h4>
+
+      <div id = "credit_detail">
+        <ul>
+          <% article.credits.each do |credit| %>
+          <%= render partial: "authors", locals: {user: article.user} %>
+
+          <% end %>
+        </ul>
+      </div>
+
+      <br>
+    <!-- End of article container  -->
     </div>
 
-    <% if !current_user.nil? && current_user.reader? %>
-      <%= render partial: "credit_form", locals:{article: article} %>
     <% end %>
-
-    <h4><% article.user %></h4>
-
-    <div id = "credit_detail">
-      <ul>
-        <% article.credits.each do |credit| %>
-        <%= render partial: "authors", locals: {user: article.user} %>
-
-        <% end %>
-      </ul>
-    </div>
-
-    <br>
-
-  <% end %>
   <!--  End of articles iteration-->
 </div>

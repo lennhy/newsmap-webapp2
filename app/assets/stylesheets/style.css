@@ -13,3 +13,7 @@ body{
      position: absolute;
      z-index: -1;
 }
+.article-container{
+  /*visibility: hidden;*/
+  display: none;
+}
