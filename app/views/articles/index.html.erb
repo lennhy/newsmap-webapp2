@@ -1,19 +1,17 @@
-<div id="map">
+<div class = "index-container" data-id="<%=current_user.id%>">
+</div>
 
-  <div class = "index-container" data-id="<%=current_user.id%>">
-  </div>
-
+<div class="home-intro">
   <!-- Greeting  -->
   <% if !current_user.nil? %>
     <i><p>Welcome <%= current_user.name %></p></i>
   <% end %>
 
-    <h3> All Articles </h3><br>
+    <h3> All Articles </h3>
   <!-- Class method helper method -->
-    <i> Most Credited Article: <b><%= most_popular_article %></i> </b><br>
-    <br>
+    <i> Most Credited Article: <b><%= most_popular_article %></i> </b>
 
-  </div>
+
 
   <!-- Define what user has access to based on user role -->
   <% if current_user && current_user.author? %>
@@ -23,6 +21,10 @@
     <b>You are a:</b> Reader
     <p> Choose from any category to read <p>
   <% end %>
+</div>
+
+<div id="map">
+
 
 
 </div>
