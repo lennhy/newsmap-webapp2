@@ -15,5 +15,9 @@ body{
 }
 .article-container{
   /*visibility: hidden;*/
-  display: none;
+  display: block;
+}
+#content{
+  width: 100%;
+  z-index: 1000;
 }
