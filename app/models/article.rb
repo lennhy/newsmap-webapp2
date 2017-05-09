@@ -63,7 +63,6 @@ class Article < ApplicationRecord
     self.credits.each do |credit|
       vote_count += credit.vote
     end
-    self.save
 
     #  # --when an article is first created author_id is generated in the credits table as a result a new credit +1 is created
     # # --but we only want a credit created by a reader so we remove the credit auto created by the author's article

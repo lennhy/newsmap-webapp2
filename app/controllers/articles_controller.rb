@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :update, :edit]
 
   def index
+    lib = current_user
     if params[:id]
       @articles = User.find(params[:id]).articles
       respond_to do |format|

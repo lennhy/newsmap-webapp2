@@ -23,8 +23,22 @@
   <% end %>
 </div>
 
+<div id="user_id" data-id= '<%= "#{current_user.id}" %>'>
+</div>
+
+  <!-- <% if !current_user.nil? && current_user.reader? %>
+    <div id="credit"></div>
+  <% end %> -->
+  <%= form_for credits_url do |f| %>
+
+    <%= f.label :vote %>
+    <input type="hidden"= name="credit[vote]" value=1 checked="checked" />
+    <%= f.hidden_field :article_id %>
+    <%= f.hidden_field :user_id, :value=> "#{current_user.id}" %>
+
+    <%= f.submit "Vote" %>
+  <% end %>
+
 <div id="map">
-
-
 
 </div>

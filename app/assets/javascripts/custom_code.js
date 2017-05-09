@@ -1,82 +1,7 @@
 // GLOBAL VARIABLES
 var userObjGlobalVar;
 
-//------------------------------------ DOCUMENT READY IN VANILA JAVASCRIPT
-//
-// $(function() {
-//   var userId = $("#articlesLink").attr("data-id");
-//   submitForm();
-//   loadAllCurrentlUserArticles(userId);
-//   loadArticleOnClick();
-//   loadAllArticlesOnClick();
-//   loadArticleDetails();
-// });
-
-// ----------------------------------- LOAD ARTICLE DATA ONTO DOM
-
-// Load single article on click
-// function loadArticleOnClick(){
-//   $(".js-read-more").on('click', function() {
-//     let id = $(this).data("id");
-//     loadArticle(id);
-//   });
-// }
-//
-// // Load all articles on click
-// function loadAllArticlesOnClick() {
-//   $("#articlesLink").on('click', function() {
-//     // Define new instance of constructor
-//     let id = $(this).data("id");
-//     var userArticles = new ToggleAllCurrentUserArticles(userObjGlobalVar);
-//     // Call prototype
-//     userArticles.renderUserArticles();
-//   });
-// }
-
-// Load article content
-// function loadArticleDetails(){
-//   $(".article-info").each(function (i, element){
-//     let id = $(this).data("id");
-//     $.get("/articles/" + id + ".json", function(articles){
-//       content = articles["content"];
-//     })
-//     .done(function(content){
-//       let total_credits = (content["total_credits"]);
-//       let author = (content["user"]["name"]);
-//       $(element).html("Arthor: "+author+"</li>" + "<li>Total Credits: "+total_credits+"<li class='city'>"+content["address"]["city"]+", "+content["address"]["country"]["title"]+"</li>");
-//     })
-//     .fail(function(jqXHR, textStatus, errorThrown){
-//     });
-//   });
-// }
-
-// function loadArticle(id){
-//   $.get("/articles/" + id + ".json", function(articles){
-//      let content = articles["content"];
-//     // define new instance of constructor
-//      var userArticleBody = new ToggleArticleBody(id, content);
-//      userArticleBody.renderArticleBody();
-//     })
-//     .done(function(content){
-//     })
-//     .fail(function(jqXHR, textStatus, errorThrown){
-//     });
-// }
-//
-// //  --------------------------------------- REQUEST ALL CURRENT USER ARTICLES VIA GET REQUEST
-//
-// function loadAllCurrentlUserArticles(userId){
-//   $.get("/users/" + userId + ".json", function(userObj){
-//    userObjGlobalVar = userObj;
-//   })
-//   .done(function(content){
-//   })
-//   .fail(function(jqXHR, textStatus, errorThrown){
-//   });
-// }
-//
-// // -------------------------------------- FORMS: ADDING A CREDIT TO ARTICLE
-//
+// Credit form
 function submitForm(){
   $('form.new_credit').submit(function(event) {
     event.preventDefault();
@@ -107,63 +32,6 @@ function submitForm(){
     });
   });
 }
-//
-// //  ---------------------------------- OBJECT CONSTRUCTOR FUNCTIONS
-//
-// // Articles of user show page
-// function ToggleAllCurrentUserArticles(userObj){
-//   // Return the articles of object from ajax get response
-//   this.articles = userObj.articles;
-// }
-//
-// // Toggle current user articles
-// ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
-//   let button = $("#articlesLink");
-//   let container =  $(".index-container ");
-//   container.html("");
-//   $.each(this.articles, function(i, article){
-//     container.prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
-//   });
-//   // Call other constructor for toggle action
-//   var toggleUserArticles = new Togglefunction(button, container, "See Your Articles", "Hide Your Articles" );
-//   toggleUserArticles.makeToggle();
-// }
-//
-// // Toggle body of individual article
-// function ToggleArticleBody(artBodyId, content){
-//   // return the id and content of object from ajax get response
-//   this.artBodyId = artBodyId;
-//   this.content = content;
-// }
-//
-// // Toggle article body
-// ToggleArticleBody.prototype.renderArticleBody = function(){
-//   let addText = $("#body-" + this.artBodyId);
-//   let button = $("button#"+this.artBodyId);
-//   let article_details = $("#article-details");
-//   addText.html("<p>" + this.content + "</p>");
-//   // Call other constructor for toggle action
-//   var toggleUserArticles = new Togglefunction(button, addText, "Read More", "Read Less" );
-//   toggleUserArticles.makeToggle();
-// }
-//
-// // Toggling functionality
-// function Togglefunction(button, element, stringOne, stringTwo){
-//   this.button = button;
-//   this.element = element;
-//   this.stringOne = stringOne;
-//   this.stringTwo = stringTwo;
-//   this.makeToggle = function() {
-//     if(button.html() === stringOne){
-//       element.show();
-//       button.html(stringTwo);
-//     }
-//     else{
-//       element.hide();
-//       button.html(stringOne);
-//     }
-//   }
-// }
 
 // ----------------------------------------------- GOOGLE MAPS API
 
@@ -212,6 +80,12 @@ function initMap() {
 // ----------------------------- Set all markers by address enterred
 
 function codeAddress(map){
+  var current_user_id = function(){
+    var id = $("#user_id").attr("data-id");
+    return id;
+  };
+  var TOKEN = $("meta[name='csrf-token']").attr('content');
+  console.log(TOKEN);
   var addresses=[];
   var articlesArr =[];
   var marker;
@@ -219,23 +93,17 @@ function codeAddress(map){
   $.get("/articles.json", function(){
   }).done(function(articles){
     console.log(articles);
-    // let content = articles[i]["content"];
-    // let total_credits = (articles[i]["total_credits"]);
-    // let author = (articles[i]["user"]["name"]);
-    // articlesArr.push(articles.map(function(art, i){
-    //   return "Arthor: "+author+"</li>" + "<li>Total Credits: "+total_credits+"<li class='city'>"+articles[i]["address"]["city"]+", "+articles[i]["address"]["country"]["title"]+"</li>";
-    // }));
     addresses.push(articles.map(function(art, i){
       return art.address.city + ", "+ art.address.country.title;
     }));
-    returnAddresses(addresses, articles);
+    returnAddresses(addresses, articles, current_user_id);
   });
 
 
 
   // ---------------------------- Create Marker with address
 
-  function returnAddresses(addressArray, articles){
+  function returnAddresses(addressArray, articles, current_user_id){
     // console.log(articlesArray[0][0]);
     var infowindow = new google.maps.InfoWindow({
       content: '',
@@ -265,14 +133,16 @@ function codeAddress(map){
 
 
         // ------------------------- Execute info window
-
-        let content = articles[i]["content"];
-        let total_credits = (articles[i]["total_credits"]);
-        let author = (articles[i]["user"]["name"]);
+        console.log(articles[i]["total_credits"]);
+        // let content = articles[i]["content"];
+        // let current_user_id = articles[i]["current_user"]["id"];
+        // let article_id = articles[i]["id"];
+        // let total_credits = (articles[i]["total_credits"]);
+        // let author = (articles[i]["user"]["name"]);
         articlesArr.push(articles.map(function(art, i){
-           return "Arthor: "+author+"</li>" +
+           return "Arthor: "+articles[i]["user"]["name"]+"</li>" +
                         "<li>Total Credits: "+
-                        total_credits+
+                        articles[i]["total_credits"]+
                         "<li class='city'>"+
                         articles[i]["address"]["city"]+
                         ", "+
@@ -280,7 +150,16 @@ function codeAddress(map){
                         "</li>"+
                         articles[i].title +
                         ": "+
-                         articles[i].content
+                         articles[i].content+
+                        //  $('.credits')
+                        '<form action="/credits" accept-charset="UTF-8" method="post">'+
+                          '<input name="utf8" type="hidden" value="✓">'+
+                          `<input type="hidden" name="authenticity_token" value="${TOKEN}">`+
+                          `<input type = "hidden" name = "credit[user_id]"  value = "${current_user_id()}"/>`+
+                          '<input type = "hidden" name = "credit[vote]" value = 1 checked = "checked"/>' +
+                          `<input type = "hidden" name = "credit[article_id]"  value = "${articles[i]["id"]}" />`+
+                          '<input type="submit" value="Credit Article">'
+                        '</form>'
         }));
 
         openInfoWindow(results, marker, infowindow, articlesArr, i);
