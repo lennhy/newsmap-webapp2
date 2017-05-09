@@ -2,7 +2,6 @@ class CreditsController < ApplicationController
 
   def create
     @credit = Credit.new(credit_params)
-    binding.pry
     if @credit.save
         render json: @credit, status: 201, notice:"You have successfully voted for this article!"
     else

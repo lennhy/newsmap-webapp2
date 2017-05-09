@@ -1,55 +1,14 @@
-// GLOBAL VARIABLES
-var userObjGlobalVar;
-
-// Credit form
-function submitForm(){
-  $('form.new_credit').submit(function(event) {
-    event.preventDefault();
-
-    let artId = $(this).find("span").data("id");
-    let values = $(this).serialize();
-    let crediting = $.post('/credits', values);
-
-    crediting.done(function(creditObj, textStatus, jqXHR ){
-
-      $('input[type="submit"]').prop("disabled", false);
-      loadArticleDetails();
-
-      let articleId = $("#notify-"+artId);
-
-      articleId.css("color", "red");
-
-      if(jqXHR.status === 200){
-        if((articleId).html("")){
-          articleId.prepend("<p>You have already credited this article</p>").show().fadeOut(5000);
-        }
-      }
-      else if(jqXHR.status === 201){
-        if((articleId).html("")){
-         articleId.prepend("<p>You have now added a new credit to the article</p>").show().fadeOut(5000);
-        }
-      }
-    });
-  });
-}
-
 // ----------------------------------------------- GOOGLE MAPS API
 
-// --------------------------------- Global Varaibles
-
+//  Global Varaibles
 var geocoder;
 var map;
 
-
-
-// --------------------------------- Initialize map
-
+//  Initialize map
 function initMap() {
 
 
-
-  // ------------------------------- Starting view on Map
-
+  //  Starting view on Map
   geocoder = new google.maps.Geocoder();
   var latlng = new google.maps.LatLng(-34.397, 150.644);
   var mapOptions = {
@@ -77,8 +36,7 @@ function initMap() {
 
 
 
-// ----------------------------- Set all markers by address enterred
-
+//  Set all markers by address enterred
 function codeAddress(map){
   var current_user_id = function(){
     var id = $("#user_id").attr("data-id");
@@ -101,10 +59,8 @@ function codeAddress(map){
 
 
 
-  // ---------------------------- Create Marker with address
-
+  //  Create Marker with address
   function returnAddresses(addressArray, articles, current_user_id){
-    // console.log(articlesArray[0][0]);
     var infowindow = new google.maps.InfoWindow({
       content: '',
       minWidth: 300,
@@ -118,8 +74,7 @@ function codeAddress(map){
 
 
 
-      // ------------------------- Check if promise was returned successfully
-
+      //  Check if promise was returned successfully
       function(results, status) {
         if (status == 'OK') {
           map.setCenter(results[0].geometry.location);
@@ -132,13 +87,7 @@ function codeAddress(map){
 
 
 
-        // ------------------------- Execute info window
-        console.log(articles[i]["total_credits"]);
-        // let content = articles[i]["content"];
-        // let current_user_id = articles[i]["current_user"]["id"];
-        // let article_id = articles[i]["id"];
-        // let total_credits = (articles[i]["total_credits"]);
-        // let author = (articles[i]["user"]["name"]);
+        // Fill info window with data content
         articlesArr.push(articles.map(function(art, i){
            return "Arthor: "+articles[i]["user"]["name"]+"</li>" +
                         "<li>Total Credits: "+
@@ -151,19 +100,18 @@ function codeAddress(map){
                         articles[i].title +
                         ": "+
                          articles[i].content+
-                        //  $('.credits')
-                        '<form action="/credits" accept-charset="UTF-8" method="post">'+
+                        `<form action="/credits" accept-charset="UTF-8" method="post" id="${articles[i]["id"]}">`+
                           '<input name="utf8" type="hidden" value="✓">'+
                           `<input type="hidden" name="authenticity_token" value="${TOKEN}">`+
                           `<input type = "hidden" name = "credit[user_id]"  value = "${current_user_id()}"/>`+
                           '<input type = "hidden" name = "credit[vote]" value = 1 checked = "checked"/>' +
                           `<input type = "hidden" name = "credit[article_id]"  value = "${articles[i]["id"]}" />`+
-                          '<input type="submit" value="Credit Article">'
-                        '</form>'
+                          '<input type="submit" value="Credit Article">'+
+                        '</form>'+
+                        '<div class="private-message"></div>'
         }));
-
         openInfoWindow(results, marker, infowindow, articlesArr, i);
-
+        submitForm(`${articles[i]["id"]}`, articles[i]["total_credits"]+1)
         }else{
           alert('Geocode was not successful for the following reason: ' + status);
         }
@@ -172,10 +120,38 @@ function codeAddress(map){
   }
 }
 
+// Credit form
+// function submitForm(id, updated_total_articles){
+//   document.addEventListener("click", function(){
+//   $(`form#${id}`).submit(function(event) {
+//     event.preventDefault();
+//     let values = $(this).serialize();
+//     let submitCredit = $.post('/credits', values);
+//     submitCredit.done(function(creditObj, textStatus, jqXHR ){
+//       $('input[type="submit"]').prop("disabled", false);
+//       let articleId = $("private-essage");
+//       if(jqXHR.status === 201){
+//         if((articleId).html("")){
+//           $(".gm-style-iw li").first().html("Total Credits: " + updated_total_articles);
+//           articleId.prepend("<p>You have now added a new credit to the article</p>").show().fadeOut(5000);
+//         }
+//       }
+//       else {
+//         if((articleId).html("")){
+//             articleId.prepend("<p>You have already added a credit to the article</p>").show().fadeOut(5000);
+//           if(creditObj.errors.role){
+//          articleId.prepend(`<p>${creditObj.errors.role[0]}</p>`).show().fadeOut(5000);
+//          }
+//
+//       }
+//       }
+//     });
+//   });
+// });
+// };
 
 
-// ------------------------- Create info window
-
+//  Create info window
 function openInfoWindow(results, marker, infowindow, articlesArray, index){
   marker.addListener('click', function(){
     infowindow.setContent(articlesArray[0][index]);
@@ -183,3 +159,34 @@ function openInfoWindow(results, marker, infowindow, articlesArray, index){
     infowindow.open(map, marker);
   });
 }
+
+// Credit form
+function submitForm(id, updated_total_articles){
+  document.addEventListener("click", function(){
+  $(`form#${id}`).submit(function(event) {
+    event.preventDefault();
+    let values = $(this).serialize();
+    let crediting = $.post('/credits', values);
+    crediting.done(function(creditObj, textStatus, jqXHR ){
+      $('input[type="submit"]').prop("disabled", false);
+      let articleId = $(".private-message");
+      if(jqXHR.status === 201){
+        if((articleId).html("")){
+          $(".gm-style-iw li").first().html("Total Credits: " + updated_total_articles);
+          articleId.prepend("<p>You have now added a new credit to the article</p>").show().fadeOut(5000);
+        }
+      }
+      else if(creditObj.errors.role){
+        if((articleId).html("")){
+             articleId.prepend(`<p>${creditObj.errors.role[0]}</p>`).show().fadeOut(5000);
+           }
+      }
+      else {
+        if((articleId).html("")){
+         articleId.prepend("<p>You have already credited this article</p>").show().fadeOut(5000);
+      }
+    }
+    });
+  });
+});
+};
