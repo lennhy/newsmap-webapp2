@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= angular
-//= angular-ui-router
 //= require_tree .
+//= require bootstrap
+//= require jquery
 //= require custom_code

@@ -1,16 +1,39 @@
-<div id = "navigator">
-  <ul>
-    <li><h2>NewsMap</h2></li>
-    
-      <% if current_user != nil && current_user.role != "reader" %>
-        <li><button id="articlesLink" data-id="<%= current_user.id %>">See Your Articles</button></li>
-      <% else %>
-        <td><%= link_to "Profile", user_path(current_user) if !current_user.nil? %></td>
-      <% end %>
+<!-- <div id = "navigator"> -->
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="/">NewsMap</a>
+  </div>
 
-      <% if current_user %>
-        <td> <%= link_to "Articles", articles_path if signed_in?%></td>
-      <% end %>
+    <ul>
+      <li><h2>NewsMap</h2></li>
 
-  </ul>
-</div>
+        <% if current_user != nil && current_user.role != "reader" %>
+          <li><button id="articlesLink" data-id="<%= current_user.id %>">See Your Articles</button></li>
+        <% else %>
+          <td><%= link_to "Profile", user_path(current_user) if !current_user.nil? %></td>
+        <% end %>
+
+        <% if current_user %>
+          <td> <%= link_to "Articles", articles_path if signed_in?%></td>
+        <% end %>
+
+    </ul>
+  </div>
+  <tbody>
+    <tr>
+        <% if user_signed_in? %>
+
+          <td><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></td>
+
+        <% else %>
+
+          <td><%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %> </td>
+          <td><%= link_to "Sign in", user_session_path, method: 'new' %> </td>
+          <td><%= link_to "Sign up", user_registration_path, method: 'create' %></td>
+
+        <% end %>
+    </tr>
+  </tbody>
+  </div>
+</nav>

@@ -39,6 +39,17 @@ body{
   background: #333;
 }
 .gm-style-iw{
-  /*background: #333;
-  color: #fff;*/
+  color: #333;
+  box-shadow: none;
+  box-decoration-break: none;
+}
+span.bold{
+  font-weight: bold;
+}
+form{
+  margin: 10px 0 10px 0;
+}
+li{
+  text-decoration: none;
+  list-style: none;
 }
