@@ -1,7 +1,6 @@
-<div class = "index-container" data-id="<%=current_user.id%>">
-</div>
+<div class = "index-container" data-id="<%=current_user.id%>"></div>
 
-<div class="home-intro">
+<div class="welcome-intro">
   <!-- Greeting  -->
   <% if !current_user.nil? %>
     <i><p>Welcome <%= current_user.name %></p></i>
@@ -10,35 +9,15 @@
     <h3> All Articles </h3>
   <!-- Class method helper method -->
     <i> Most Credited Article: <b><%= most_popular_article %></i> </b>
-
-
-
-  <!-- Define what user has access to based on user role -->
-  <% if current_user && current_user.author? %>
-    <p>You are an: Author</p>
-    <p> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </p>
-  <% else %>
-    <b>You are a:</b> Reader
-    <p> Choose from any category to read <p>
-  <% end %>
 </div>
 
-<div id="user_id" data-id= '<%= "#{current_user.id}" %>'>
-</div>
+<div id="user_id" data-id= '<%= "#{current_user.id}" %>'></div>
 
-  <!-- <% if !current_user.nil? && current_user.reader? %>
-    <div id="credit"></div>
-  <% end %> -->
-  <%= form_for credits_url do |f| %>
+<% if current_user && current_user.author? %>
+  <li>Author</li>
+<% else %>
+  <li>Reader </li>
+  <li> Choose from any category to read </li>
+<% end %>
 
-    <%= f.label :vote %>
-    <input type="hidden"= name="credit[vote]" value=1 checked="checked" />
-    <%= f.hidden_field :article_id %>
-    <%= f.hidden_field :user_id, :value=> "#{current_user.id}" %>
-
-    <%= f.submit "Vote" %>
-  <% end %>
-
-<div id="map">
-
-</div>
+<div id="map"></div>

@@ -6,6 +6,7 @@ body{
   height: auto;
 }
 
+/* GOOGLE MAPS CANVAS*/
 #map {
   display: -webkit-flex;
    display: flex;
@@ -16,20 +17,22 @@ body{
      position: absolute;
      z-index: 1;
 }
+
 .home-intro{
-  position: absolute;
+  /*position: absolute;
   right:100px;
   top:0;
-  z-index: 2;
+  z-index: 2;*/
   width: 40%;
 }
+
 .article-container{
-  /*visibility: hidden;*/
   display: block;
 }
-.phoney{
+
+/*.phoney{
   background-color: #333;
-}
+}*/
 
 .credit{
   width: 50%;
@@ -38,18 +41,59 @@ body{
   z-index: 9999;
   background: #333;
 }
+
 .gm-style-iw{
   color: #333;
   box-shadow: none;
   box-decoration-break: none;
 }
+
 span.bold{
   font-weight: bold;
 }
-form{
-  margin: 10px 0 10px 0;
+
+.transparent{
+  background: transparent !important;
 }
-li{
-  text-decoration: none;
-  list-style: none;
+
+.transparent{
+  background-color: transparent;
+  color: #9d9d9d;
+}
+
+.no-border{
+  border: none !important;
+}
+
+.has-bottom-border{
+  border-right: none  !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-bottom: 1px solid #9d9d9d !important;
+  border-radius: 0 !important;
+}
+
+/*HEADER AND NAVIGATION*/
+
+.welcome-intro{
+
+}
+
+nav.navbar-inverse{
+  margin: 0;
+}
+
+li.notfication{
+  display: none;
+}
+a:link {
+  text-decoration: none !important;
+  color: #9d9d9d;
+}
+
+.transparent .btn.btn-outline-info{
+  border: 1px solid #9d9d9d;
+  background: transparent;
+  margin-top: 7px;
+  color: #9d9d9d;
 }
