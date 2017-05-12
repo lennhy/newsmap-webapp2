@@ -1,16 +1,14 @@
 // ----------------------------------------------- GOOGLE MAPS API
 var userObjGlobalVar;
 
-//------------------------------------ DOCUMENT READY
+// ------------------------------------ DOCUMENT READY
 
 $(function() {
   var userId = $("#articlesLink").attr("data-id");
-  submitForm();
   loadAllCurrentlUserArticles(userId);
   loadArticleOnClick();
   loadAllArticlesOnClick();
   loadArticleDetails();
-  initMap();
 });
 
 function loadArticleOnClick(){
@@ -23,10 +21,10 @@ function loadArticleOnClick(){
 
 function loadAllArticlesOnClick() {
   $("#articlesLink").on('click', function() {
-    // define new instance of constructor
+    // -- define new instance of constructor
     let id = $(this).data("id");
     var userArticles = new ToggleAllCurrentUserArticles(userObjGlobalVar);
-    // call prototype
+    // -- call prototype
     userArticles.renderUserArticles();
   });
 }
@@ -58,16 +56,16 @@ function loadArticleDetails(){
 function loadArticle(id){
   $.get("/articles/" + id + ".json", function(articles){
     let content = articles["content"];
-    // define new instance of constructor
+    // -- define new instance of constructor
     var userArticleBody = new ToggleArticleBody(id, content);
-    // call the prototype method of this instance
+    // -- call the prototype method of this instance
     userArticleBody.renderArticleBody();
   })
   .done(function(content){
-    // console.log("request completed");
+    // -- console.log("request completed");
   })
   .fail(function(jqXHR, textStatus, errorThrown){
-    // console.log(errorThrown);
+    // -- console.log(errorThrown);
   });
 }
 
@@ -87,52 +85,16 @@ function loadAllCurrentlUserArticles(userId) {
   }
 
 
-
-
-// -------------------------------------- FORM FOR ADDING A CREDIT TO ARTICLE
-
-function submitForm(){
-   $('form.new_credit').submit(function(event) {
-      event.preventDefault();
-
-      let artId = $(this).find("span").data("id");
-      let values = $(this).serialize();
-      let crediting = $.post('/credits', values);
-
-      crediting.done(function(creditObj, textStatus, jqXHR ){
-
-        $('input[type="submit"]').prop("disabled", false);
-        loadArticleDetails();
-
-        let articleId = $("#notify-"+artId);
-
-        articleId.css("color", "red");
-
-        if(jqXHR.status === 200){
-          if((articleId).html("")){
-            articleId.prepend("<p>You have already credited this article</p>").show().fadeOut(5000);
-          }
-        }
-        else if(jqXHR.status === 201){
-          if((articleId).html("")){
-              articleId.prepend("<p>You have now added a new credit to the article</p>").show().fadeOut(5000);
-          }
-        }
-      });
-  });
-}
-
-
 //  ---------------------------------- OBJECT CONSTRUCTOR FUNCTIONS
 
-// constructor function for articles of user show page
+// -- constructor function for articles of user show page
 function ToggleAllCurrentUserArticles(userObj){
-    // return the articles of object from ajax get response
+    // -- return the articles of object from ajax get response
     this.articles = userObj.articles;
 }
 
 //  -------------------------------------------TOGGLE CURRENT USER ARTICLES
-// Prototype
+// -- Prototype
 ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
   let button = $("#articlesLink");
   let container =  $(".index-container ");
@@ -140,33 +102,34 @@ ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
   $.each(this.articles, function(i, article){
     container.prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
   });
-  // Call other constructor for toggle action
+  // -- Call other constructor for toggle action
   var toggleUserArticles = new Togglefunction(button, container, "See Your Articles", "Hide Your Articles" );
   toggleUserArticles.makeToggle();
 }
 
 
 
-// ----------------------------------------------TOGGLE BODY OF INDIVIDUAL ARTICLE ON INDEX PAGE
+// --------------------------------------------- TOGGLE BODY OF INDIVIDUAL ARTICLE ON INDEX PAGE
+
 function ToggleArticleBody(artBodyId, content){
-  // return the id and content of object from ajax get response
+  // -- return the id and content of object from ajax get response
   this.artBodyId = artBodyId;
   this.content = content;
 }
 
-// Prototype
+// -- Prototype
 ToggleArticleBody.prototype.renderArticleBody = function(){
   let addText = $("#body-" + this.artBodyId);
   let button = $("button#"+this.artBodyId);
   let article_details = $("#article-details");
   addText.html("<p>" + this.content + "</p>");
 
-  // Call other constructor for toggle action
+  // -- Call other constructor for toggle action
   var toggleUserArticles = new Togglefunction(button, addText, "Read More", "Read Less" );
   toggleUserArticles.makeToggle();
 }
 
-// Constructor function for toggle functionality
+// -- Constructor function for toggle functionality
 function Togglefunction(button, element, stringOne, stringTwo){
   this.button = button;
   this.element = element;
@@ -186,13 +149,15 @@ function Togglefunction(button, element, stringOne, stringTwo){
 }
 
 
-//-- Global Varaibles
+// ----------------------------------------------- GOOGLE MAPS API
+
+// -- Global Varaibles
 var geocoder;
 var map;
 
-//-- Initialize map
+// -- Initialize map
 function initMap() {
-  //-- Starting view on Map
+  // -- Starting view on Map
   geocoder = new google.maps.Geocoder();
   var latlng = new google.maps.LatLng(-34.397, 150.644);
   var mapOptions = {
@@ -219,8 +184,7 @@ function initMap() {
 }
 
 
-
-//-- Set all markers by address enterred
+// -- Set all markers by address enterred
 function codeAddress(map){
   var current_user_id = function(){
     var id = $("#user_id").attr("data-id");
@@ -240,8 +204,7 @@ function codeAddress(map){
   });
 
 
-
-  //-- Create Marker with address
+  // -- Create Marker with address
   function returnAddresses(addressArray, articles, current_user_id){
     var infowindow = new google.maps.InfoWindow({
       content: '',
@@ -254,7 +217,7 @@ function codeAddress(map){
        'address': addressArray[0][i]
       },
 
-      //-- Check if promise was returned successfully
+      // -- Check if promise was returned successfully
       function(results, status) {
         if (status == 'OK') {
           map.setCenter(results[0].geometry.location);
@@ -265,12 +228,11 @@ function codeAddress(map){
             id: i
           });
 
-        //-- Fill info window with data content
+        // -- Fill info window with data content
         articlesArr.push(articles.map(function(art, i){
                 return '<ul>'+
                         '<li>'+
-                        'Arthor: ' +
-                        articles[i]["user"]["name"]+"</li>" +
+                        'Arthor: ' + `<a href="/users/${articles[i]["user"]["id"]}">`+ articles[i]["user"]["name"]+"</li></a>" +
                         'Total Credits: '+
                         articles[i]["total_credits"]+
                         '</li>'+
@@ -307,8 +269,7 @@ function codeAddress(map){
   }
 }
 
-
-//-- Create info window
+// -- Create info window
 function openInfoWindow(results, marker, infowindow, articlesArray, index){
   marker.addListener('click', function(){
     infowindow.setContent(articlesArray[0][index]);
@@ -317,7 +278,7 @@ function openInfoWindow(results, marker, infowindow, articlesArray, index){
   });
 }
 
-//-- Credit form
+// -- Credit form
 function submitForm(id, updated_total_articles){
   document.addEventListener("click", function(){
     $(`form#${id}`).submit(function(event) {
