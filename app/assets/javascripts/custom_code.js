@@ -100,10 +100,10 @@ ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
   let container =  $(".index-container ");
   container.html("");
   $.each(this.articles, function(i, article){
-    container.prepend("<p><a href='/users/3/articles/3'>" + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
+    container.prepend(`<p><a href="/users/3/articles/${article.id}">` + article["title"] +"<a>"  + " Credits: " + article.total_credits + "<p>" + article["content"] + "</p>" + "</p>" );
   });
   // -- Call other constructor for toggle action
-  var toggleUserArticles = new Togglefunction(button, container, "See Your Articles", "Hide Your Articles" );
+  var toggleUserArticles = new Togglefunction(button, container, "My Articles", "Hide Your Articles" );
   toggleUserArticles.makeToggle();
 }
 

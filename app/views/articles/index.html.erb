@@ -3,18 +3,5 @@
 <div id="user_id" data-id= '<%= "#{current_user.id}" %>'></div>
 
 
-    <ul class="list-inline">
-        <!-- Class method helper method -->
-        <li>Most Credited Article: <%= most_popular_article %></li>
-
-      <% if current_user && current_user.author? %>
-        <li class="pull-right">Author: <%= current_user.name %></li>
-      <% else %>
-        <li class="pull-right">Reader: <%= current_user.name %></li>
-        <li> Choose from any category to read </li>
-      <% end %>
-
-    </ul>
-
 
 <div id="map"></div>

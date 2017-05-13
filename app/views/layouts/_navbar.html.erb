@@ -1,5 +1,5 @@
 <!-- <div id = "navigator"> -->
-<nav class="transparent has-bottom-border navbar navbar-inverse  ">
+<nav class="transparent navbar navbar-inverse  ">
 
     <div class="navbar-header">
       <a class="navbar-brand" href="/">NewsMap</a>
@@ -7,13 +7,13 @@
 
     <ul class="nav navbar-nav">
       <% if current_user != nil && current_user.role != "reader" %>
-      <button type="button" id="articlesLink" class="btn btn-outline-info transparent" data-id="<%= current_user.id %>">See Your Articles</button>
+      <button type="button" id="articlesLink" class="btn btn-outline-info transparent" data-id="<%= current_user.id %>">My Articles</button>
       <% else %>
         <li><%= link_to "Profile", user_path(current_user) if !current_user.nil? %></li>
       <% end %>
       <% if current_user %>
         <li> <% if signed_in? %></li>
-              <button type="button" class="btn btn-outline-info transparent"> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </button>
+              <button type="button" class="btn btn-outline-info transparent"> <%= link_to "Write an article", new_article_path(current_user.id) %> </button>
         <% end %>
       <% end %>
     </ul>
@@ -28,4 +28,19 @@
       <% end %>
     </ul>
 
+</nav>
+<nav class="transparent has-bottom-border navbar navbar-inverse  white-background">
+
+    <ul class="list-inline">
+        <!-- Class method helper method -->
+        <li>Most Credited Article: <%= most_popular_article %></li>
+
+      <% if current_user && current_user.author? %>
+        <li class="pull-right">Author: <%= current_user.name %></li>
+      <% else %>
+        <li class="pull-right">Reader: <%= current_user.name %></li>
+        <li> Choose from any category to read </li>
+      <% end %>
+
+    </ul>
 </nav>
