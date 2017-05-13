@@ -29,6 +29,8 @@ nav.navbar-inverse{
   margin: 0;
   background: #152e56  ;
   border-radius: 0;
+  padding-left: 50px;
+  padding-right: 50px;
 }
 
 .navbar-header .navbar-brand{
@@ -50,6 +52,8 @@ ul.list-inline{
   padding: 10px;
   margin-top:10px;
   color: #426ca9;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 li.notfication{
@@ -82,9 +86,9 @@ ul li.list-group-item:first-child{
   border-bottom: 1px solid #eaf1fd;
 }
 
-ul:first-child{
+/*ul:first-child{
   margin-top: 30px;
-}
+}*/
 /* <<<<<<<<<<<<<<<<<<<<<<<<   GOOGLE MAPS CANVAS*/
 
 #map {
