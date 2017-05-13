@@ -10,13 +10,15 @@
   </head>
 
   <body>
-    <%= render 'layouts/navbar' %></li>
-    <!-- <%= render 'layouts/log' %> -->
-    <%= render 'layouts/messages' %>
+    <div class="container-fluid ">
+      <%= render 'layouts/navbar' %></li>
+      <!-- <%= render 'layouts/log' %> -->
+      <%= render 'layouts/messages' %>
 
-    <%= yield %>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQprz73OSViq21gCLqYXi3NP8qRotA1UQ&callback=initMap">
-    </script>
+      <%= yield %>
+      <script async defer
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQprz73OSViq21gCLqYXi3NP8qRotA1UQ&callback=initMap">
+      </script>
+    </div>
   </body>
 </html>

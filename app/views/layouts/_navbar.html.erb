@@ -1,8 +1,6 @@
 <!-- <div id = "navigator"> -->
 <nav class="transparent has-bottom-border navbar navbar-inverse  ">
 
-  <div class="container-fluid ">
-
     <div class="navbar-header">
       <a class="navbar-brand" href="/">NewsMap</a>
     </div>
@@ -14,9 +12,10 @@
         <li><%= link_to "Profile", user_path(current_user) if !current_user.nil? %></li>
       <% end %>
       <% if current_user %>
-        <li> <%= link_to "Articles", articles_path if signed_in?%></li>
+        <li> <% if signed_in? %></li>
+              <button type="button" class="btn btn-outline-info transparent"> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </button>
+        <% end %>
       <% end %>
-      <button type="button" class="btn btn-outline-info transparent"> <%= link_to "Start writting your first article", new_article_path(current_user.id) %> </button>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
@@ -28,7 +27,5 @@
         <li><%= link_to "Sign up", user_registration_path, method: 'create' %></li>
       <% end %>
     </ul>
-
-  </div>
 
 </nav>
