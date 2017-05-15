@@ -1,12 +1,10 @@
-<h3><%= @article.title %></h3>
-
-<b>Sources:</b>
-
-<ol>
-<% @article.sources.each do |src| %>
-  <li> <%= src.name %> </li>
-<% end %>
-</ol>
+<ul class="list-group">
+  <li class="list-group-item dark-green"><h3><%= @article.title %></h3></li>
+    <li class="list-group-item active">Sources:</li>
+  <% @article.sources.each do |src| %>
+    <li class="list-group-item"> <%= src.name %> </li>
+  <% end %>
+</ul>
 
 <b>Country:</b>
   <ul>

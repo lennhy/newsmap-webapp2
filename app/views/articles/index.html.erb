@@ -1,7 +1,10 @@
-<div class = "index-container" data-id="<%=current_user.id%>"></div>
 
 <div id="user_id" data-id= '<%= "#{current_user.id}" %>'></div>
 
 
 
 <div id="map"></div>
+
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQprz73OSViq21gCLqYXi3NP8qRotA1UQ&callback=initMap">
+</script>

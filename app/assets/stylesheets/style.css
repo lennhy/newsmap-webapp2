@@ -22,12 +22,21 @@ div.container-fluid{
   padding: 0px;
 }
 
-
+div.jumbotron{
+  padding:20px;
+  z-index:0;
+  position: relative;
+  background: #24a379;
+  border-radius: 0px;
+}
+.container-fluid > div.jumbotron{
+  border-radius: 0;
+}
 /* <<<<<<<<<<<<<<<<<<<<<<  HEADER AND NAVIGATION*/
 
 nav.navbar-inverse{
   margin: 0;
-  background: #152e56  ;
+  background: #012e28  ;
   border-radius: 0;
   padding-left: 50px;
   padding-right: 50px;
@@ -44,7 +53,10 @@ nav.navbar-inverse{
 .navbar-inverse .navbar-nav > li > a{
   color: #94a8cc;
 }
-
+h3.header{
+  margin: 0 auto;
+  color: #fff;
+}
 
 /*<<<<<<<<<<<<<<<<<<<<<<< LISTS */
 
@@ -70,25 +82,23 @@ ul li.list-group-item {
     margin: 0 auto;
     border-radius: 0;
     border: none;
-    /*height: auto;
-    background-color: rgba(255, 255, 255, 1);
-    border: none;
-    margin: 2px 0 2px 0;
-    display: inline-block;
-    color: #878787;
-    font-weight: 400;
-    word-wrap: break-word;
-    list-style: none;
-    border: 1px solid #333;*/
+}
+
+ li.list-group-item.active{
+  background: #8adeca;
+  margin: top: 20px;
+}
+
+li.list-group-item.dark-green{
+ background: #012e28;
+ color: #fff;
 }
 
 ul li.list-group-item:first-child{
   border-bottom: 1px solid #eaf1fd;
 }
 
-/*ul:first-child{
-  margin-top: 30px;
-}*/
+
 /* <<<<<<<<<<<<<<<<<<<<<<<<   GOOGLE MAPS CANVAS*/
 
 #map {
@@ -103,7 +113,18 @@ ul li.list-group-item:first-child{
 }
 
 
-/* <<<<<<<<<<<<<<<<<<<<<<<<   CREDIT FORM */
+/* <<<<<<<<<<<<<<<<<<<<<<<<  FORMS */
+
+form.new_article{
+  margin-top: 50px;
+}
+
+.form-control{
+  border: none;
+  /*# #42587  #4f6384*/
+  background-color:  #8adeca;
+  color: #fff;
+}
 
 .credit{
   width: 50%;
@@ -112,7 +133,10 @@ ul li.list-group-item:first-child{
   z-index: 9999;
   background: #333;
 }
-
+.new_article{
+  width: 50%;
+  margin: 0 auto;
+}
 .gm-style-iw{
   color: #215E21;
   box-shadow: none;
