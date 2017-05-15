@@ -1,37 +1,46 @@
-<tbody>
+
+
+<div class="jumbotron"><h3 class="header">
   <% if !current_user.persisted? %>
 
-    <h3><%= current_user.name%> Profile</h3>
+    <%= current_user.name%>'s Profile
 
   <% elsif user_signed_in? %>
 
-    <h3>My Profile</h3>
+    My Profile
 
   <% end %>
 
+</div>
 
-  <%if current_user.reader?%>
 
-    <h4>Articles credited</h4>
-    <p><%= pluralize(current_user.total_reader_credits,"credit made")%> </p>
-    <h3>Articles Credited:</h3>
-    <ol>
+<%if current_user.reader?%>
+
+    <ul class="list-group">
+      <li class="list-group-item active">Articles credited <%= pluralize(current_user.total_reader_credits,"credit made")%></li>
+      <li class="list-group-item" >Articles Credited:</li>
+
       <% current_user.credits.each do |credit| %>
+
         <li><%= link_to credit.article.title, user_article_path(current_user.id, credit.article.id) %></li>
-    </ol>
 
-  <% end %>
+      <% end %>
+
+    </ul>
 
 
-  <% elsif current_user.author? %>
+<% elsif current_user.author? %>
 
-    <h4>Articles published</h4>
+    <ul class="list-group">
+      <li class="list-group-item active">Articles published</li>
+    </ul>
+
     <% current_user.articles.each do |article| %>
-    <tr>
-      <%= render partial: "articles/articles", locals: {article: article} %>
-    <% end %>
-    </tr>
+
+      <ul class="list-group">
+          <%= render partial: "articles/articles", locals: {article: article} %>
+      </ul>
 
   <% end %>
 
-</tbody>
+<% end %>

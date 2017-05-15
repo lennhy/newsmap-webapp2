@@ -39,7 +39,7 @@ function loadArticleDetails(){
       let total_credits = (articles["total_credits"]);
       let author = (articles["user"]["name"]);
 
-      $(element).html("Arthor: "+author+"</li>" + "<li>Total Credits: "+total_credits)
+      $(element).html('<li class="list-group-item ">Arthor: '+author+'</li>' + '<li class="list-group-item ">Total Credits: '+total_credits)
     })
     .done(function(content){
       console.log("request completed");
@@ -124,7 +124,7 @@ ToggleArticleBody.prototype.renderArticleBody = function(){
   let addText = $("#body-" + this.artBodyId);
   let button = $("button#"+this.artBodyId);
   let article_details = $("#article-details");
-  addText.html("<p>" + this.content + "</p>");
+  addText.html('<li class="list-group-item ">'+ this.content + "</li>");
 
   // -- Call other constructor for toggle action
   var toggleUserArticles = new Togglefunction(button, addText, "Read More", "Read Less" );

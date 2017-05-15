@@ -26,12 +26,13 @@ div.jumbotron{
   padding:20px;
   z-index:0;
   position: relative;
-  background: #24a379;
   border-radius: 0px;
 }
 .container-fluid > div.jumbotron{
   border-radius: 0;
 }
+
+
 /* <<<<<<<<<<<<<<<<<<<<<<  HEADER AND NAVIGATION*/
 
 nav.navbar-inverse{
@@ -55,8 +56,9 @@ nav.navbar-inverse{
 }
 h3.header{
   margin: 0 auto;
-  color: #fff;
+  color: #52c4a9;
 }
+
 
 /*<<<<<<<<<<<<<<<<<<<<<<< LISTS */
 
@@ -66,6 +68,10 @@ ul.list-inline{
   color: #426ca9;
   margin-left: 0;
   margin-right: 0;
+}
+
+.container-fluid ul.list-group:first-of-type{
+  margin-top: 50px;
 }
 
 li.notfication{
@@ -133,7 +139,7 @@ form.new_article{
   z-index: 9999;
   background: #333;
 }
-.new_article{
+.new_article, .edit_article{
   width: 50%;
   margin: 0 auto;
 }
@@ -143,6 +149,7 @@ form.new_article{
   box-decoration-break: none;
 }
 
+
 /* <<<<<<<<<<<<<<<<<<<<<<<< BUTTONS */
 
 .transparent .btn.btn-outline-info{
@@ -150,6 +157,7 @@ form.new_article{
   background: transparent;
   margin-top: 7px;
 }
+
 
 /* <<<<<<<<<<<<<<<<<<<<<<<<   CSS STYLES*/
 
@@ -173,6 +181,6 @@ span.bold{
   border-right: none  ;
   border-left: none ;
   border-top: none ;
-  border-bottom:1px solid #94a8cc;
+  border-bottom:1px solid #8adeca;
   border-radius: 0 ;
 }
