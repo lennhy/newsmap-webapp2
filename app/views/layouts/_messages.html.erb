@@ -1,6 +1,5 @@
 <% if flash[:error] || flash[:notice] || flash[:alert] %>
-<li class="notificaton"><%= content_tag(:div, flash[:error], :id => "flash_error") %></li>
-<li class="notificaton"><%= content_tag(:div, flash[:notice], :id => "flash_notice") %></li>
-<li class="notificaton"><%= content_tag(:div, flash[:alert], :id => "flash_alert") %></li>
-<br>
+  <%= content_tag(:div, flash[:error], :id => "flash_error") %>
+  <%= content_tag(:div, flash[:notice], :id => "flash_notice") %>
+  <%= content_tag(:div, flash[:alert], :id => "flash_alert") %>
 <% end %>

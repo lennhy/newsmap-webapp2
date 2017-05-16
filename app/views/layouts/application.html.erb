@@ -15,7 +15,11 @@
       <!-- <%= render 'layouts/log' %> -->
       <%= render 'layouts/messages' %>
 
-      <div class = "index-container" data-id="<%=current_user.id%>"></div>
+      <% if current_user != nil %>
+
+        <div class = "index-container" data-id="<%=current_user.id%>"></div>
+
+      <% end %>
 
       <%= yield %>
     </div>

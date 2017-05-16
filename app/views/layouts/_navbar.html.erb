@@ -1,4 +1,4 @@
-<nav class="transparent navbar navbar-inverse  ">
+<nav class="has-bottom-border navbar navbar-inverse first  ">
 
     <div class="navbar-header">
       <a class="navbar-brand" href="/">NewsMap</a>
@@ -11,8 +11,8 @@
         <li><%= link_to "Profile", user_path(current_user) if !current_user.nil? %></li>
       <% end %>
       <% if current_user %>
-        <li> <% if signed_in? %></li>
-              <button type="button" class="btn btn-outline-info transparent"> <%= link_to "Write an article", new_article_path(current_user.id) %> </button>
+        <% if signed_in? %>
+              <li> <button type="button" class="btn btn-outline-info transparent"> <%= link_to "Write an article", new_article_path(current_user.id) %> </button></li>
         <% end %>
       <% end %>
     </ul>
@@ -29,17 +29,20 @@
 
 </nav>
 
-<nav class="transparent has-bottom-border navbar navbar-inverse  white-background">
+<nav class="has-no-bottom-border transparent  ">
 
     <ul class="list-inline">
+    <% if user_signed_in? %>
         <!-- Class method helper method -->
         <li>Most Credited Article: <%= most_popular_article %></li>
-
-      <% if current_user && current_user.author? %>
+    <% end %>
+    <% if current_user != nil && current_user.role != "author" %>
         <li class="pull-right">Author: <%= current_user.name %></li>
-      <% else %>
+
+      <% elsif current_user != nil && current_user.role != "reader" %>
         <li class="pull-right">Reader: <%= current_user.name %></li>
         <li> Choose from any category to read </li>
+
       <% end %>
 
     </ul>
