@@ -22,7 +22,7 @@
 
       <% current_user.credits.each do |credit| %>
 
-        <li><%= link_to credit.article.title, user_article_path(current_user.id, credit.article.id) %></li>
+        <li class="list-group-item"><%= link_to credit.article.title, user_article_path(current_user.id, credit.article.id) %></li>
 
       <% end %>
 

@@ -5,6 +5,7 @@ var userObjGlobalVar;
 
 $(function() {
   var userId = $("#articlesLink").attr("data-id");
+  console.log(userId);
   loadAllCurrentlUserArticles(userId);
   loadArticleOnClick();
   loadAllArticlesOnClick();
@@ -96,14 +97,20 @@ function ToggleAllCurrentUserArticles(userObj){
 //  -------------------------------------------TOGGLE CURRENT USER ARTICLES
 // -- Prototype
 ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
+  console.log("start");
   let button = $("#articlesLink");
   let container =  $(".index-container ");
+  console.log(container.html());
   container.html("");
   $.each(this.articles, function(i, article){
+    console.log(i);
+
     container.prepend(`<ul class="list-group"><li class="list-group-item"><a href="/users/3/articles/${article.id}">` + '<h3>' + article["title"] + "</h3><a></li>"  +
      '<li class="list-group-item">'+" Credits: " + article.total_credits + '</li>'+
     '<li class="list-group-item>"' + article["content"] + "</li>" + "</ul>" );
   });
+  console.log(container.html());
+
   // -- Call other constructor for toggle action
   var toggleUserArticles = new Togglefunction(button, container, "My Articles", "Hide Your Articles" );
   toggleUserArticles.makeToggle();

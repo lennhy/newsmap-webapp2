@@ -78,8 +78,8 @@ h3.header{
 }
 
 /* <<<<<<<<<<<<<<<<<<<<<<<  MESSAGES*/
-#flash_alert, #flash_notice, #flash_error{
-  width: 50%;
+ #flash_alert, #flash_notice, #flash_error, #error_explanation{
+  margin: 20px auto;
   left: 25%;
   right: 25%;
   padding: 20px;
@@ -88,12 +88,15 @@ h3.header{
   letter-spacing: .045em;
   background: #F2F2F2;
   color:  #333;
-  position: fixed;
   z-index: 9999;
   top:10px;
   box-shadow: 2px 2px 2px #636363;
 }
 /*<<<<<<<<<<<<<<<<<<<<<<< LISTS */
+
+li{
+  list-style: none;
+}
 
 ul.list-inline{
   padding: 10px;
@@ -112,9 +115,9 @@ li.notfication{
 }
 
 a, #articlesLink {
-
   text-decoration: none ;
   color: #94a8cc;
+  padding-top: 14px;
 }
 
 ul li.list-group-item {

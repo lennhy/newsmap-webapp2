@@ -1,5 +1,7 @@
-<% if flash[:error] || flash[:notice] || flash[:alert] %>
+<% if flash[:error]  %>
   <%= content_tag(:div, flash[:error], :id => "flash_error") %>
+<% elsif flash[:notice] %>
   <%= content_tag(:div, flash[:notice], :id => "flash_notice") %>
+<% elsif flash[:alert] %>
   <%= content_tag(:div, flash[:alert], :id => "flash_alert") %>
 <% end %>

@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   # --user_single article show page
   get 'users/:id/articles/:id' => 'articles#show', as: 'user_article'
 
-  # -- edit article
+  # -- edit article 
   get 'users/:id/articles/:id/edit' => 'articles#edit', as: 'edit_article'
 
   patch '/users/:id/articles/:id' => 'articles#update', as: 'article_path'
