@@ -147,11 +147,11 @@ function Togglefunction(button, element, stringOne, stringTwo){
 
   this.makeToggle = function() {
     if(button.html() === stringOne){
-      element.show();
+      element.slideDown(1000);
       button.html(stringTwo);
     }
     else{
-      element.hide();
+      element.slideUp(1000);
       button.html(stringOne);
     }
   }

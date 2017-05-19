@@ -38,7 +38,7 @@
     <% current_user.articles.each do |article| %>
 
       <ul class="list-group">
-          <%= render partial: "articles/articles", locals: {article: article} %>
+            <%= render partial: "articles/articles", locals: {article: article} %>
       </ul>
 
   <% end %>

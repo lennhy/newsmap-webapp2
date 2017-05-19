@@ -17,6 +17,10 @@ div.article-container{
   display: block;
 }
 
+index-container{
+  display: none;
+}
+
 div.container-fluid{
   margin: 0px;
   padding: 0px;
@@ -92,6 +96,8 @@ h3.header{
   top:10px;
   box-shadow: 2px 2px 2px #636363;
 }
+
+
 /*<<<<<<<<<<<<<<<<<<<<<<< LISTS */
 
 li{
@@ -206,6 +212,24 @@ form.new_article{
 .transparent .btn.btn-outline-info{
   border: none;
   background: transparent;
+}
+
+/* <<<<<<<<<<<<<<<<<<<<<<< FOOTER */
+
+footer.footer{
+  width:100%;
+  text-align: center;
+  font-size: .95em;
+  color: #fff;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  background: #000;
+  opacity: .8;
 }
 
 
