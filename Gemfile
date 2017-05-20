@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.4.0'
 # creates a serailizer to serialize your object into JSON
 gem 'active_model_serializers'
 
