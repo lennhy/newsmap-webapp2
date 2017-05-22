@@ -1,7 +1,7 @@
 <nav class="has-bottom-border navbar navbar-inverse first  ">
 
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">NewsMap</a>
+      <a class="navbar-brand" href="/">NewzMaps</a>
     </div>
 
     <ul class="nav navbar-nav">
@@ -37,10 +37,10 @@
         <li>Most Credited Article: <%= most_popular_article %></li>
     <% end %>
     <% if current_user != nil && current_user.role != "author" %>
-        <li class="pull-right">Author: <%= current_user.name %></li>
+        <li class="pull-right">Reader: <%= current_user.name %></li>
 
       <% elsif current_user != nil && current_user.role != "reader" %>
-        <li class="pull-right">Reader: <%= current_user.name %></li>
+        <li class="pull-right">Author: <%= current_user.name %></li>
         <li> Choose from any category to read </li>
 
       <% end %>

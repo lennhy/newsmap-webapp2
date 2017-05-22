@@ -1,6 +1,6 @@
 <ul>
   <% if !user.nil? && user.author? %>
-      <!-- <li>Author: <%= user.name %></li> -->
+      <li>Author: <%= user.name %></li>
   <% elsif user.reader? %>
       <li>Creditor: <%= credit.user.name  %></li>
   <% end %>
