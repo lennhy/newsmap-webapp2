@@ -11,7 +11,7 @@
         <li><%= link_to "Profile", user_path(current_user) if !current_user.nil? %></li>
       <% end %>
       <% if current_user %>
-        <% if signed_in? %>
+        <% if signed_in? && current_user.role != "reader" %>
               <li> <button type="button" class="btn btn-outline-info transparent"> <%= link_to "Write an article", new_article_path(current_user.id) %> </button></li>
         <% end %>
       <% end %>

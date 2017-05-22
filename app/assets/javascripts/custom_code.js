@@ -100,16 +100,13 @@ ToggleAllCurrentUserArticles.prototype.renderUserArticles = function(){
   console.log("start");
   let button = $("#articlesLink");
   let container =  $(".index-container ");
-  console.log(container.html());
-  container.html("");
-  $.each(this.articles, function(i, article){
-    console.log(i);
+  container.html(" ");
 
+  $.each(this.articles, function(i, article){
     container.prepend(`<ul class="list-group"><li class="list-group-item"><a href="/users/3/articles/${article.id}">` + '<h3>' + article["title"] + "</h3><a></li>"  +
      '<li class="list-group-item">'+" Credits: " + article.total_credits + '</li>'+
     '<li class="list-group-item>"' + article["content"] + "</li>" + "</ul>" );
   });
-  console.log(container.html());
 
   // -- Call other constructor for toggle action
   var toggleUserArticles = new Togglefunction(button, container, "My Articles", "Hide Your Articles" );
@@ -250,22 +247,22 @@ function codeAddress(map){
                         ", "+
                         articles[i]["address"]["country"]["title"]+
                         "</li>"+
-                        '<li>'+
+                        '<p><li>'+
                         '<span class="bold">'+
                         articles[i].title +
                         '</span>' +
-                        '</li>'+
+                        '</li></p>'+
                         '<li>'+
                          articles[i].content+
                          '</li>'+
-                        `<form action="/credits" accept-charset="UTF-8" method="post" id="${articles[i]["id"]}">`+
+                        `<p><form action="/credits" accept-charset="UTF-8" method="post" id="${articles[i]["id"]}">`+
                           '<input name="utf8" type="hidden" value="✓">'+
                           `<input type="hidden" name="authenticity_token" value="${TOKEN}">`+
                           `<input type = "hidden" name = "credit[user_id]"  value = "${current_user_id()}"/>`+
                           '<input type = "hidden" name = "credit[vote]" value = 1 checked = "checked"/>' +
                           `<input type = "hidden" name = "credit[article_id]"  value = "${articles[i]["id"]}" />`+
                           '<input type="submit" value="Credit Article">'+
-                        '</form>'+
+                        '</form></p>'+
                         '<div class="private-message"></div>'
         }));
         openInfoWindow(results, marker, infowindow, articlesArr, i);

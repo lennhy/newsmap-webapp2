@@ -48,6 +48,7 @@ div.container-fluid .background-image{
   z-index: 9888;
 }
 
+
 /* <<<<<<<<<<<<<<<<<<<<<<  HEADER AND NAVIGATION*/
 
 nav.navbar-inverse{
@@ -83,7 +84,9 @@ h3.header{
   color: #52c4a9;
 }
 
+
 /* <<<<<<<<<<<<<<<<<<<<<<<  MESSAGES*/
+
  #flash_alert, #flash_notice, #flash_error, #error_explanation{
   margin: 20px auto;
   left: 25%;
@@ -157,6 +160,8 @@ li .btn{
   color: #8adeca;
   text-decoration: none;
 }
+
+
 /* <<<<<<<<<<<<<<<<<<<<<<<<   GOOGLE MAPS CANVAS*/
 
 #map {
@@ -203,7 +208,9 @@ form.new_article{
   margin: 0 auto;
 }
 .gm-style-iw{
-  color: #215E21;
+  width: 100%;
+  height: auto;
+  color: #333;
   box-shadow: none;
   box-decoration-break: none;
 }
@@ -242,7 +249,9 @@ nav.white-background{
 }
 
 span.bold{
-  font-weight: bold;
+  color: #4CAF50;
+  font-weight: 700;
+  overflow-y: auto;
 }
 
 .transparent{
