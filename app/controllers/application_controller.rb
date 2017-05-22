@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
 
   # tells devise where to look for the root path after signing in with facebook
   def after_sign_in_path_for(resource)
-    binding.pry
     request.env['omniauth.origin'] || root_path
   end
 
