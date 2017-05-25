@@ -1,4 +1,5 @@
 <div class="container-fluid background-image">
+  <!-- <%= devise_error_messages! %> -->
 
 <div class="row devise-form">
 
@@ -7,7 +8,6 @@
       <h3 class="header">Sign up</h3>
 
 <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
 
   <div class="field">
     <%= f.text_field :name %>
@@ -30,12 +30,14 @@
 
   <div class="field">
     <!-- if clicked user changes to reader -->
-    <%= f.radio_button :role, 'reader', :checked => false %>
     <%= f.label :role, 'Reader', :checked => false %><br />
 
+    <%= f.radio_button :role, 'reader', :checked => false %>
+
     <!-- if clicked user changes to author -->
-    <%= f.radio_button :role, 'author' %>
     <%= f.label :role, 'Author'%><br />
+    <%= f.radio_button :role, 'author' %>
+
   </div>
 
   <div class="actions">
@@ -44,5 +46,8 @@
 <% end %>
   </ul>
   </div>
+</div>
 
-<%= render "devise/shared/links" %>
+<ul class="list-group">
+  <li  class="list-group-item"><%= render "devise/shared/links" %></li>
+</ul>

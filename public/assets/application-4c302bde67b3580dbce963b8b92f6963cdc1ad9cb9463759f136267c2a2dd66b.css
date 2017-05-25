@@ -6873,6 +6873,7 @@ h3.header{
 /* <<<<<<<<<<<<<<<<<<<<<<<  MESSAGES*/
  #flash_alert, #flash_notice, #flash_error, #error_explanation{
   margin: 20px auto;
+  width: 50%;
   left: 25%;
   right: 25%;
   padding: 20px;
