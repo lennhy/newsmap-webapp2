@@ -209,7 +209,10 @@ li .btn{
 .devise-form{
   width: 35%;
   margin: 50px auto;
+}
 
+textarea.form-control{
+    height: 500px;
 }
 
 form.new_article{
@@ -329,9 +332,9 @@ span.bold{
       width: 100%;
   }
 
-  button[type=button]{
+  /*button[type=button]{
     display: inline-block;
-  }
+  }*/
 
   .navbar-header .navbar-brand{
     padding-left: 0;
