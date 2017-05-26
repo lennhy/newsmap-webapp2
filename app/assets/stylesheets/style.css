@@ -49,7 +49,15 @@ div.container-fluid .background-image{
   z-index: 9888;
 }
 
+.flex-container{
+  display: inline-flex;
+}
 
+.flex-item{
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
 
 /* <<<<<<<<<<<<<<<<<<<<<<  HEADER AND NAVIGATION*/
 
@@ -123,12 +131,16 @@ li{
   list-style: none;
 }
 
+li.colored a{
+  color: #8adeca;
+}
+
 ul.list-inline{
-  margin-top: 10px;
   padding: 10px;
   color: #333;
   margin-left: 0;
   margin-right: 0;
+  margin-bottom: 20px;
 }
 
 .container-fluid ul.list-group:first-of-type{
