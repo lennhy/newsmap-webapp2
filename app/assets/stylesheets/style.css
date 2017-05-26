@@ -124,11 +124,11 @@ li{
 }
 
 ul.list-inline{
+  margin-top: 10px;
   padding: 10px;
   color: #333;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 20px;
 }
 
 .container-fluid ul.list-group:first-of-type{
@@ -327,6 +327,10 @@ span.bold{
 
   input.btn.btn-default {
       width: 100%;
+  }
+
+  button[type=button]{
+    display: inline-block;
   }
 
   .navbar-header .navbar-brand{
