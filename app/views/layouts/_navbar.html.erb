@@ -21,9 +21,9 @@
       <% if user_signed_in? %>
         <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
       <% else %>
-        <li><%= link_to "Sign in with Facebook if you want to read news articles", user_facebook_omniauth_authorize_path %> </li>
+        <li><%= link_to "Sign in with Facebook to read news articles", user_facebook_omniauth_authorize_path %> </li>
         <li><%= link_to "Sign in", user_session_path, method: 'new' %> </li>
-        <li><%= link_to "Sign up", user_registration_path, method: 'create' %></li>
+        <li><%= link_to "Sign up to read and write news articles", user_registration_path, method: 'create' %></li>
       <% end %>
     </ul>
     <!-- <div class="flex-container">
