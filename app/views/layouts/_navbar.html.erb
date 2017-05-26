@@ -33,11 +33,11 @@
     <ul class="list-inline">
 
     <% if current_user != nil && current_user.role != "author" %>
-        <li class="pull-right">Reader: <%= current_user.name %></li>
+        <li class="pull-left">Reader: <%= current_user.name %></li>
 
       <% elsif current_user != nil && current_user.role != "reader" %>
-        <li class="list-item">Author: <%= current_user.name %></li>
-        <li  class="list-item"> Choose from any category to read </li>
+        <li class="pull-left">Author: <%= current_user.name %></li>
+        <li  class="list-item">Choose from any category to read </li>
 
       <% end %>
 

@@ -161,13 +161,25 @@ function Togglefunction(button, element, stringOne, stringTwo){
 var geocoder;
 var map;
 
+var ChnageMapSize = function(){
+  console.log(typeof window.innerWidth);
+  console.log(window.innerWidth);
+    let width = window.innerWidth;
+  if (width < 641){
+    return 1;
+  }
+  if (width > 640){
+    return 3;
+  }
+}
+
 // -- Initialize map
 function initMap() {
   // -- Starting view on Map
   geocoder = new google.maps.Geocoder();
   var latlng = new google.maps.LatLng(-34.397, 150.644);
   var mapOptions = {
-    zoom: 3,
+    zoom: ChnageMapSize(),
     center: latlng,
     mapTypeControl: true,
     mapTypeControlOptions: {
