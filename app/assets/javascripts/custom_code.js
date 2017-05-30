@@ -5,7 +5,6 @@ var userObjGlobalVar;
 
 $(function() {
   var userId = $("#articlesLink").attr("data-id");
-  console.log(userId);
   loadAllCurrentlUserArticles(userId);
   loadArticleOnClick();
   loadAllArticlesOnClick();
@@ -74,17 +73,16 @@ function loadArticle(id){
 //  ---------------------------------------LOAD ALL CURRENT USER ARTICLES VIA GET REQUEST
 
 function loadAllCurrentlUserArticles(userId) {
+  if(userId !== undefined){
   $.get("/users/" + userId + ".json", function(userObj){
     userObjGlobalVar = userObj;
   })
     .done(function(content){
-      console.log("request completed");
     })
     .fail(function(jqXHR, textStatus, errorThrown){
-      console.log(errorThrown);
     });
   }
-
+}
 
 //  ---------------------------------- OBJECT CONSTRUCTOR FUNCTIONS
 

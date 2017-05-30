@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  root 'articles#index'
   # get '/articles/:id/article_data', to: 'articles#body'
+  authenticated :user do
+    root to: 'articles#index', as: :authenticated_root
+  end
 
+  root to: redirect('/users/sign_in')
+  
   get '/articles', to: 'articles#index'
-
-  get '/users', to: 'users#show'
 
   # --user's articles
   # json format http://localhost:3000/users/1/articles/2.json
@@ -20,7 +22,7 @@ Rails.application.routes.draw do
   # --user_single article show page
   get 'users/:id/articles/:id' => 'articles#show', as: 'user_article'
 
-  # -- edit article 
+  # -- edit article
   get 'users/:id/articles/:id/edit' => 'articles#edit', as: 'edit_article'
 
   patch '/users/:id/articles/:id' => 'articles#update', as: 'article_path'
