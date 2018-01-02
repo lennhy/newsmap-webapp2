@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
+  # protect_from_forgery with: :exception
   # saves the location before loading each page so we can return to the
   # right page. If we're on a devise page, we don't want to store that as the
   # place to return to (for example, we don't want to return to the sign in page
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   # stop a user who isn't logged in from viewing these pages.
 
   # Index and show Pages with forms get buffered with a stale authenticity token and all actions using the methods post/put/delete where recognized as forgery attempts.
-  skip_before_filter :verify_authenticity_token, :only => [:index, :show]
+  # skip_before_filter :verify_authenticity_token, :only => [:index, :show]
 
   # tells devise where to look for the root path after signing in with facebook
   def after_sign_in_path_for(resource)

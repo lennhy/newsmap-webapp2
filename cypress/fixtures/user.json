@@ -1,0 +1,7 @@
+  {
+  "id":1,
+  "name":"Reader",
+  "email":"fake@email.com",
+  "password":"password",
+  "role":0
+}

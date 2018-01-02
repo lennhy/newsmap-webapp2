@@ -12,6 +12,7 @@ test:
   database: newzmaps_test
   pool: 5
   timeout: 5000
+  host: localhost
   password: password
 
 

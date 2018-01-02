@@ -1,3 +1,5 @@
+User.create(name: "Test User", email: "test@gmail.com", password: "password", role: 1)
+
 categories = {
             :PO=> "Politics",
             :HR=> "Human Rights",
@@ -292,6 +294,7 @@ def create_obj_2(hash, object)
     object.create(name: value).save
   end
 end
+
 
 create_obj(categories, Category)
 create_obj(countries, Country)
