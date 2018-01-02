@@ -1,10 +1,18 @@
-// This code is only to be ran once
-describe('The Home Page', function() {
+
+// If code is to be ran more than once the databse must be reset
+describe('User Signup and Sign_in', function() {
   it('Checks if User Signup works', function() {
+      cy.server()
+      // cy.request('DELETE', 'http://localhost:3000/users')
+      // cy.exec('rake db:reset').its('code').should('eq', 0)
+
+      // Start at home page
       cy.visit('/users')
+      // Click the sign up link in the top right navbar
       cy.get('ul li:nth-child(3)').click()
       cy.url().should('match', /users/)
       cy.server()
+      // Use the stubbed out json file '/cypress/fixtures/user.json' that contains the user data
       cy.fixture('user').then((json) => {
 
       cy.get('#user_name')
@@ -31,33 +39,35 @@ describe('The Home Page', function() {
       cy.url().should('include', '/')
 
       cy.server().should(function(server){
-        // the default options on server
-        // you can override any of these options
         expect(server.method).to.eq('GET')
+        // Check if the server proccessed te request successfully
         expect(server.status).to.eq(200)
       })
     })
   })
+  // Sign in with same user that signed up
   it('Checks if User Sign_in works', function() {
-  // cy.visit('/')
-  // cy.url().should('include', 'users/sign_in')
-  // cy.get('#user_email')
-  // .type('test@gmail.com')
-  // .should('have.value', 'test@gmail.com')
-  //
-  //
-  // cy.get('#user_password')
-  // .type('password')
-  // .should('have.value', 'password')
-  //
-  // cy.get('.actions input.btn.btn-default').click()
-  // cy.url().should('include', '/')
-  //
-  // cy.server().should(function(server){
-  //   // the default options on server
-  //   // you can override any of these options
-  //   expect(server.method).to.eq('GET')
-  //   expect(server.status).to.eq(200)
+    cy.get('ul.nav.navbar-nav.navbar-right li ').click()
+    // cy.visit('/users/sign_in')
+    // Check that the test starts in the correct page
+    cy.url().should('include', 'users/sign_in')
+    cy.get('#user_email')
+    .type('fake@email.com')
+    .should('have.value', 'fake@email.com')
+
+    cy.get('#user_password')
+    .type('password')
+    .should('have.value', 'password')
+    // Click the logout link
+    cy.get('.actions input.btn.btn-default').click()
+    cy.url().should('include', '/')
+
+    cy.server().should(function(server){
+      expect(server.method).to.eq('GET')
+      // Check if the server proccessed te request successfully
+      expect(server.status).to.eq(200)
+
+    })
   })
 })
 
