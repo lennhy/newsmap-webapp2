@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_many :credits
   has_many :articles
 
-  devise :database_authenticatable, :registerable,  :validatable # to enable devise authentication
+  devise :database_authenticatable, :registerable,  :validatable, password_length: 10..128 # to enable devise authentication
   devise :omniauthable, :omniauth_providers => [:facebook] # to enable omniauth
 
   after_initialize :set_default_user_role
@@ -26,6 +26,11 @@ class User < ApplicationRecord
         user.email = auth.info.email
         user.password = Devise.friendly_token[0,20]
         user.name = auth.info.name   # assuming the user model has a name
+        puts user.name
+        puts user.email
+        puts user.password
+
+
       end
   end
 
