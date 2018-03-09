@@ -13,6 +13,11 @@ class UsersController < ApplicationController
      end
   end
 
+  def destroy
+    current_user.destroy
+    redirect_to destroy_user_session_path
+  end
+
   def roles
     current_user.update_user_role(params[:user][:role], current_user)
     if current_user.role == "author"
@@ -22,5 +27,10 @@ class UsersController < ApplicationController
       flash[:notice]= "You are now a #{current_user.role}"
     end
   end
+
+  # def destroy
+  #   current_user.destroy
+  #     redirect_to users, {notice: 'You have deleted your account!'}
+  # end
 
 end

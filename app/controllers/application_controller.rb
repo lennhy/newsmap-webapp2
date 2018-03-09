@@ -4,13 +4,13 @@ class ApplicationController < ActionController::Base
   # right page. If we're on a devise page, we don't want to store that as the
   # place to return to (for example, we don't want to return to the sign in page
   # after signing in), which is what the :unless prevents
-  before_action  :store_current_location, :unless => :devise_controller?
+  # before_action  :store_current_location, :unless => :devise_controller?
 
   #  permits custom fields to be accepted before persisting to the database
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # ensure that every controller action requires a logged in user, except for the login and register actions:
-  before_action :authenticate_user!, only: [:index, :show, :new, :create]
+  before_action :authenticate_user!, only: [:show, :new, :create, :destroy]
   # stop a user who isn't logged in from viewing these pages.
 
   # Index and show Pages with forms get buffered with a stale authenticity token and all actions using the methods post/put/delete where recognized as forgery attempts.

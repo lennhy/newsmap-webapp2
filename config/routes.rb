@@ -4,8 +4,8 @@ Rails.application.routes.draw do
     root to: 'articles#index', as: :authenticated_root
   end
 
-  root to: redirect('/users/sign_in')
-  
+  root to: redirect('/articles')
+
   get '/articles', to: 'articles#index'
 
   # --user's articles
@@ -38,7 +38,8 @@ Rails.application.routes.draw do
                                 :sessions=> "sessions"
                               }
 
-    resources :users, only: [:index, :show]
+    resources :users, only: [:index, :show, :destroy]
+
     resources :credits, only: [:index, :create]
 
   patch '/articles' => 'users#roles'

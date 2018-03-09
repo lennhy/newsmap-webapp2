@@ -246,6 +246,7 @@ function codeAddress(map){
 
         // -- Fill info window with data content
         articlesArr.push(articles.map(function(art, i){
+          console.log(art)
                 return '<ul>'+
                         '<li>'+
                         'Arthor: ' + `<a href="/users/${articles[i]["user"]["id"]}">`+ articles[i]["user"]["name"]+"</li></a>" +
